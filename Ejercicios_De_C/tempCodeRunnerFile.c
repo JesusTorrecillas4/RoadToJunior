@@ -1,0 +1,1 @@
+//sacnf --> funciona para "scannear" los datos que introduce el usuario por telcado.
