@@ -519,12 +519,131 @@ FROM employees emp RIGHT
  JOIN departments dep ON (emp.department_id = dep.department_id)
  GROUP BY dep.department_id, dep.department_name;
 
+--Muestra el nombre y apellido de los empleados en mayusculas, el numero de caracteres del apellido y el
+--salario. Solo deben aparecer los empleados cuyo salario sea superior a 6000 y que trabajen en 
+--departamentos distintos de 'IT'. Ordena el resultado por salario de mayor a menor.
+SELECT UPPER(emp.first_name),UPPER (emp.last_name), LENGTH(emp.last_name), emp.salary
+FROM employees emp
+ JOIN departments dep ON (emp.department_id = dep_employee_id)
+ WHERE emp.salary > 6000 AND dep.department_name = 'Shipping';
+ 
+--Obten el nombre del departamento y el numero total de empleados que tiene cada uno. Deben aparecer
+--tambien los departamentos que no tengan empleados asiganados. Muestra solo aquellos departamentos con
+--mas de 3 empleados y ordenalos por numero de empleados de forma descendente
 
+SELECT dep.department_name, COUNT(emp.employee_id)
+FROM departments dep 
+LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+GROUP BY dep.department_name
+HAVING COUNT(emp.employee_id) > 3
+ORDER BY 2 DESC;
 
+--Muestra el nombre completo de los empleados(nombre y apellido en una sola columna), el nombre del 
+--departamteno y la ciudad donde se encuentra.Incluye unicamente a os empleados que trabajen en 
+--ciudades que empieces por "S" o "T". Ordena el resulatado alfabeticamente por ciudad y luego por apellido
+ 
+ SELECT  emp.first_name ||' '|| emp.last_name,
+ CONCAT(CONCAT(emp.first_name,' '),emp.last_name) AS nomycognom, dep.department_name, loc.city
+ FROM employees emp JOIN departments dep ON (emp.department_id = dep.department_id)
+ JOIN locations loc ON (dep.location_id = loc.location_id)
+ WHERE loc.city LIKE 'S%'
+   OR loc.city LIKE 'T%'
+ORDER BY loc.city, emp.last_name;
 
+--Para cada puesto de trabajo, muestra el salario maximo, minimo y medio de los empleados que lo desempeñan.
+--Solo deben aparecer los puestos cuyo salario sea superior a 5000. Ordena el resulatado por salario medio de mayor a menor
 
+SELECT job_id, MAX(salary), MIN(salary), AVG(salary)
+FROM employees 
+GROUP BY job_id
+HAVING AVG(salary)>5000
+ORDER BY 4 DESC;
 
+--Messtra el apellido de los empleados ajustados a una longitud fija de 15 caracteres, el nmobre del jefe y el salario del empleado.
+--Incluye tambien a los empleados que no tenggan jefe asignado. Solo deben mostrarse los empleados con salario entre 3000 y 9000 y ordena el resultado por apellido.
+ 
+SELECT  RPAD(emp.last_name,15,'#'), man.first_name AS jefe, emp.salary
+FROM employees emp
+ LEFT JOIN employees man ON (emp.manager_id = man.employee_id)
+WHERE emp.salary BETWEEN 3000 AND 9000
+ORDER BY emp.last_name;
 
+--Para cada departamento, el nombre del departamento, el numero total de empleados, el slario total que se paga en el y el salario del empleado mejor pagado.
+--Deben incluirse tambien los departamentos sin empleados. Solodeben mostrarse los departamentos cuyo salario total super los 20.000
+--o que no tenga ningun empleado asignado.El nombre del departamento debe mostrarse en mayusculas y el resultado debe ordenarse por salario
+--total de mayor a menor, dejando los departamentos sin empleados al final
 
+SELECT UPPER(dep.department_name),
+ COUNT(emp.employee_id) AS total_emps,
+NVL(SUM(emp.salary),0) AS suma_salarios,
+MIN(emp.salary) AS salario_Maximo
+FROM departments dep
+LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ GROUP BY dep.department_name
+ HAVING SUM(emp.salary) > 20000
+ OR COUNT(emp.employee_id) = 0
+ ORDER BY 3 DESC;
+ 
+ 
+ --ppt 7 SUBQUERIES
+ 
+ --meter un select, en un select.. se puede..
+ 
+ 
+ -- muestra lo que quieras de los empleados que cobran mas que Jason Mallin
 
+SELECT *
+FROM employees
+WHERE salary > 3300;
 
+SELECT *
+FROM employees
+WHERE salary > (SELECT salary FROM employees WHERE first_name ='Jason' AND last_name='Mallin');
+
+--Muestra los empleados que tienen el mismo jefe que Neena Kochhar
+SELECT *
+FROM employees
+WHERE manager_id =(SELECT manager_id FROM employees WHERE first_name ='Neena' AND last_name='Kochhar');
+
+--Muestra una lista de TODOS los departamentos. De cad uno quiero:
+--el nombre del departameno, el salario Maximo del departamneto,
+--el Minimo, el salario medio, y la suma del salario, del departameto, la suma total de slaarios de la empresa y un 67
+
+SELECT dep.department_name,
+ NVL(MAX(salary),0),
+ NVL(MIN(salary),0), 
+ NVL(SUM(salary),0),
+ NVL(ROUND(AVG(salary),2),0),
+ (SELECT AVG(salary) FROM employees),
+ 67
+FROM departments dep
+ LEFT JOIN employees emp ON (dep.department_id = emp.department_id)
+GROUP BY dep.department_name;
+
+SELECT AVG(salary) FROM employees;
+
+--Muestra el apellido y el salairo de los empleados que trabajan en el departamento 50 y cyo salario sea superior a 3.000
+
+SELECT first_name , salary
+ FROM employees 
+ WHERE department_id = 50
+ AND salary > 3000
+ ORDER BY salary, last_name;
+ 
+ -- Muestra el nombre del departamento y el salario medio de sus empleados. Solo deben aparecer los departamentos cuyo salrio medio sea superior a 
+ --4.000 y que tengan al emnos2 empleados
+ --Ordena el resultado por salario medio de mayor a menor.
+ 
+ 
+ SELECT dep.department_name, AVG(salary)
+ FROM departments dep
+  JOIN employees emp ON (dep.department_id = emp.department_id)
+  GROUP BY dep.department_name
+  HAVING AVG(salary) > 4000
+  AND COUNT(*) >= 2
+  ORDER BY 2 DESC;
+ 
+ 
+ 
+ 
+ 
