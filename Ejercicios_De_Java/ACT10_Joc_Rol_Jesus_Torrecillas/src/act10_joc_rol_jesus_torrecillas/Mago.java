@@ -13,7 +13,7 @@ public class Mago extends Personaje {
     private int mana;
     private String hechizo;
     
-    private Mago(String nombre, int nivel, int vida, int mana, String hechizo){
+    public Mago(String nombre, int nivel, int vida, int mana, String hechizo){
         
         super(nombre, nivel, vida);
         this.mana = mana;
@@ -37,6 +37,15 @@ public class Mago extends Personaje {
     public void Ataquemagico(){
         
         System.out.println("Ataqueee "+ hechizo);
+        
+    }
+    
+     @Override
+    public void mostrarInfo(){
+        
+        super.mostrarInfo();
+        System.out.println("El mana es de: "+mana);
+        System.out.println("Su hechizo se llama: "+hechizo);
         
     }
 }

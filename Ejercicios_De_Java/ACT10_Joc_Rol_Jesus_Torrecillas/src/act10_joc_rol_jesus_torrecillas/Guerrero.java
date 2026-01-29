@@ -43,4 +43,13 @@ public class Guerrero extends Personaje {
         System.out.println("Le has infringido" + damageamele + " puntos de ataque");
         
     }
+    
+    @Override
+    public void mostrarInfo(){
+        
+        super.mostrarInfo();
+        System.out.println("El damage a mele es de: "+damageamele);
+        System.out.println("Su escudo es de: "+escudo);
+        
+    }
 }

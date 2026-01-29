@@ -10,26 +10,35 @@ package act10_joc_rol_jesus_torrecillas;
  */
 public class Arquero extends Personaje{
     
-    private String tipoFlecha;
+    private int punteria;
     
-    private Arquero(String nombre, int nivel, int vida, String tipoFlecha){
+    public Arquero(String nombre, int nivel, int vida, int punteria){
         
         super(nombre, nivel, vida);
-        this.tipoFlecha = tipoFlecha;
+        this.punteria = punteria;
     }
     
     //getter y setter
-    public String getTipoFlecha(){
-        return this.tipoFlecha;
+    public Integer getPunteria(){
+        return this.punteria;
     }
     
-    public void setTipoFlecha(){
-        this.tipoFlecha = tipoFlecha;
+    public void setPunteria(){
+       this.punteria = punteria;
     }
     
     public void Disapro(){
         
-        System.out.println("Disparo con la flechaaa "+ tipoFlecha);
+        System.out.println("Disparo con la flechaaa "+ punteria);
+    }
+    
+     @Override
+    public void mostrarInfo(){
+        
+        super.mostrarInfo();
+        System.out.println("Su punteria es de: "+punteria);
+        
+        
     }
     
 }
