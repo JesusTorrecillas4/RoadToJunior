@@ -13,15 +13,24 @@ public class Instrumento {
     private String nombre;
     private String tipo;
     
+    //crear un atributo static contador
+    private static int contador = 0;
+    
     public Instrumento(String nombre, String tipo){
         
         this.nombre = nombre;
         this.tipo = tipo;
+        //Incrematna en +1 en cada new de Instrumento
+        contador ++;
     }
     
     //Getter
     public String getNombre(){
         return this.nombre;
+    }
+    //Getter para static
+    public static int getContador(){
+        return contador;
     }
     public String getTipo(){
         return this.tipo;

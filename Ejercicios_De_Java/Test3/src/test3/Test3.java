@@ -98,7 +98,7 @@ public class Test3 {
             
             switch(iTipo){
                 
-                case 1 -> {
+                case 1: {
                
                     System.out.println("Intoduce el nombre de la faluta:");
                     String nombre = scanner.nextLine();
@@ -108,20 +108,22 @@ public class Test3 {
 
                     //Guardar el objeto Flauta en el array instrumenots
                     instrumentos[i] = new Flauta(nombre, material);
+                    break;
                 }
                 
-                case 2 ->{
+                case 2: {
                     
                     System.out.println("Intoduce el nombre del tambor:");
                     String nombre = scanner.nextLine();
 
                     instrumentos[i] = new Tambor(nombre);
-                    
+                    break;
                 }
                 
-                default ->{
+                default: {
                     
                     System.out.println("ERROR numeor no valido");
+                    break;
                 }
                 
                 
@@ -131,9 +133,9 @@ public class Test3 {
         }
         
         
-        for(int j = 0; j < instrumentos.length; j++){
-                System.out.println("Tipo "+instrumentos[j].getTipo()
-                +" tiene de nombre: "+ instrumentos[j].getNombre());
+        for(int i = 0; i < instrumentos.length; i++){
+                System.out.println("Tipo "+instrumentos[i].getTipo()
+                +" tiene de nombre: "+ instrumentos[i].getNombre());
         }
     }
 
