@@ -14,7 +14,13 @@ public class Personaje {
     private String nombre;
     private Integer nivel;
     private Integer vida;
+       //crear un atributo static contador
+    private static int contador = 0;
     
+     //Getter para static
+    public static int getContador(){
+        return contador;   
+    }
     
     //Hacemos el constructor de personaje
     public Personaje(String nombre, Integer nivel, Integer vida){
@@ -22,6 +28,7 @@ public class Personaje {
         this.nombre = nombre;
         this.nivel = nivel;
         this.vida = vida;
+        contador++;
         
     }
     
@@ -52,6 +59,7 @@ public class Personaje {
         this.vida = vida;
     }
     
+    //Mostramos la informacion de los personajes
     public void mostrarInfo(){
         
         System.out.println("El nombre del personaje es: "+nombre);
@@ -60,13 +68,12 @@ public class Personaje {
         
     }
     
+    //Subimos nivel y vida a los personajes
     public void subirNivel(){
         
         nivel += 1;
         vida += 10;
-        
-        System.out.println("Ahora tu nivel es de: " +nivel+ " Y tu vida a "
-                + "subido a: " + vida + " hp");
+   
     }
     
     public void accionEspecial(){

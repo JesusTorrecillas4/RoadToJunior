@@ -10,10 +10,12 @@ package act10_joc_rol_jesus_torrecillas;
  */
 public class Habilidad {
     
+    //Creamos las varaibles
     private String nombre;
     private int damage;
     
-    private Habilidad(String nombre, int damage){
+    //Creamos el constructor
+    public Habilidad(String nombre, int damage){
         
         this.nombre = nombre;
         this.damage = damage;
@@ -26,13 +28,14 @@ public class Habilidad {
     public Integer getDamage(){
         return this.damage;
     }
-    public void setNombre(){
+    public void setNombre(String nombre){
         this.nombre = nombre;
     }
-    public void setDamage(){
+    public void setDamage(int damage){
         this.damage = damage;
     }
     
+    //Creamos el metodo de habilidad
     public void usarHabilidad(){
         System.out.println("Super habilidadddd "+ nombre + " quitadnooo"
         +damage+" de damageee");

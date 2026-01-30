@@ -8,11 +8,14 @@ package act10_joc_rol_jesus_torrecillas;
  *
  * @author jesus
  */
+//Llamamos a la clase personaje
 public class Mago extends Personaje {
     
+     //Creamos las varaibles
     private int mana;
     private String hechizo;
     
+    //Creamos el constructor de mago
     public Mago(String nombre, int nivel, int vida, int mana, String hechizo){
         
         super(nombre, nivel, vida);
@@ -33,19 +36,32 @@ public class Mago extends Personaje {
     public void setHechizo(String hechizo){
         this.hechizo = hechizo;
     }
-    
-    public void Ataquemagico(){
+     @Override
+    public void accionEspecial(){
         
         System.out.println("Ataqueee "+ hechizo);
         
     }
     
+    //Hacemos el polimorfismo osea sobreescribir el metodo de la madre
+    //Y modificamos la informacion del mago
      @Override
     public void mostrarInfo(){
         
         super.mostrarInfo();
         System.out.println("El mana es de: "+mana);
         System.out.println("Su hechizo se llama: "+hechizo);
+        
+    }
+    
+    
+    //Hacemos el polimorfismo osea sobreescribir el metodo de la madre
+    //Y modificamos el mensaje del mago al subir de nivel
+    @Override
+    public void subirNivel(){
+       
+        System.out.println(this.getNombre()+" Ahora tu nivel es de: " +super.getNivel()+ " Y tu vida a "
+                + "subido a: " + super.getVida() + " hp");
         
     }
 }
