@@ -644,6 +644,18 @@ SELECT first_name , salary
   ORDER BY 2 DESC;
  
  
+ --Encuentra los nombres y apellidos y su salario de los empleados que trabajen en zambia
+ 
+ SELECT first_name, last_name, salary
+ FROM employees emp JOIN
+ departments dep ON (emp.department_id = dep.department_id)
+ JOIN locations loc ON (dep.location_id = loc.location_id)
+ JOIN countries con ON (loc.country_id = con.country_id)
+ WHERE con.country_name = 'zambia';
  
  
+ 
+ 
+ 
+
  
