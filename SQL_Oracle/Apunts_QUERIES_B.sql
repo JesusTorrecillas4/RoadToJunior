@@ -647,15 +647,68 @@ SELECT first_name , salary
  --Encuentra los nombres y apellidos y su salario de los empleados que trabajen en zambia
  
  SELECT first_name, last_name, salary
- FROM employees emp JOIN
+ FROM employees emp RIGHT JOIN
  departments dep ON (emp.department_id = dep.department_id)
- JOIN locations loc ON (dep.location_id = loc.location_id)
- JOIN countries con ON (loc.country_id = con.country_id)
- WHERE con.country_name = 'zambia';
+ RIGHT JOIN locations loc ON (dep.location_id = loc.location_id)
+ RIGHT JOIN countries con ON (loc.country_id = con.country_id)
+ WHERE LOWER(con.country_name) = 'zambia';
  
+ --Muestra el apellido del empleado en mayusculas, el nombre del empleado en minusculas y su salrio formateado como texxto añadiedno la cadena €
+ --al final. Incluye tambine una columna que indique el numero de caracteres del apellido
+ --Solo deben aparecer los empleados:
+ --Cuyo apellido tenga mas de 5 caracteres
+ --y cuyo salario, redondeado a centenas , sea superior a 4000
+ --Todas las columnas mostradas deben tener un nombre personalizado
+ --Ordena el resultado por numero de caracteres del apellido de mayor a menorn en caso de empate, por salario
  
- 
- 
- 
+ SELECT UPPER (last_name) AS apellido, LOWER (first_name) AS nombre, salary || '€' AS salario
+FROM employees
+WHERE LENGTH(last_name) > 5 
+AND (first_name LIKE 'A%' OR first_name LIKE 'S%')
+AND ROUND(salary,2) > 4000
+ORDER BY LENGTH(last_name) DESC, salary;
 
+--Muestra el apellido del empleado y el nombre del departamento en el que tranaja
+--Incluye tambien salario del empleado
+--Solo deben aparecer empleados:
+--Que trabajen en departamentos con identificador mayor que 50
+--y cuyo salario sea superior a 3.500
+--Todas las columnas mostradas deben tener un nombre personalizado
+--Ordena el resultado por nombre de departamento de forma ascendente y, dentro de cada departamento,
+--por salario de mayor a meno
+
+SELECT emp.last_name AS apellido, dep.department_name, salary AS salario
+FROM employees emp 
+JOIN departments dep ON (emp.department_id = dep.department_id)
+WHERE dep.department_id > 50
+AND emp.salary > 3500
+ORDER BY 2 ASC, 3 DESC;
+ 
+--Muestra el nombre del departamento y el numero de empleados qeu trabajan en el
+--Deben aparecer todos los departamentso, incluidos los que no tengan empleados
+--Solo deben contar los empleados cuyo salario sea superior a 4000
+--Todas las columnas mostradas deben tener un nombre personalizado
+--Ordena el resultado por numero de empleados de mayor a menor
+
+SELECT dep.department_name, COUNT (*)
+FROM employees emp 
+RIGHT JOIN departments dep ON (emp.department_id = dep.department_id)
+WHERE emp.salary > 4000 
+GROUP BY dep.department_name
+ORDER BY 2 DESC;
+
+--Muestra el apellido del empleado, el apellido de su jefe directo, y el apellido del jefe de su jefe
+--Deben aparecer todos los empleados, incluidos los que no tengan jefe o cuyo jefe no tenga jefe
+--Solod eben mostrarse los empleados cuyo salrio sea superior a 4000
+--y que trabahen en un departamento del 90
+--Todas las columnas mostradas deben tener un nombre personalizado
+--Ordena el resulatado por apellido del empleado
+
+SELECT EMP.LAST_NAME AS empleado, man.last_name AS boss, superman.last_name AS bossss
+FROM employees emp
+LEFT JOIN employees man ON (emp.manager_id = man.employee_id)
+LEFT JOIN employees superman ON (man.manager_id = superman.employee_id)
+WHERE emp.salary > 4000
+ AND emp.department_id <> 90
+ ORDER BY 1;
  
