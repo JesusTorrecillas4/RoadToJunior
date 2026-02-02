@@ -484,9 +484,9 @@ ORDER BY 3 DESC, 4 DESC;
 -- Muestra el nombre de cada departamento , y como se llama
 --su manager. Ordena por nombre de departmanetno de la A-Z
 
-SELECT dep.department_name, miau.first_name, miau.last_name
+SELECT dep.department_name, man.first_name, man.last_name
 FROM departments dep
- JOIN employees miau ON (dep.manager_id = miau.employee_id)
+ JOIN employees man ON (dep.manager_id = man.employee_id)
 ORDER BY dep.department_name;
 
 -- Dame una lista de nombres y apellidos de los empleados y
@@ -631,7 +631,7 @@ SELECT first_name , salary
  ORDER BY salary, last_name;
  
  -- Muestra el nombre del departamento y el salario medio de sus empleados. Solo deben aparecer los departamentos cuyo salrio medio sea superior a 
- --4.000 y que tengan al emnos2 empleados
+ --4.000 y que tengan al menos 2 empleados
  --Ordena el resultado por salario medio de mayor a menor.
  
  
@@ -653,9 +653,188 @@ SELECT first_name , salary
  JOIN countries con ON (loc.country_id = con.country_id)
  WHERE con.country_name = 'zambia';
  
+ /*
+    Muestra los job_id y el salario medio de cada job,
+    pero solo los jobs que tengan más de 2 empleados
+    y cuyo salario medio sea mayor de 4500.
+    Ordénalos por salario medio de mayor a menor.
+ */
+ 
+ SELECT job_id, AVG(salary)
+ FROM employees
+ GROUP BY job_id
+ HAVING COUNT(*) > 2
+ AND AVG(salary) > 4500
+ ORDER BY 2 DESC;
  
  
+ /*
+ Muestra los department_id y el número de empleados de cada departamento,
+ pero solo los departamentos que tengan entre 3 y 6 empleados
+ y que ningún empleado cobre menos de 2000.
+ */
  
- 
+ SELECT department_id, COUNT(*) AS num_empleados
+ FROM departments
+ WHERE salary >= 2000
+    GROUP BY department_id
+    HAVING COUNT(*) BETWEEN 3 AND 6     
+ /*
+ Muestra el department_id y el salario máximo de cada departamento,
+ pero solo de los departamentos que tengan al menos 3 empleados
+ y cuyo salario medio sea mayor de 5000.
+ Ordena el resultado por salario máximo de mayor a menor.
+*/ 
+
+SELECT department_id, MAX(salary)
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) >= 3
+AND AVG(salary) > 5000
+ORDER BY 2 DESC;
+    
+ /*
+ Muestra el job_id y el número de empleados de cada job,
+ contando solo los empleados que cobren más de 3000,
+ y muestra solo los jobs que tengan entre 2 y 5 empleados.
+ Ordénalos por número de empleados de mayor a menor.
+ */   
+
+SELECT job_id, COUNT(*)
+FROM employees
+WHERE salary >3000
+GROUP BY job_id
+HAVING COUNT(*) BETWEEN 2 AND 5
+ORDER BY 2 DESC;
+
+
+
+/*
+  Muestra el department_id, el salario medio y el número de empleados de cada departamento.
+ Solo deben aparecer los departamentos que tengan más de 4 empleados y cuyo salario medio sea inferior a 6000.
+ Ordena el resultado por salario medio de menor a mayor.
+*/
+
+SELECT department_id, AVG(salary), COUNT(*) AS empleadospdep
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) > 4 
+AND AVG(salary) < 6000
+ORDER BY 2 ASC;
+
+/*
+ Muestra el job_id y el salario mínimo de cada job,
+ contando solo los empleados que tengan manager_id asignado.
+ Solo deben aparecer los jobs que tengan al menos 3 empleados.
+ Ordena el resultado por salario mínimo de mayor a menor.
+*/
+
+SELECT job_id, MIN(salary)
+FROM employees
+WHERE manager_id IS NOT NULL
+GROUP BY job_id
+HAVING COUNT(*) > 3
+ORDER BY 2 ASC; 
+
+/*
+ Muestra el department_id, el salario mínimo y el número de empleados de cada departamento.
+ Solo deben aparecer los departamentos que tengan entre 2 y 5 empleados
+ y cuyo salario mínimo sea mayor o igual que 3000.
+ Ordena el resultado por número de empleados de mayor a menor.
+*/
+
+/*
+ESTE EESTA MAL
+SELECT department_id, MIN(salary), COUNT(*) AS num_empleados
+FROM employees
+WHERE MIN(salary) >= 3000
+GROUP BY department_id
+HAVING COUNT(*) BETWEEN 2 AND 5
+ORDER BY 3 DESC;
+*/
+
+SELECT department_id,MIN(salary) , COUNT(*) AS num_empleados
+FROM employees
+GROUP BY department_id
+HAVING COUNT(*) BETWEEN 2 AND 5
+   AND MIN(salary) >= 3000
+ORDER BY 2 DESC;
+
+/*
+ Muestra el job_id y el salario medio de cada job,
+ contando solo los empleados que NO tengan comisión.
+ Solo deben aparecer los jobs que tengan más de 3 empleados
+ y cuyo salario medio sea mayor que 4000.
+ Ordena el resultado por salario medio de mayor a menor.
+*/
+
+SELECT job_id, AVG(salary)
+FROM employees
+WHERE  commission_pct IS NULL 
+GROUP BY job_id
+HAVING AVG(salary) > 4000
+ORDER BY 2 DESC;
+
+/*
+ Muestra el department_id y el salario medio de cada departamento,
+ contando solo los empleados que tengan manager_id asignado.
+ Solo deben aparecer los departamentos que tengan al menos 2 empleados
+ y cuyo salario medio sea mayor que 4500.
+ Ordena el resultado por salario medio de mayor a menor.
+*/
+
+SELECT department_id, AVG(salary)
+FROM employees
+WHERE manager_id IS NOT NULL
+GROUP BY department_id
+HAVING COUNT(*) >= 2 AND
+AVG(salary) > 4500
+ORDER BY 2 DESC;
+
+/*
+ Muestra el nombre y apellido de cada empleado junto con el nombre del departamento en el que trabaja.
+ Ordena el resultado por department_name (A–Z) y luego por last_name (A–Z).
+*/
+
+
+SELECT emp.first_name, emp.last_name, dep.department_name
+FROM employees emp
+JOIN departments dep ON (emp.department_id = dep.department_id)
+ORDER BY 3, 2 DESC;
+
+/*
+ Muestra department_name, city y el número de empleados que trabajan en cada departamento.
+ Deben aparecer también los departamentos sin empleados.
+ Ordena por número de empleados de mayor a menor.
+*/
+
+SELECT dep.department_name, loc.city , COUNT(*) AS empleados
+FROM departments dep
+JOIN locations loc ON (dep.location_id = loc.location_id)
+LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+GROUP BY dep.department_name, loc.city
+ORDER BY 3 DESC;
+/*
+ Muestra, para cada país, el country_name, el número total de empleados que trabajan en ese país y el salario medio (redondeado) de esos empleados.
+ Requisitos:
+ Deben aparecer también los países sin empleados (si existen en tus datos).
+ Solo deben mostrarse los países con al menos 2 departamentos (aunque tengan 0 empleados).
+ Excluye del recuento de empleados a los que no tengan manager (manager_id IS NULL).
+ Ordena por número de empleados de mayor a menor y, en caso de empate, por country_name A–Z.
+*/
+SELECT con.country_name, COUNT(*), AVG(salary)
+FROM employees emp
+LEFT JOIN departments dep ON (emp.department_id = dep.department_id)
+JOIN RIGHT locations loc ON (dep.location_id = loc.location_id)
+JOIN countries con ON (loc.country_id = con.country_id)
+WHERE manager_id IS NULL
+GROUP BY country_id 
+HAVING department_id >= 2
+ORDER BY 2 DESC;
+
+
+
+
+
 
  
