@@ -902,3 +902,206 @@ WHERE emp.salary > 4000
  AND emp.department_id <> 90
  ORDER BY 1;
  
+ 
+ /*
+  Muestra el department_name y el nombre y apellido de los empleados que trabajan en cada departamento.
+ Deben aparecer también los departamentos que no tengan empleados.
+ Ordena el resultado por department_name (A–Z).
+ */
+ SELECT dep.department_name, emp.first_name, emp.last_name
+ FROM departments dep
+ LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ ORDER BY 1 DESC;
+ /*
+ Muestra el nombre y apellido de todos los empleados y el nombre del departamento en el que trabajan.
+ Deben aparecer también los empleados que no tengan departamento asignado.
+ Ordena el resultado por last_name (A–Z).
+ */
+ 
+ SELECT emp.first_name, emp.last_name, dep.department_name
+ FROM employees emp
+ LEFT JOIN departments dep ON (emp.department_id = dep.department_id)
+ ORDER BY 2 DESC;
+ 
+ /*
+ Muestra el department_name, el número de empleados y el salario medio de cada departamento.
+ Requisitos:
+ Deben aparecer también los departamentos sin empleados.
+ Solo se contarán los empleados que tengan manager_id asignado.
+ Solo deben aparecer los departamentos que tengan al menos 2 empleados.
+ Ordena el resultado por salario medio de mayor a menor.
+ */
+ 
+ SELECT dep.department_name, COUNT(emp.employee_id), ROUND(AVG(salary))
+ FROM departments dep
+ LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ WHERE emp.manager_id IS NOT NULL
+ GROUP BY dep.department_name
+ HAVING COUNT(emp.employee_id) >= 2 
+ ORDER BY 3 DESC;
+ /*
+ Muestra el job_id, el salario mínimo y el salario máximo de cada job.
+ Requisitos:
+ Solo se tendrán en cuenta los empleados con salary mayor que 3000.
+ Solo deben aparecer los jobs que tengan más de 3 empleados.
+ Ordena el resultado por salario máximo de mayor a menor.
+ */
+ SELECT job_id, MIN(salary), MAX(salary)
+ FROM employees
+ WHERE salary > 3000
+ GROUP BY job_id
+ HAVING COUNT(*) > 3
+ ORDER BY 3 DESC;
+ 
+ /*
+ Muestra el nombre y apellido de los empleados y el nombre del departamento en el que trabajan.
+Deben aparecer también los empleados que no tengan departamento.
+Ordena por apellido de la A a la Z.
+ */
+ SELECT emp.first_name, emp.last_name, dep.department_name
+ FROM employees emp
+ LEFT JOIN departments dep ON (emp.department_id = dep.department_id)
+ ORDER BY 2 DESC;
+ /*
+ Muestra el department_name y el número de empleados que tiene cada departamento.
+ Condiciones:
+ Deben aparecer también los departamentos sin empleados.
+ Solo cuenta empleados que tengan manager_id asignado.
+ Muestra solo los departamentos que tengan al menos 2 empleados.
+ Ordena por número de empleados de mayor a menor.
+ */
+ SELECT dep.department_name, COUNT(emp.employee_id)
+ FROM departments dep
+ LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ WHERE emp.manager_id IS NOT NULL 
+ GROUP BY dep.department_name
+ HAVING COUNT(emp.employee_id) >= 2
+ ORDER BY 2 DESC;
+ /*
+ Muestra el job_id y el salario medio de cada job.
+ Condiciones:
+ Solo se tienen en cuenta empleados con salario mayor que 3000.
+ Solo deben aparecer los jobs que tengan más de 3 empleados.
+ Ordena por salario medio de mayor a menor.
+ */
+ 
+ SELECT job_id, AVG(salary)
+ FROM employees 
+ WHERE salary > 3000
+ GROUP BY job_id
+ HAVING COUNT(*) > 3
+ ORDER BY 2 DESC;
+ 
+ /*
+ Muestra el nombre y apellido de los empleados y el nombre del job que tienen.
+ Deben aparecer también los empleados que no tengan job asignado.
+ Ordena el resultado por apellido de la A a la Z.
+ */
+ SELECT emp.first_name, emp.last_name, job.job_title
+ FROM employees emp
+ LEFT JOIN jobs job ON (emp.job_id = job.job_id)
+ ORDER BY 2 DESC;
+ /*
+ Muestra el department_name y el salario medio de cada departamento.
+ Condiciones:
+ Solo se tendrán en cuenta los empleados que cobren más de 4000.
+ Deben aparecer solo los departamentos que tengan al menos 3 empleados.
+ Ordena el resultado por salario medio de mayor a menor.
+ */
+ 
+ SELECT dep.department_name, AVG(salary)
+ FROM employees emp
+ JOIN departments dep ON (emp.department_id = dep.department_id)
+ WHERE salary > 4000
+ GROUP BY dep.department_name
+ HAVING COUNT(*) >= 3
+ ORDER BY 2 DESC;
+ 
+ /*
+ Muestra el job_id, el número de empleados y el salario máximo de cada job.
+ Condiciones:
+ Solo se contarán los empleados que tengan manager asignado.
+ Solo deben aparecer los jobs que tengan entre 2 y 5 empleados.
+ Ordena el resultado por salario máximo de mayor a menor.
+ */
+ SELECT job.job_id, COUNT(*), MAX(salary)
+ FROM employees emp
+ JOIN jobs job ON (emp.job_id = job.job_id)
+ WHERE emp.manager_id IS NOT NULL
+ GROUP BY job.job_id
+ HAVING COUNT(*) BETWEEN 2 AND 5
+ ORDER BY 3 DESC;
+ 
+ /*
+ Muestra el nombre y apellido de los empleados y el nombre del departamento en el que trabajan.
+ Deben aparecer también los empleados que no tengan departamento asignado.
+ Ordena el resultado por apellido de la A a la Z.
+ */
+ SELECT emp.first_name, emp.last_name, dep.department_name
+ FROM employees emp
+ LEFT JOIN departments dep ON (emp.department_id = dep.department_id)
+ ORDER BY 2 desc;
+ /*
+ Muestra el department_name y el número de empleados de cada departamento.
+ Condiciones:
+ Solo se contarán los empleados que tengan manager asignado.
+ Deben aparecer solo los departamentos que tengan al menos 3 empleados.
+ Ordena el resultado por número de empleados de mayor a menor.
+ */
+ SELECT dep.department_name, COUNT(*)
+ FROM employees emp
+ JOIN departments dep ON (emp.department_id = dep.department_id)
+ WHERE emp.manager_id IS NOT NULL
+ GROUP BY dep.department_name
+ HAVING COUNT(*) >= 3
+ ORDER BY 2 DESC;
+ /*
+ Muestra el job_id, el salario medio y el salario máximo de cada job.
+ Condiciones:
+ Solo se tendrán en cuenta los empleados con salario mayor que 3500.
+ Solo deben aparecer los jobs que tengan entre 2 y 6 empleados.
+ Ordena el resultado por salario medio de mayor a menor.
+ */
+ 
+ SELECT job_id, AVG(salary), MAX(salary)
+ FROM employees 
+ WHERE salary > 3500
+ GROUP BY job_id
+ HAVING COUNT(*) BETWEEN 2 AND 6
+ ORDER BY 2 DESC;
+ 
+ /*nombre, apellido y salario con 8 cifras,
+ */
+ SELECT  emp.first_name, emp.last_name, RPAD(salary,8,'#')
+ FROM employees emp
+ JOIN departments dep ON (emp.department_id = dep.department_id)
+ WHERE emp.last_name = (SELECT last_name FROM employees WHERE employee_id = 199)
+ OR emp.last_name = (SELECT last_name FROM employees WHERE employee_id = 154);
+ 
+ /*
+  Para TODOS los empleados, muestra la suma de salario + (comision * 100) + numero de letras de su ciudad
+  + suma de los 2 primeros digitos de su telefono
+ */
+ 
+ SELECT emp.first_name, emp.last_name, employee_id, salary + NVL(commission_pct * 100,0) + LENGTH(loc.city) + SUBSTR(phone_number,1,1) +SUBSTR(phone_number,2,1)
+ FROM employees emp
+ LEFT JOIN departments dep ON (emp.department_id = dep.department_id)
+ LEFT JOIN locations loc ON (dep.location_id = loc.location_id);
+ 
+ /*
+ Muestra la lisda de departamentos(nombre), el nombre, apellido del manager de cada departametno
+ y el salario del manager de cada manager de departamento
+ */
+ 
+ SELECT dep.department_name, dep.manager_id, depman.first_name, depman.last_name, depman.manager_id, depman.salary
+ FROM departments dep
+  JOIN employees depman ON (dep.manager_id = depman.employee_id)
+ JOIN employees man ON (depman.manager_id = man.employee_id);
+ 
+ /*
+ MUESTRA EL NOMBRE DEL DEPARTAMENTO EL NOMBRE Y EL APELLIDO DEL MANAGER Y EL SALARIO DEL MANAFER DEL MANAGER DE LA TABLA EMPLOYEES
+ 
+ */
+ -- REFLEXIVA
+ 
+ 
