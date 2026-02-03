@@ -1099,9 +1099,223 @@ Ordena por apellido de la A a la Z.
  JOIN employees man ON (depman.manager_id = man.employee_id);
  
  /*
- MUESTRA EL NOMBRE DEL DEPARTAMENTO EL NOMBRE Y EL APELLIDO DEL MANAGER Y EL SALARIO DEL MANAFER DEL MANAGER DE LA TABLA EMPLOYEES
- 
+   MUESTRA EL NOMBRE DEL DEPARTAMENTO EL NOMBRE Y EL APELLIDO DEL MANAGER Y EL SALARIO DEL MANAFER DEL MANAGER DE LA TABLA EMPLOYEES
  */
- -- REFLEXIVA
+ SELECT dep.department_name, depman.first_name, depman.last_name, superman.salary
+ FROM departments dep
+ JOIN employees depman ON (dep.manager_id = depman.employee_id)
+ JOIN employees superman ON (depman.manager_id = superman.employee_id);
+ /*
+ 
+ Muestra first_name, last_name y department_name de todos los empleados.
+ Ordena por department_name A–Z y luego por last_name A–Z.
+ */
+ SELECT emp.first_name, emp.last_name, dep.department_name
+ FROM employees emp
+ JOIN departments dep ON (emp.department_id = dep.department_id)
+ ORDER BY 3, 2 ASC;
+ /*
+ Muestra el department_name y cuántos empleados hay en cada departamento.
+ Deben aparecer también los departamentos sin empleados.
+ Ordena por número de empleados de mayor a menor.
+ */
+ SELECT dep.department_name, COUNT(emp.employee_id)
+ FROM departments dep
+ LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ GROUP BY dep.department_name
+ ORDER BY 2 DESC;
+ /*
+ Para cada empleado, muestra employee_id y una columna llamada puntuacion que sea:
+ salary + NVL(commission_pct*100,0) + LENGTH(last_name) + SUBSTR(phone_number,1,2)
+ Ordena por puntuacion de mayor a menor.
+ */
+ SELECT employee_id, salary + NVL(commission_pct*100,0) + LENGTH(last_name) + SUBSTR(phone_number,1,2) AS puntuacion
+ FROM employees
+ ORDER BY puntuacion DESC;
+ /*
+ Muestra el nombre completo del empleado (first_name || ' ' || last_name) y el nombre completo de su manager.
+ Deben aparecer también los empleados que no tengan manager (el manager saldrá NULL).
+ Ordena por apellido del empleado A–Z.
+ */
+ SELECT emp.first_name || ' ' || emp.last_name AS empleadoNOMAPELLIDO, man.first_name || ' ' || man.last_name AS  MANAGERNOMAPELLIDO
+ FROM employees emp
+ LEFT JOIN employees man ON (emp.manager_id = man.employee_id)
+ ORDER BY  emp.last_name ASC;
+ /*
+ Muestra city, el número de empleados y el salario medio (redondeado) de cada ciudad.
+ Solo cuenta empleados con manager_id asignado.
+ Solo muestra ciudades con al menos 3 empleados.
+ Ordena por salario medio de mayor a menor.
+ */
+ SELECT loc.city, COUNT(*), ROUND(AVG(emp.salary))
+ FROM employees emp
+ JOIN departments dep ON (emp.department_id = dep.department_id)
+ JOIN locations loc ON (dep.location_id = loc.location_id)
+ WHERE emp.manager_id IS NOT NULL
+ GROUP BY loc.city
+ HAVING COUNT(*) >= 3
+ ORDER BY 3 DESC;
+ 
+/*
+ Muestra el department_name, la city y el salario medio de los empleados de cada departamento.
+ Deben aparecer también los departamentos sin empleados.
+ Solo deben aparecer los departamentos cuyo salario medio sea mayor que 5000 o que no tengan empleados.
+ Ordena por city A–Z y luego por salario medio de mayor a menor.
+*/
+ SELECT dep.department_name, loc.city, AVG(salary)
+ FROM departments dep
+ LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ JOIN locations loc ON (dep.location_id = loc.location_id)
+ GROUP BY dep.department_name, loc.city
+ HAVING AVG(salary) > 5000 OR COUNT(emp.employee_id) = 0
+ ORDER BY 2 ASC, 3 DESC;
  
  
+/*
+ Muestra el job_id, el número de empleados y el salario total de cada job.
+ Solo cuenta empleados cuyo apellido empiece por A o S y que tengan manager_id asignado.
+ Solo deben aparecer los jobs con entre 2 y 6 empleados.
+ Ordena por salario total de mayor a menor.
+*/
+ 
+ SELECT job_id, COUNT(*), SUM(salary)
+ FROM employees
+WHERE last_name LIKE 'A%' OR last_name LIKE 'S%'
+AND manager_id IS NOT NULL
+GROUP BY job_id
+HAVING COUNT(*) BETWEEN 2 AND 6
+ORDER BY 3 DESC;
+
+
+/*
+ Muestra el first_name, last_name y salary de los empleados que cobran más que el salario medio de su propio departamento.
+ Ordena el resultado por department_id A–Z y luego por salary de mayor a menor.
+*/ 
+ 
+
+ 
+ SELECT emp.first_name, emp.last_name, emp.department_id, emp.salary
+FROM employees emp
+WHERE emp.salary > (SELECT AVG(e2.salary)FROM employees e2 WHERE e2.department_id = emp.department_id)
+ORDER BY emp.department_id ASC, emp.salary DESC;
+
+/*
+ Muestra el department_name y el número de empleados de cada departamento.
+ Deben aparecer también los departamentos sin empleados.
+ Ordena el resultado por número de empleados de mayor a menor.
+*/ 
+
+SELECT dep.department_name, COUNT(*)
+FROM employees emp
+RIGHT JOIN departments dep ON (emp.department_id = dep.department_id)
+GROUP BY dep.department_name
+ORDER BY 2 DESC;
+
+/*
+ Muestra el job_id, el salario medio y el salario total de cada job.
+ Condiciones:
+ Solo cuenta empleados con salario mayor que 3000
+ Solo deben aparecer los jobs que tengan al menos 2 empleados
+ Ordena el resultado por salario total de mayor a menor.
+*/
+ 
+ SELECT job_id, AVG(salary), SUM(salary)
+ FROM employees
+ WHERE salary > 3000
+ GROUP BY job_id
+ HAVING COUNT(*) >= 2
+ ORDER BY 3 DESC;
+ 
+ /*
+ Muestra la city, el número de empleados y el salario medio de cada ciudad.
+ Condiciones:
+ Deben aparecer también las ciudades sin empleados
+ Solo muestra ciudades con al menos 2 empleados
+ Ordena por salario medio de mayor a menor.
+ */
+ SELECT loc.city, COUNT(emp.employee_id), AVG(salary)
+ FROM locations loc
+ LEFT JOIN departments dep ON (loc.location_id = dep.location_id)
+ LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ GROUP BY loc.city
+ HAVING COUNT(emp.employee_id) >= 2
+ ORDER BY 3 DESC;
+ 
+/*
+Muestra el department_name y el salario medio de cada departamento.
+Condiciones:
+Solo cuenta empleados con salario mayor que 2500
+Deben aparecer también los departamentos sin empleados
+Ordena el resultado por salario medio de mayor a menor
+*/
+SELECT dep.department_name, AVG(salary)
+FROM departments dep
+LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ AND emp.salary > 2500
+GROUP BY dep.department_name
+ORDER BY 2 DESC;
+
+/*
+Muestra la city y el número de empleados que trabajan en cada ciudad.
+Condiciones:
+Solo cuenta empleados cuyo apellido empiece por M o S
+Deben aparecer también las ciudades sin empleados
+Ordena por número de empleados de mayor a menor
+*/
+SELECT loc.city, COUNT(emp.employee_id)
+FROM locations loc
+LEFT JOIN departments dep ON (loc.location_id = dep.location_id)
+LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+ AND emp.last_name LIKE 'M%' OR  emp.last_name LIKE 'S%'
+GROUP BY loc.city
+ORDER BY 2 DESC;
+
+
+/*
+Muestra el job_id, el salario mínimo y el salario máximo de cada job.
+Condiciones:
+Solo cuenta empleados con salario entre 3000 y 9000
+Solo deben aparecer los jobs que tengan al menos 3 empleados
+Ordena el resultado por salario máximo de mayor a menor
+*/
+ 
+ SELECT job_id, MIN(salary), MAX(salary)
+ FROM employees
+ WHERE salary BETWEEN 3000 AND 9000
+ GROUP BY job_id
+ HAVING COUNT(*) >= 3
+ ORDER BY 3 DESC;
+ 
+ /*
+Muestra el department_name y el salario máximo de cada departamento.
+Condiciones:
+– Solo cuenta empleados cuyo salario sea mayor que 4000
+– Deben aparecer también los departamentos sin empleados
+– Ordena el resultado por salario máximo de mayor a menor
+*/
+SELECT dep.department_name, MAX(salary)
+FROM departments dep
+LEFT JOIN employees emp ON (emp.department_id = dep.department_id)
+WHERE salary > 4000
+GROUP BY dep.department_name
+ORDER BY 2 DESC;
+
+
+/*
+Muestra la city y el número de empleados que trabajan en cada ciudad.
+Condiciones:
+– Solo cuenta empleados cuyo job_id sea 'SA_REP'
+– Deben aparecer también las ciudades sin empleados
+– Solo muestra ciudades con al menos 3 empleados
+– Ordena por número de empleados de mayor a menor
+*/
+
+
+/*
+Muestra el job_id, el salario medio y el salario mínimo de cada job.
+Condiciones:
+– Solo cuenta empleados con salario mayor que 3000
+– Solo deben aparecer los jobs cuyo salario medio sea mayor que 5000
+– Ordena el resultado por salario medio de mayor a menor
+*/
+
