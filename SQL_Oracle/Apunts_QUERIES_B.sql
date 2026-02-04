@@ -640,7 +640,7 @@ SELECT first_name , salary
   JOIN employees emp ON (dep.department_id = emp.department_id)
   GROUP BY dep.department_name
   HAVING AVG(salary) > 4000
-  AND COUNT(*) >= 2
+  AND COUNT(emp.employee_id) >= 2
   ORDER BY 2 DESC;
  
  
@@ -856,7 +856,7 @@ WHERE LENGTH(last_name) > 5
 AND (first_name LIKE 'A%' OR first_name LIKE 'S%')
 AND ROUND(salary,2) > 4000
 ORDER BY LENGTH(last_name) DESC, salary;
->>>>>>> d55895a657a48f5e3dab323d448c83cd3a0ce05a
+
 
 --Muestra el apellido del empleado y el nombre del departamento en el que tranaja
 --Incluye tambien salario del empleado
@@ -1309,7 +1309,13 @@ Condiciones:
 – Solo muestra ciudades con al menos 3 empleados
 – Ordena por número de empleados de mayor a menor
 */
-
+SELECT loc.city, COUNT(emp.employee_id)
+FROM locations loc
+LEFT JOIN departments dep ON (loc.department_id = loc.location_id)
+LEFT JOIN employees emp ON (dep.department_id = emp.department_id)
+GROUP BY loc.city
+HAVING COUNT(emp.employee_id) >= 3 AND emp.job_id = 'SA_REP'
+ORDER BY 2 DESC;
 
 /*
 Muestra el job_id, el salario medio y el salario mínimo de cada job.
