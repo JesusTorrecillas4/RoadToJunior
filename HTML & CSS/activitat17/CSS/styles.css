@@ -1,3 +1,119 @@
-h1{
-    color:rgb(116, 116, 181);
+/* 
+   - Define el tipo de letra
+   - Cambia el tamaño y color del texto
+   - Centra el texto
+   - Añade un color de fondo con transparencia
+*/
+h1 {
+  font-family: "Times New Roman", serif;
+  font-size: 90px;
+  color: rgb(69, 69, 206);
+  text-align: center;
+  background-color: rgba(173, 216, 230, 0.445);
+}
+
+/* 
+   - Fuente por defecto
+   - Color de fondo
+   - Espacio interior del documento
+*/
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e9eaec;
+  padding: 10px;
+}
+
+/* 
+   - Margen exterior e izquierdo
+   - Texto en negrita y mayúsculas
+   - Sombra alrededor del bloque
+*/
+ul {
+  margin-left: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 8px gray;
+}
+
+/* 
+   - Espacio entre cada elemento
+*/
+li {
+  margin-bottom: 5px;
+}
+
+/* 
+   - Texto en cursiva y subrayado
+   - Fondo suave
+   - Texto centrado
+*/
+h2 {
+  font-style: italic;
+  text-decoration: underline;
+  background-color: rgba(161, 175, 180, 0.171);
+  text-align: center;
+}
+
+/* 
+   - Espacio entre líneas para mejorar la lectura
+   - El ancho y la altura se adaptan al contenido
+*/
+p {
+  line-height: 1.5;
+  width: auto;
+  height: auto;
+}
+
+/* 
+   - Se comportan como bloque
+   - Se centran horizontalmente
+   - No se salen de la pantalla
+   - Mantienen proporciones
+   - Bordes redondeados y sombra
+*/
+img {
+  display: block;
+  margin: 15px auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 
+   - Se muestran como bloque
+   - Se centran
+   - Se adaptan al tamaño de la pantalla
+*/
+audio,
+video,
+iframe {
+  display: block;
+  margin: 15px auto;
+  max-width: 100%;
+}
+
+/* Tabla completa:
+   - Ocupa todo el ancho disponible
+   - Une los bordes de las celdas
+   - Añade margen vertical
+   - Fondo blanco
+*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: white;
+}
+
+/* Celdas de la tabla (th y td):
+   - Bordes de cada celda
+   - Espacio interno dentro de la celda
+   - Centra el texto dentro de la celda
+*/
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
 }
