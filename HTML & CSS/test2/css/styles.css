@@ -1,0 +1,35 @@
+/* VARIABLES GLOBALES*/
+/* Las variables globales se ponen arriba del todo*/
+/* Normalemente son los colores de la web*/
+:root{
+    --primer-color: #27B1BF;
+    --segundo-color: #36CECC;
+    --tercer-color: #C2E4CB;
+    --bg-dar: #C2E4CB;
+    --bg-card: #C2E4CB;
+    --text-light: #C2E4CB;
+    --text-muted: #C2E4CB ;
+    --font-main: "robot", sans-serif;
+
+}
+
+
+/*********/
+
+/* RESET Y ESTILOS BASE */
+*{
+
+    margin: 0;
+    padding: 0;
+
+    /* Asegura que el padding no aumenta el tamaño de los elementos*/
+    box-sizing: border-box;
+}
+body{
+
+    /* Fuente de la letra, esta esta traida de google*/
+    /*font-family: "Roboto", sans-serif;*/
+    font-family: var(--font-main)
+}
+
+
