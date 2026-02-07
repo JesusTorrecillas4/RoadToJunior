@@ -19,6 +19,7 @@ public class Vehiculos {
         //Creamos array de vehiculos 3 posiciones
         Vehiculo[] v = new Vehiculo[3];
         
+        //Creamos los constructores en su posicion del array
         v[0] = new Coche("KIA", 2020);
         v[1] = new Bicicleta("BMX", 2025);
         v[2] = new Coche("Seat", 2009);
