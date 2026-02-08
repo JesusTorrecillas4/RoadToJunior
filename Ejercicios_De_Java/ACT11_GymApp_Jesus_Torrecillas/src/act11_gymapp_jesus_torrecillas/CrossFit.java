@@ -30,15 +30,26 @@ public class CrossFit extends Activitat implements Promocionable {
         this.intensitat = intensitat;
     }
     
-    public void calcularPreuFinal(){
-        
-        this.intensitat *= 2;
-        System.out.println("El preu final de crisfit es de "+ (getPreuBase() + intensitat));
-    }
+    
     
     @Override
     public void aplicarDescompte(){
         
+       // getPreuBase *= 0.8;
+       
+    }
+    
+    public void calcularPreuFinal(){
+        
+        this.intensitat *= 2;
+        System.out.println("El preu inicial es de "+ getPreuBase() + " i la "
+                + "seva inetnsitat es de " + intensitat);
+        System.out.println("El preu final de crosfit es de "+ (getPreuBase() + intensitat));
+    }
+    
+    
+    @Override
+    public void mostrarDetalls(){
         
     }
     

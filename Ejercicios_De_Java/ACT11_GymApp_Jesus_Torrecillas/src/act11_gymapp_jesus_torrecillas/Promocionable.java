@@ -10,5 +10,5 @@ package act11_gymapp_jesus_torrecillas;
  */
 public interface Promocionable {
     
-    public void aplicarDescompte();
+    void aplicarDescompte();
 }

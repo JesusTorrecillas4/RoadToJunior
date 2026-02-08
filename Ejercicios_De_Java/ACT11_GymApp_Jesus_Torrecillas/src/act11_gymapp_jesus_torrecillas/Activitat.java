@@ -41,5 +41,7 @@ abstract class Activitat {
         System.out.println("La activitat "+ nom + " te un preu base de "
                 + preuBase + " euros");
     }
+
+   
     
 }

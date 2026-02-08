@@ -38,6 +38,10 @@ public class Ioga extends Activitat {
                         + "serien " +(getPreuBase() + 5));
     }
     
+    @Override
+    public void mostrarDetalls(){
+        
+    }
     
     
     
