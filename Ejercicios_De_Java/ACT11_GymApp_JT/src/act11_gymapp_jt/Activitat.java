@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package act11_gymapp_jesus_torrecillas;
+package act11_gymapp_jt;
 
 /**
  *
  * @author jesus
  */
-
 //Lo hacemos abstract para tener ya una plantilla pre-definida
 abstract class Activitat {
+    
     
     //Declaramos las variables
     private String nom;
@@ -34,14 +34,16 @@ abstract class Activitat {
     }
     
     //Funciones que se llamaran con Override en otras clases
-    abstract void calcularPreuFinal();
+    abstract Double calcularPreuFinal();
     
     public void mostrarDetalls(){
         
         System.out.println("La activitat "+ nom + " te un preu base de "
                 + preuBase + " euros");
     }
-
-   
     
+    public void setPreuBase(Double preuBase){
+        this.preuBase = preuBase;
+    }
+
 }

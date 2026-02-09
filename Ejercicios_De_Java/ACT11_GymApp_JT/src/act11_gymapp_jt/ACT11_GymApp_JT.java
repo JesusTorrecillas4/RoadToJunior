@@ -2,22 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package act11_gymapp_jesus_torrecillas;
+package act11_gymapp_jt;
 
 import java.util.ArrayList;
-
 /**
  *
  * @author jesus
  */
-public class ACT11_GymApp_Jesus_Torrecillas {
+public class ACT11_GymApp_JT {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
         
         //Creamos el arraylist de la classe Activitat
         ArrayList<Activitat> activitats = new ArrayList();
@@ -38,18 +36,13 @@ public class ACT11_GymApp_Jesus_Torrecillas {
                 
                 promo.aplicarDescompte();
                 
+            }else{
+                act.calcularPreuFinal();
             }
             
-            act.calcularPreuFinal();
+            
         }
-        
-        
-        
-        
-        
-        
-        
-        
+
         
     }
     
@@ -57,15 +50,15 @@ public class ACT11_GymApp_Jesus_Torrecillas {
 
 /*
     1. Què passaria si intentéssim instanciar la classe Activitat? Per què? 
-    Daria error porque en la classe Activitat no hay ninguna intanceof yesos metodos no se pueden heredar si no se hace in implements
+    Daria error porque en la classe Activitat no hay ninguna intanceof y esos metodos no se pueden heredar si no se hace in implements
 
     2. Si haguéssim de crear una activitat de "Zumba" que també accepta descomptes, quins passos hauríem 
     de seguir per reutilitzar el codi existent? 
 
-    Intanciarle el Promocionable y ya hay esta el metodo
+    Instanciarle el Promocionable y ya hay esta el metodo
 
     3. Per què Ioga no implementa Promocionable en aquest disseny?
 
-    Porque hacemos otras cosas con el precio como sumarle 5 y asi en el for tenoemos que ahcer un if para los que si tienen promocion
+    Porque hacemos otras cosas con el precio como sumarle 5 y asi en el for tenemos que hacer un if para los que si tienen promocion
 
 */
