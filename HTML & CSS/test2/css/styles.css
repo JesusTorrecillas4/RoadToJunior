@@ -29,7 +29,77 @@ body{
 
     /* Fuente de la letra, esta esta traida de google*/
     /*font-family: "Roboto", sans-serif;*/
-    font-family: var(--font-main)
+    font-family: var(--font-main);
+
+    /*Color del fondo*/
+    background-color: var(--bg-dark);
+    /*Color del texto*/
+    color: var(--text-light);
+    /*Aumentar el interlineado*/
+    line-height: 1.6;
 }
 
+/*Espaciado entre parrafos*/
+/*px: pixeles*/
+/* 1 rem= 10 px*/
+p{
+    margin-bottom: 1.5rem;
+}
 
+/* Barra de navegacion: MENU */
+/* FLEXBOX: display felx --> css flexible */
+/* felx-direction: row (default) y column */
+/* justify-content: alinea los hijos (center, flex-start, flex-end) */
+/* align-items: alinea los hijos en el eje secundario */
+
+/* para identidificar un id en ccs --> # */
+/* para identificar una classe en css --> . */
+.navbar{
+
+    /* Activamos el modo flexbox*/
+    display: flex;
+    /* Escapciado entremedio*/
+    justify-content: space-between;
+    /* Centrar verticalmente los elemetnos*/
+    align-items: center;
+    /* Fijar menu arriba del todo */
+    position: sticky;
+    /* No haya nada de espacio arriba */
+    top: 0;
+
+    padding: 50px 100px 50px 50px 
+}
+
+.logo{
+    color: var(--primer-color);
+    /* Cambiar tamaño de la fuente */
+    font-size: 1.5rem; 
+    font-weight: blod;
+    text-decoration: none;
+    /* Transformar el texto en mayusculas */
+    text-transform: uppercase;
+    /* Espacio entre letras */
+    letter-spacing: 2px;
+    
+}
+
+/* Quitar el estilo predeterminado de li-ul */
+.nav-links{
+
+    list-style: none;
+    display: flex;
+    /* espaciando entre elementos */
+    gap: 20px;
+}
+
+/* Solo se va a aplicar a los <a> dentro de la class nav-links */
+.nav-links a{
+
+    /* Quitar el esstilo predeterminado de las etiquetas <a> */
+    text-decoration: none;
+    color: var(--text-light);
+    /* Negrita */
+    font-weight: bold;
+    /* TODO */
+
+}
