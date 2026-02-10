@@ -5,9 +5,12 @@
 SET SERVEROUTPUT ON;
 -- Ejemplo de bloque anonimo
 -- Busca el salario del empleado 150 y muestralo por terminal
+--Sintaxis
 DECLARE
+--Variables
     v_salario NUMBER;
 BEGIN
+--Codigo
     -- hago la select
     SELECT salary
     INTO v_salario
@@ -116,6 +119,52 @@ WHERE employee_id = p_emp_id;
 END;
 /
 
+--Funcion
+--Estructura que almacena codigo y se puede ejecutar al llamarlo
+--y RETORNA UN VALOR
+--Sintaxis
+CREATE OR REPLACE FUNCTION <nombre_funcion> [(param1 tipo, param2 tipo ...)]
+RETURN <tipo_dato>
+IS
+ --Variables
+BEGIN
+  --codigo
+RETURN <algo>;
+  [EXCEPTION]
+    --excepcion
+END;
+/
+--ejemplo: Crea una funcion que devuelva(retorne) tu nombre. Llamala f_owner
+CREATE OR REPLACE FUNCTION f_owner RETURN VARCHAR2
+IS
+BEGIN
+    RETURN 'JesusT';
+END;
+/
+
+--ejercicio 3: Funcion que reciba un nombre y apellido, y retorne
+-- sus iniciales separadas por un punto. Nombre: f_iniciales
+CREATE OR REPLACE FUNCTION f_iniciales (p_fn VARCHAR2, p_ln VARCHAR2)
+RETURN VARCHAR2
+IS
+ /* v_fn VARCHAR2(1);
+  v_ln VARCHAR2(1);
+  v_resultado VARCHAR2(3);*/
+BEGIN
+    /*v_fn := SUBSTR(p_fn,1,1);
+    v_ln := SUBSTR(p_ln,1,1);
+    v_resultado := v_fn||'-'||v_ln;*/
+    RETURN SUBSTR(p_fn,1,1)||'-'||(p_ln,1,1);
+END;
+/
+
+SELECT f_iniciales(first_name, last_name), first_name, last_name
+FROM employees;
+
+/*
+    Crea una funcion a la que se le pasen in location_id
+    y nos retorne el numero de trabajadores que hay en esa 
+    location. Nombre: f_count_locemps
 
 
-
+*/
