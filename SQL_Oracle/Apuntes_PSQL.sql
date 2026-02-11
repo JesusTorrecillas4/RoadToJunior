@@ -168,3 +168,60 @@ FROM employees;
 
 
 */
+
+-- Control de flujo - IF - ELSIF - ELSE
+/*
+    [0-4)
+    [4-5)
+    [5-10]
+*/
+CREATE OR REPLACE PROCEDURE proc_resultado(p_nota NUMBER)
+IS
+BEGIN
+    IF (p_nota >= 0 AND p_nota < 4) THEN
+        DBMS_OUTPUT.PUT_LINE('Suspende');
+    ELSIF (p_nota < 5) THEN
+        DBMS_OUTPUT.PUT_LINE('Hace media');
+    ELSIF (p_nota <= 10) THEN
+        DBMS_OUTPUT.PUT_LINE('FELICIDADES');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Nota fuera de rango');
+    END IF;
+END;
+/
+
+EXEC proc_resultado(10);
+
+/*
+Tipo: funcion
+Nombre: func_check_salary
+INPUT: p_employee_id NUMBER
+OUTPUT: boolean
+DESC: Comprueba si el salario del empleado esta dentro de los limites de los
+salarios Minimo y Maximo de su JOB. Si el empleado no tiene job, retorna TRUE
+*/
+-- Busca salario y job del empleado
+-- Busca salario minimo y maximo del job
+-- Comparamos salario empleado con el minimo y el maximo
+-- Retornamos TRUE o FALSE
+CREATE OR REPLACE FUNCTION func_check_salary (p_employee_id NUMBER)
+RETURN BOOLEAN
+IS
+    v_sal NUMBER;
+    v_job_id NUMBER;
+    v_min NUMBER;
+    v_max NUMBER;
+BEGIN
+    SELECT emp.salary, j.job_id, j.min_salary, j.max_salary INTO v_sal, v_job_id, v_min, v_max
+    FROM employees emp LEFT JOIN jobs j ON (emp.job_id = j.job_id)
+    WHERE employee_id = p_employee_id;
+   
+    IF v_job_id IS NULL THEN
+        RETURN TRUE;
+    ELSIF v_sal BETWEEN v_min AND v_max THEN
+        RETURN TRUE;
+    ELSE
+        RETURN FALSE;
+    END IF;
+END;
+/
