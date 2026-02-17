@@ -1,0 +1,26 @@
+/* Varaibles globales de los colores y estylo de letra */
+:root{
+    --primer-color: #27B1BF;
+    --segundo-color: #36CECC;
+    --tercer-color: #C2E4CB;
+    --bg-dark: #c2e4cb1e;
+    --bg-card: #C2E4CB;
+    --text-light: #000000;
+    --text-muted: #C2E4CB ;
+    --font-main: "Roboto", sans-serif;
+}
+
+/* RESET Y ESTILOS BASE */
+*{
+
+    margin: 0;
+    padding: 0;
+
+    /* Asegura que el padding no aumenta el tamaño de los elementos*/
+    box-sizing: border-box;
+}
+
+.tabla{
+
+    border: 10;
+}

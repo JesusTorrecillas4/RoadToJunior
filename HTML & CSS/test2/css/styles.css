@@ -5,11 +5,11 @@
     --primer-color: #27B1BF;
     --segundo-color: #36CECC;
     --tercer-color: #C2E4CB;
-    --bg-dar: #C2E4CB;
+    --bg-dark: #c2e4cb1e;
     --bg-card: #C2E4CB;
-    --text-light: #C2E4CB;
+    --text-light: #000000;
     --text-muted: #C2E4CB ;
-    --font-main: "robot", sans-serif;
+    --font-main: "Roboto", sans-serif;
 
 }
 
@@ -54,6 +54,7 @@ p{
 
 /* para identidificar un id en ccs --> # */
 /* para identificar una classe en css --> . */
+
 .navbar{
 
     /* Activamos el modo flexbox*/
@@ -74,7 +75,7 @@ p{
     color: var(--primer-color);
     /* Cambiar tamaño de la fuente */
     font-size: 1.5rem; 
-    font-weight: blod;
+    font-weight: bold;
     text-decoration: none;
     /* Transformar el texto en mayusculas */
     text-transform: uppercase;
