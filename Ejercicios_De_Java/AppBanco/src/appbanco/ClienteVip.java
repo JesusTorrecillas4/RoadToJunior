@@ -13,9 +13,9 @@ public class ClienteVip extends Usuario implements Bonus {
     private String acciones;
     private String cryptos;
     
-    public ClienteVip(String nombre, int edad, int numCuenta, int dinero, 
+    public ClienteVip(String nombre,String password, int edad, int numCuenta, int dinero, 
             String acciones, String cryptos){
-        super(nombre, edad, numCuenta, dinero);
+        super(nombre, password, edad, numCuenta, dinero);
         this.acciones = acciones;
         this.cryptos = cryptos;
         

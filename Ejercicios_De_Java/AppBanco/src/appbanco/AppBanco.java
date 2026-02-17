@@ -5,6 +5,7 @@
 package appbanco;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -18,17 +19,25 @@ public class AppBanco {
     public static void main(String[] args) {
         // TODO code application logic here
         
+        Scanner scanner = new Scanner(System.in);
         //Creo el arraylist de los clientes para que cuadno se cree se añada automaticamente
        ArrayList<Usuario> usuarios = new ArrayList();
        
-       usuarios.add(new ClienteNormal("Jesus",21,9808,1000));
-       usuarios.add(new ClienteVip("Miguel",62,3141,10000,"Meta","BTN"));
+       usuarios.add(new ClienteNormal("Jesus","1234ABC",21,9808,1000));
+       usuarios.add(new ClienteVip("Miguel","5678DEF",62,3141,10000,"Meta","BTN"));
        
        Operaciones op = new Operaciones();
        for(Usuario usu: usuarios){
            op.mostrarDinero(usu);
            
        }
+       
+        System.out.println("Intoduce el nombre de usuario");
+        String nombre = scanner.nextLine();
+        /*if(nombre.equals(usuarios.getNombre)){
+            
+        }*/
+       
     }
     
 }

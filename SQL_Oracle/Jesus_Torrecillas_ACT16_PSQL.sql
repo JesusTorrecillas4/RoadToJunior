@@ -1,5 +1,5 @@
 --ACT16 PSQL
-
+SET SERVEROUTPUT ON;
 
 /*EXERCICI 1:  
 Defineix un bloc anònim amb les següents variables definides i mostra el seu valor amb < 
@@ -48,7 +48,7 @@ v_id NUMBER(4);, SI es valida porque esta todo correcto, el orden y la funcion d
 v_x, v_y, v_z VARCHAR2(10);, NO es valida porque no se pueden delcarar 3 a la vez usadno solo una funcion
 v_birthdate DATE NOT NULL; , NO es correcto porque nunca se iniciaria, debe tener el := SYSDATE al final
 v_in_stock BOOLEAN:=1; , NO es calida, las booleanas solo puedn terminar en true o false o null los numeors dan error
-emp_ename emp_ename_type;
+emp_ename emp_ename_type;.
 */
 
 
@@ -91,7 +91,7 @@ BEGIN
     JOIN departments dep ON (emp.department_id = dep.department_id)
     WHERE emp.employee_id = 109;
     
-    DBMS_OUTPUT.PUT_LINE(v_fn || ' ' || v_ln ||' treballa al departament' || v_dn);
+    DBMS_OUTPUT.PUT_LINE(v_fn || ' ' || v_ln ||' treballa al departament ' || v_dn);
 END;
 /
 
@@ -103,9 +103,30 @@ empleat i mostrarà dos missatges informant del carrer, ciutat, codi postal i pr
 dos treballadors. */
 /
 DECLARE
-    v_empleat1
+--declaro varaibles
+    v_empleat1 NUMBER := 107;
+    v_empleado1D VARCHAR2(200);
+    v_empleat2 NUMBER := 109;
+    v_empleado2D VARCHAR2(200);
 BEGIN
-
+--busco todo y lo concateno y lo decalro variable varchar
+    SELECT loc.street_address||'-'||loc.city||'-'|| loc.postal_code ||'-'|| loc.state_province
+    INTO v_empleado1D
+    FROM employees emp
+    JOIN departments dep ON dep.department_id = emp.department_id
+    JOIN locations  loc ON loc.location_id   = dep.location_id
+   WHERE emp.employee_id = v_empleat1;
+   
+    DBMS_OUTPUT.PUT_LINE(v_empleado1D);
+    
+    SELECT loc.street_address||'-'||loc.city||'-'|| loc.postal_code ||'-'|| loc.state_province
+    INTO v_empleado2D
+    FROM employees emp
+    JOIN departments dep ON dep.department_id = emp.department_id
+    JOIN locations  loc ON loc.location_id   = dep.location_id
+   WHERE emp.employee_id = v_empleat2;
+   
+   DBMS_OUTPUT.PUT_LINE(v_empleado2D);
 END;
 
 /*EXERCICI 7: 
@@ -113,16 +134,22 @@ Defineix un bloc anònim que mostri missatges amb els totals de registres de les
 EMPLOYEES, DEPARTMENTS, LOCATIONS i COUNTRIES. */
 /
 DECLARE
+--Declaro las varaibles
     v_emp_count  NUMBER;
     v_dep_count  NUMBER;
     v_loc_count  NUMBER;
     v_ctry_count NUMBER;
 BEGIN
 
-    SELECT COUNT(*) INTO v_emp_count FROM employees;
-    SELECT COUNT(*) INTO v_dep_count FROM departments;
-    SELECT COUNT(*) INTO v_loc_count FROM locations;
-    SELECT COUNT(*) INTO v_ctry_count FROM countries;
+--Selecciono todo y lo paso a su variable
+    SELECT COUNT(*) 
+    INTO v_emp_count FROM employees;
+    SELECT COUNT(*) 
+    INTO v_dep_count FROM departments;
+    SELECT COUNT(*) 
+    INTO v_loc_count FROM locations;
+    SELECT COUNT(*) 
+    INTO v_ctry_count FROM countries;
 
     DBMS_OUTPUT.PUT_LINE('Total EMPLOYEES: ' || v_emp_count);
     DBMS_OUTPUT.PUT_LINE('Total DEPARTMENTS: ' || v_dep_count);

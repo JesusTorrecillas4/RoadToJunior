@@ -11,17 +11,20 @@ package appbanco;
 abstract class Usuario {
     
     private String nombre;
+    private String password;
     private int edad;
     private int numCuenta;
     private int dinero;
+    
     //Creamos un atributo statico como identifiaador unico cada vez ques e cree un usuario
     private static int id = 0;
     
     
     //Constructor de Usuario
-    public Usuario(String nombre, int edad, int numCuenta, int dinero){
+    public Usuario(String nombre,String password, int edad, int numCuenta, int dinero){
         
         this.nombre = nombre;
+        this.password = password;
         this.edad = edad;
         this.numCuenta = numCuenta;
         this.dinero = dinero;
@@ -32,6 +35,9 @@ abstract class Usuario {
     public String getNombre(){
     
         return this.nombre;
+    }
+    public String getPassword(){
+        return this.password;
     }
     public int getEdad(){
         return this.edad;
@@ -50,6 +56,9 @@ abstract class Usuario {
     //Setters para modificar los atributos 
     public void setNombre(String nombre){
         this.nombre = nombre;
+    }
+    public void setPassword(String password){
+        this.password = password;
     }
     public void setEdad(int edad){
         this.edad = edad;

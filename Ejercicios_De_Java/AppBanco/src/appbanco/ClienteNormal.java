@@ -11,8 +11,8 @@ package appbanco;
 public class ClienteNormal extends Usuario{
     
     
-    public ClienteNormal(String nombre,int edad, int numCuenta, int dinero){
-        super(nombre, edad, numCuenta, dinero);
+    public ClienteNormal(String nombre,String password, int edad, int numCuenta, int dinero){
+        super(nombre, password, edad, numCuenta, dinero);
     }
     
     
