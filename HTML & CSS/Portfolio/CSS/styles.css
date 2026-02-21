@@ -20,7 +20,10 @@
     box-sizing: border-box;
 }
 
-.tabla{
-
+.tabla {
+    border-collapse: collapse;
+}
+.tabla th,
+.tabla td {
     border: 2px solid black;
 }
