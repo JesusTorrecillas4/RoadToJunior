@@ -24,7 +24,7 @@ public class Formulario extends JFrame{
     
     public Formulario(){
         setTitle("Formulario");
-        setSize(1920, 1080);
+        setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JPanel panel = new JPanel();
