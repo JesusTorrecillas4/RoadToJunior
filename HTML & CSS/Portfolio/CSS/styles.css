@@ -20,6 +20,25 @@
     box-sizing: border-box;
 }
 
+p {
+  line-height: 1.5;
+  width: auto;
+  height: auto;
+}
+
+.titulo{
+
+    text-align: center;
+    font-size: 3.8rem;
+    color: var(--primer-color);
+
+}
+.navbar{
+    display: flex;
+    justify-content: center;
+    background-color: var(--tercer-color);
+    
+}
 
 .navbar ul{
   list-style: none;
@@ -29,10 +48,21 @@
   padding: 0;
 }
 
+#quien_soy h2{
+
+    text-align: center;
+}
 
 
-
+#Legnuaje{
+   
+    text-align: center;
+    
+}
 .tabla {
+    width: 80%;
+    margin: 0 auto;
+    
     border-collapse: collapse;
 }
 .tabla th,
