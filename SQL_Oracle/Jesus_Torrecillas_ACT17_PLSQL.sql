@@ -52,6 +52,11 @@ IS
     v_ln VARCHAR2(200);
     v_count NUMBER;
 BEGIN
+        SELECT COUNT(*) INTO v_count
+        FROM employees WHERE employee_id = p_emp_id;
+        IF v_count = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Error, el empleado no existe');
+
     IF(p_emp_id BETWEEN 100 AND 206) THEN
         SELECT man.first_name, man.last_name, COUNT(emp.employee_id) 
         INTO v_fn, v_ln, v_count
@@ -107,3 +112,72 @@ END;
 EXEC pro_emp_id(10);
 EXEC pro_emp_id(20);
 EXEC pro_emp_id(30);
+
+
+--TIPO: Procedure
+--NOMBRE: proc_emp_sumary
+--INPUTS: p_emp_id NUMBER
+--DESC: el procedicimpietno recive un empleado y se insertara su informacion
+--el tabla de EMP_SUMARY
+
+CREATE TABLE emp_sumary(
+
+    employee_id NUMBER PRIMARY KEY,
+    first_name VARCHAR2(200),
+    last_name VARCHAR(200),
+    salary NUMBER,
+    department_name VARCHAR2(200),
+    city VARCHAR2(200)
+
+);
+/
+CREATE OR REPLACE PROCEDURE proc_emp_summary (p_empid NUMBER)
+IS
+    v_fn VARCHAR2(200);
+    v_ln VARCHAR2(200);
+    v_salary NUMBER;
+    v_depname VARCHAR2(200);
+    v_city VARCHAR2(200);
+BEGIN
+
+    
+
+--Cargar info del empleado
+
+    SELECT first_name, last_name, salary, dep.department_name, loc.city
+    INTO v_fn, v_ln, v_salary, v_depname, v_city
+    FROM employees emp
+    LEFT JOIN departments dep ON (emp.department_id = dep.department_id)
+    LEFT JOIN locations loc ON (dep.location_id = loc.location_id)
+    WHERE emp.employee_id = p_empid;
+
+-- Insertar info en emp_summary
+
+ INSERT INTO emp_summary 
+    VALUES(p_empid, v_fn, v_ln, v_salary, v_depname, v_city); 
+    DBMS_OUTPUT.PUT_LINE('Empleado insertado');
+    COMMIT;
+EXCEPTION 
+    WHEN no_data_found THEN
+        DBMS_OUTPUT.PUT_LINE('Error - Empleado no existe');
+    WHEN others THEN
+        DBMS_OUTPUT.PUT_LINE('Error. - '||sqlerrm);
+        ROLLBACK;
+        
+END;
+/
+ALTER TABLE emp_sumary RENAME TO emp_summary;
+/
+--Esto es para ejecutar el proceso y añadir un usuario a la tabla
+EXEC proc_emp_summary(100);
+EXEC proc_emp_summary(101);
+EXEC proc_emp_summary(102);
+EXEC proc_emp_summary(103);
+EXEC proc_emp_summary(104);
+EXEC proc_emp_summary(105);
+EXEC proc_emp_summary(1062);
+/
+SELECT * FROM emp_summary
+
+
+
