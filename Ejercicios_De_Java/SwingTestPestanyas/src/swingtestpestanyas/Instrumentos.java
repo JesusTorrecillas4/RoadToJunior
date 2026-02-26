@@ -51,6 +51,9 @@ public class Instrumentos extends JFrame {
                     System.out.println("EL nombre del instrumento es: "+ nombre1.getText());
                     System.out.println("El tipo del instrumetno es: "+ comboTipo.getSelectedItem());
                     System.out.println("El sonido del instrumento es: " +sonido1.getText());
+                    //Crear el objeto correspondiente
+                    //Calse Instrumenots > Flauta, Tambor y Piano
+                    //New Flauta(...)
             }
     });
         panel.add(titulo);
