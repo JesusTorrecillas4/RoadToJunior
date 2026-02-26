@@ -12,6 +12,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -36,8 +39,26 @@ public class Animal extends JFrame {
         JComboBox comboAnimales = new JComboBox(tipoAnimales);
         
         JLabel edad = new JLabel("Edad del animal");
-        TextField edad1 = new TextField(15);
+         JLabel edad1 = new JLabel("Edad del animal");
         
+        JSlider sEdad = new JSlider(0,100);
+        sEdad.setMajorTickSpacing(20);
+        sEdad.setMinorTickSpacing(5);
+        sEdad.setPaintTicks(true);
+        sEdad.setPaintLabels(true);
+        
+        //Evento cambio de estado del slider
+        sEdad.addChangeListener(new ChangeListener(){
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                // Actualizamos el valor de la etiqueta JLabel etiqueta con
+                // la cadena de texto "El valor del nivel: " y con el
+                // valor del slider
+                edad1.setText(""+ sEdad.getValue());
+            }
+        
+            
+        });
         JButton btnGuardar = new JButton("Guardar");
         btnGuardar.addActionListener(new ActionListener(){
         
@@ -49,7 +70,7 @@ public class Animal extends JFrame {
                     new Inicio();
                     System.out.println("El nombre del animal es: "+ nombre1.getText());
                     System.out.println("El tipo de animal es: "+ comboAnimales.getSelectedItem());
-                    System.out.println("La edad del animal es: "+ edad1.getText());
+                    System.out.println("La edad del animal es: "+ sEdad.getValue());
             }
     });
         panel.add(Animales);
@@ -58,6 +79,7 @@ public class Animal extends JFrame {
         panel.add(comboAnimales);
         panel.add(edad);
         panel.add(edad1);
+        panel.add(sEdad);
         panel.add(btnGuardar);
         
         
