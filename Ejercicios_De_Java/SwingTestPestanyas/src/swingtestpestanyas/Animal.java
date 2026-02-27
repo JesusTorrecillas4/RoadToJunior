@@ -7,6 +7,7 @@ package swingtestpestanyas;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -22,6 +23,8 @@ import javax.swing.event.ChangeListener;
  */
 public class Animal extends JFrame {
     
+    ArrayList<AnimalAbstract>animales = new ArrayList<>();
+    
     public Animal(){
         
         setTitle("Animales");
@@ -34,7 +37,7 @@ public class Animal extends JFrame {
         JLabel nombre = new JLabel("Nombre del animal");
         TextField nombre1 = new TextField(15);
         
-        String[] tipoAnimales={"Volador","Mamifero","Herbivoro"};
+        String[] tipoAnimales={"Volador","Mamifero","Carnivoro"};
         
         JComboBox comboAnimales = new JComboBox(tipoAnimales);
         
@@ -64,13 +67,51 @@ public class Animal extends JFrame {
         
             @Override
              public void actionPerformed(ActionEvent e){
-                    //ACCION DE CLICAR EL BOTON
-                    //SE CIERRA LA VENTANA ACTIAL
-                    dispose();
-                    new Inicio();
+                   
+                    
                     System.out.println("El nombre del animal es: "+ nombre1.getText());
                     System.out.println("El tipo de animal es: "+ comboAnimales.getSelectedItem());
                     System.out.println("La edad del animal es: "+ sEdad.getValue());
+                    
+                    String nombreA = nombre1.getText();
+                    String tipoA = comboAnimales.getSelectedItem().toString();
+                    int edadA = sEdad.getValue();
+                    if(tipoA.equals("Volador")){
+                        animales.add(new Volador(nombreA, tipoA, edadA));
+                    }else if(tipoA.equals("Mamifero")){
+                        animales.add(new Mamifero(nombreA, tipoA, edadA));
+                    }else{
+                        animales.add(new Carnivoro(nombreA, tipoA, edadA));
+                    }
+            }
+    });
+        
+        JButton btnMostrarAnimales = new JButton("Mostrar animales");
+        btnMostrarAnimales.addActionListener(new ActionListener(){
+        
+            @Override
+             public void actionPerformed(ActionEvent e){
+                   
+                    
+                   for(AnimalAbstract ani: animales){
+                       
+                       System.out.println("El nombre del animal es: " + ani.getNombre());
+                       System.out.println("El tipo de animal es: "+ ani.getTipo());
+                       System.out.println("La edad del animal es: "+ ani.getEdad());
+                   }
+            }
+    });
+        
+        JLabel advertencia = new JLabel("Si sales se borraran los datos");
+        JButton btnSalir = new JButton("Salir");
+        btnSalir.addActionListener(new ActionListener(){
+        
+            @Override
+             public void actionPerformed(ActionEvent e){
+                    dispose();
+                    new Inicio();
+                    
+              
             }
     });
         panel.add(Animales);
@@ -81,6 +122,9 @@ public class Animal extends JFrame {
         panel.add(edad1);
         panel.add(sEdad);
         panel.add(btnGuardar);
+        panel.add(btnMostrarAnimales);
+        panel.add(advertencia);
+        panel.add(btnSalir);
         
         
         

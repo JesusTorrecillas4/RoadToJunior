@@ -8,29 +8,28 @@ package swingtestpestanyas;
  *
  * @author jesus
  */
-abstract class Instrumento {
+abstract class AnimalAbstract {
     
     private String nombre;
     private String tipo;
-    private String sonido;
+    private int edad;
     
-    public Instrumento(String nombre, String tipo, String sonido){
-        
+    public AnimalAbstract(String nombre, String tipo, int edad){
         this.nombre = nombre;
         this.tipo = tipo;
-        this.sonido = sonido;
-        
+        this.edad = edad;
     }
     
     //Getters
     public String getNombre(){
         return this.nombre;
     }
+    
     public String getTipo(){
         return this.tipo;
     }
-    public String getSonido(){
-        return this.sonido;
-    }
     
+    public int getEdad(){
+        return this.edad;
+    }
 }
