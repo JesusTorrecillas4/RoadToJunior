@@ -37,7 +37,7 @@ public class Instrumentos extends JFrame {
         String[] tipo ={"Flauta","Tambor","Piano"};
         
         JComboBox comboTipo = new JComboBox(tipo);
-        JLabel sonido = new JLabel("Sonido del instrumetno");
+        JLabel sonido = new JLabel("Sonido del instrumento");
         TextField sonido1 = new TextField(15);
         JButton btnGuardar = new JButton("Guardar");
        
