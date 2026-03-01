@@ -71,7 +71,8 @@ DECLARE
  v_salida VARCHAR2(200);
  v_count NUMBER;
  BEGIN
- SELECT loc.city || '-' || loc.postal_code, COUNT(*) INTO v_salida, v_count
+ SELECT loc.city || '-' || loc.postal_code, COUNT(*) 
+ INTO v_salida, v_count
   FROM locations loc 
   LEFT JOIN departments dep ON (dep.location_id = loc.location_id)
   LEFT JOIN employees emp ON (dep.department_id = emp.department_id)
@@ -119,6 +120,7 @@ WHERE employee_id = p_emp_id;
 END;
 /
 
+EXEC proc_emp_info(100);
 --Funcion
 --Estructura que almacena codigo y se puede ejecutar al llamarlo
 --y RETORNA UN VALOR
@@ -212,7 +214,8 @@ IS
     v_min NUMBER;
     v_max NUMBER;
 BEGIN
-    SELECT emp.salary, j.job_id, j.min_salary, j.max_salary INTO v_sal, v_job_id, v_min, v_max
+    SELECT emp.salary, j.job_id, j.min_salary, j.max_salary
+    INTO v_sal, v_job_id, v_min, v_max
     FROM employees emp LEFT JOIN jobs j ON (emp.job_id = j.job_id)
     WHERE employee_id = p_employee_id;
    
