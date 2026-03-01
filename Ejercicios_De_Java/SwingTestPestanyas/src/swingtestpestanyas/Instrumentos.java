@@ -19,7 +19,9 @@ import javax.swing.JPanel;
  * @author jesus
  */
 public class Instrumentos extends JFrame {
+    
     ArrayList<Instrumento>Instrumentos = new ArrayList<>();
+    
     public Instrumentos(){
         
         setTitle("Instrumentos");
@@ -115,7 +117,7 @@ public class Instrumentos extends JFrame {
         panel.add(btnCrear);
         panel.add(mensajeSalir);
         panel.add(btnSalir);
-        
+        //-
         add(panel);
         setVisible(true);
     }

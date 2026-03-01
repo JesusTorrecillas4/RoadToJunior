@@ -62,10 +62,11 @@ p {
 .tabla {
     width: 80%;
     margin: 0 auto;
-    
+    border-radius: 20px;
     border-collapse: collapse;
 }
 .tabla th,
 .tabla td {
+    border-radius: 20px;
     border: 2px solid black;
 }
