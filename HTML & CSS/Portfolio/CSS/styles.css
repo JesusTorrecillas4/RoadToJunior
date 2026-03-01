@@ -4,7 +4,7 @@
     --segundo-color: #36CECC;
     --tercer-color: #C2E4CB;
     --bg-dark: #c2e4cb1e;
-    --bg-card: #C2E4CB;
+    --bg-card: #3cc2da4b;
     --text-light: #000000;
     --text-muted: #C2E4CB ;
     --font-main: "Roboto", sans-serif;
@@ -20,10 +20,15 @@
     box-sizing: border-box;
 }
 
+main{
+    background-color: var(--bg-card);
+}
+
 p {
   line-height: 1.5;
   width: auto;
   height: auto;
+  margin-left: 15px;
 }
 
 .titulo{
@@ -59,14 +64,29 @@ p {
     text-align: center;
     
 }
+
+
+
+.imgGit{
+
+    display: flex;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 20px
+
+}
+
+
 .tabla {
     width: 80%;
     margin: 0 auto;
-    border-radius: 20px;
     border-collapse: collapse;
 }
 .tabla th,
 .tabla td {
-    border-radius: 20px;
+    
     border: 2px solid black;
 }
