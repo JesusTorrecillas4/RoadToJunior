@@ -57,7 +57,29 @@ p {
 
     text-align: center;
 }
+.micara{
+    
+    width: 300px;
+    padding: 20px;
+    margin-left: 0;
+    background-color: red;
+    order: 2;
+}
+#quien_soy p{
+     background-color: red;
+     margin: 0px;
+     flex: 1;
+    order: 1;
+}
+.container-quiensoy{
 
+    background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 15px;
+}
 
 #Legnuaje{
    
@@ -65,6 +87,25 @@ p {
     
 }
 
+
+
+.tabla {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+.tabla th,
+.tabla td {
+    
+    border: 2px solid black;
+}
+
+
+#proyectos{
+    background-color: rgb(36, 117, 172);
+    padding: 15px;
+    margin-top: 20px;
+}
 
 
 .imgGit{
@@ -80,13 +121,9 @@ p {
 }
 
 
-.tabla {
-    width: 80%;
-    margin: 0 auto;
-    border-collapse: collapse;
-}
-.tabla th,
-.tabla td {
-    
-    border: 2px solid black;
+#Contactos{
+
+    padding: 15px;
+    display: flex;
+    justify-content: center;
 }
