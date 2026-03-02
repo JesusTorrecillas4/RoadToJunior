@@ -70,6 +70,7 @@ public class Inicio extends JFrame {
         panel.add(btnAnimal);
         panel.add(btnSalir);
         add(panel);
+       
         setVisible(true);
     }
     
