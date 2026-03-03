@@ -31,6 +31,9 @@ p {
   margin-left: 15px;
 }
 
+a{
+    /*text-decoration: none;*/
+}
 .titulo{
 
     text-align: center;
@@ -58,6 +61,42 @@ p {
     text-align: center;
 }
 
+.container-quiensoy{
+
+    background-color: green;
+    display: grid;
+    grid-template-columns: 1fr 300px; /* izquierda flexible, derecha fija */
+    justify-content: space-between;
+    gap: 30px;
+    padding: 15px;
+}
+.pleft{
+
+    background-color: blueviolet;
+    
+    
+
+}
+#quien_soy p{
+    background-color: red;
+    margin: 1px;
+    padding: 10px;
+    order: 1;
+}
+
+.lista_estudios{
+    
+    list-style: none;
+
+}
+.micara{
+    width: 100%;
+    margin-left: 0;
+    order: 2;
+    box-shadow: 4px 4px 8px rgb(22, 20, 20);
+    border-radius: 160px;
+    align-self: center;
+}
 
 #Legnuaje{
    
@@ -65,6 +104,26 @@ p {
     
 }
 
+
+
+.tabla {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.377);
+}
+.tabla th,
+.tabla td {
+    
+    border: 2px solid black;
+}
+
+
+#proyectos{
+    background-color: rgb(36, 117, 172);
+    padding: 15px;
+    margin-top: 20px;
+}
 
 
 .imgGit{
@@ -75,18 +134,14 @@ p {
     margin-right: auto;
     margin-top: 15px;
     margin-bottom: 15px;
-    border-radius: 20px
-
+    border-radius: 20px;
+    box-shadow: 4px 4px 8px black;
 }
 
 
-.tabla {
-    width: 80%;
-    margin: 0 auto;
-    border-collapse: collapse;
-}
-.tabla th,
-.tabla td {
-    
-    border: 2px solid black;
+#Contactos{
+
+    padding: 15px;
+    display: flex;
+    justify-content: center;
 }
