@@ -74,7 +74,7 @@ a{
 
     background-color: blueviolet;
     
-    
+    margin-top: 10px;
 
 }
 #quien_soy p{
@@ -85,9 +85,12 @@ a{
 }
 
 .lista_estudios{
-    
-    list-style: none;
+    margin: 10px;
+}
 
+.lista_estudios ul{
+    list-style: none;
+    
 }
 .micara{
     width: 100%;
@@ -105,7 +108,10 @@ a{
 }
 
 
+caption{
 
+    font-size: 25px;
+}
 .tabla {
     width: 80%;
     margin: 0 auto;
