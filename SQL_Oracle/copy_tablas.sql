@@ -126,10 +126,153 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Error - registro no encontrado');
 END;
 /
+/*
+TIPO: PROCEDIMIENTO
+NOMBRE: p_incr_salary
+INPUT: p_empid NUMBER, p_amount NUMBER
+DESC:
+    El procedimiento actualizara el salario del empleado incrementandolo
+    en la cantidad de p_amount. Al finalizar el proceso se mostrara el
+    nombre y apellido del empleado, el salario anterior y el nuevo salario
+    
+CONTROLES:
+    - Si el empleado no existe, se muestra un error
+    - Si se le pasa al procedimineto un p_amount negativo, se muestra un error
+    - Si p_amount es NULL, el salario no se modifica
+*/
+/
+CREATE OR REPLACE PROCEDURE p_incr_salary(p_empid NUMBER, p_amount NUMBER)
+IS
+    v_fn VARCHAR2(200);
+    v_ln VARCHAR2(200);
+    v_salary NUMBER;
+    v_nuevo NUMBER;
+    --Csutom EXCEPTION
+    e_negativo EXCEPTION;
+BEGIN
+        IF p_amount < 0 THEN RAISE e_negativo; END IF;
+        
+        SELECT first_name, last_name, salary
+        INTO v_fn, v_ln, v_salary
+        FROM copy_employees
+        WHERE employee_id = p_empid;
+    
+
+        UPDATE copy_employees SET salary = salary + NVL(p_amount,0)
+        WHERE employee_id = p_empid;
+        
+        v_nuevo := v_salary + NVL(p_amount,0);
+        
+        DBMS_OUTPUT.PUT_LINE('Empleados'||v_fn||v_ln);
+        DBMS_OUTPUT.PUT_LINE('Salario original:'||v_salary);
+        DBMS_OUTPUT.PUT_LINE('Salario modificad:'||v_nuevo);
+
+EXCEPTION
+    WHEN e_negativo THEN
+        DBMS_OUTPUT.PUT_LINE('Error - Incremento en negativo');
+    WHEN no_data_found THEN
+        DBMS_OUTPUT.PUT_LINE('Error - No data found');
+END;
+/
+EXEC p_incr_salary(100,500);
+/
+/*
+Tipo: funcion
+Nombre: funcion_check_salary
+INPUT: p_employee_id NUMBER
+OUTPUT: boolean
+DESC: Comprueba si el salario del empleado esta dentnro 
+de los limites de los salarios Minimos y Maximo de su Job
+Si el empleado no tiene job, retorna TRUE*
+*/
+/
+CREATE OR REPLACE FUNCTION funcion_check_salary(p_employee_id NUMBER)
+RETURN BOOLEAN
+IS
+
+     v_sal NUMBER;
+     v_job_id NUMBER;
+     v_min NUMBER;
+     v_max NUMBER;
+     
+BEGIN
+    
+    SELECT salary, job_id
+    INTO v_sal, v_job_id
+    FROM employees WHERE employee_id = p_employee_id;
+    
+    IF v_job_id IS NULL THEN RETURN TRUE;
+    END IF;
+    
+    SELECT min_salary, max_salary 
+    INTO v_min, v_max
+    FROM jobs WHERE job_id = v_job_id;
+    
+    IF v_sal BETWEEN v_min AND v_max THEN RETURN TRUE;
+    ELSE
+        RETURN FALSE;
+    END IF;
+    
+END;
+/
+
+
+
+BEGIN
+    IF funcion_check_salary(203) THEN
+        DBMS_OUTPUT.PUT_LINE('Dentro de rango');
+    ELSIF NOT funcion_check_salary(203) THEN
+        DBMS_OUTPUT.PUT_LINE('Fuera del rango');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Error');
+    END IF;
+
+END;
+/
+BEGIN
+    IF false THEN
+        DBMS_OUTPUT.PUT_LINE('es ciert!');
+    ELSIF NOT(false) THEN
+        DBMS_OUTPUT.PUT_LINE('era falso!');
+    END IF;
+
+END;
+/
+
+
+/
+/*
+TIPO:Funcion
+Nombre: proc_debug_emp_salary
+INPUT: p_employee_id NUMBER
+DESCR: Revisa si el salario del empleado esta en los limites de
+    su maximo y minimo por job
+    - Si el salario del empleado esta pir debajo del minimo,
+    lo actualizara al salario minimo
+    - Si el salario esta por enima del maximo, lo actualizara al salario maximo
+    -Si esta enre los limites, no hace nada
+    
+Muestra mensajes de cada accion del procedimiento, y guarda los cambios en una linea
+de la tabla de logs (si ha habido algun cambio en el salario)
+*/
+
+CREATE TABLE daw_logs(
+
+    id_law_log NUMBER,
+    table_name VARCHAR2(100),
+    creation_date DATE,
+    action VARCHAR2(200),
+    descrition VARCHAR2(600)
+);
+
+CREATE SEQUENCE seq_daw_logs2 START WITH 1 INCREMENT BY 1;
+
+SELECT seq_daw_logs2.currval FROM dual;
 
 
 
 
 
 
-DROP TABLE copy_employees CASCADE CONSTRAINT PURGE;
+
+

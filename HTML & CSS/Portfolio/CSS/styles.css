@@ -10,16 +10,6 @@
     --font-main: "Roboto", sans-serif;
 }
 
-/* RESET Y ESTILOS BASE */
-*{
-
-    margin: 0;
-    padding: 0;
-
-    /* Asegura que el padding no aumenta el tamaño de los elementos*/
-    box-sizing: border-box;
-}
-
 main{
     background-color: var(--bg-card);
 }
