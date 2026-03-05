@@ -7,7 +7,7 @@ package ejemplolayouts;
 import java.awt.*;
 import javax.swing.*;
 
-/**
+/**º
  *
  * @author jesus
  */
