@@ -14,7 +14,7 @@ import javax.swing.*;
 public class Calculadora extends JFrame {
 
    private JTextField textA, textB, textResultado;
-   private JButton btnSuma;
+   private JButton btnSuma, btnResta, btnDivi, btnMulti, btnNumero;
    
    public Calculadora(String titulo){
        
@@ -41,8 +41,26 @@ public class Calculadora extends JFrame {
        btnSuma = new JButton("+");
        add(btnSuma);
        
-       btnSuma.addActionListener(e -> calcular());
+       /*btnSuma.addActionListener(e -> calcularSuma());*/
+       btnSuma.addActionListener(e -> calcular("+"));
        
+       add(new JLabel(""));
+       btnResta = new JButton("-");
+       add(btnResta);
+        btnResta.addActionListener(e -> calcular("-"));
+       
+        add(new JLabel(""));
+       btnDivi = new JButton("/");
+       add(btnDivi);
+       
+       btnDivi.addActionListener(e -> calcular("/"));
+       
+        add(new JLabel(""));
+       btnMulti = new JButton("X");
+       add(btnMulti);
+       
+       btnMulti.addActionListener(e -> calcular("*"));
+         
        add(new JLabel("Resultado: "));
        textResultado = new JTextField(5);
        add(textResultado);
@@ -51,7 +69,46 @@ public class Calculadora extends JFrame {
        setVisible(true);
    }
    
-   private void calcular() {
+   private void calcular(String op){
+       
+       
+       
+       int numA = Integer.parseInt(textA.getText());
+       int numB = Integer.parseInt(textB.getText());
+       
+       int resultado;
+       switch(op){
+           
+           case "+":
+               
+                resultado = numA + numB;
+                textResultado.setText(String.valueOf(resultado));
+               break;
+            case "-":
+               
+               resultado = numA - numB;
+               textResultado.setText(String.valueOf(resultado));
+               break;
+            case "/":
+               
+               resultado = numA / numB;
+               textResultado.setText(String.valueOf(resultado));
+               break;
+            case "*":
+               
+               resultado = numA * numB;
+               textResultado.setText(String.valueOf(resultado));
+               break;
+            default:
+                
+                System.out.println("Operacion Incorrecta");
+                break;
+                 
+       }
+   }
+   
+   /*
+   private void calcularSuma() {
         
        //Convertimos (parseamos/casteamos) el texto del JTextField a Integer
        int numA = Integer.parseInt(textA.getText());
@@ -64,7 +121,45 @@ public class Calculadora extends JFrame {
        textResultado.setText(String.valueOf(resultado));
     }
    
+   private void calcularResta() {
+        
+       //Convertimos (parseamos/casteamos) el texto del JTextField a Integer
+       int numA = Integer.parseInt(textA.getText());
+       int numB = Integer.parseInt(textB.getText());
+       
+       int resultado = numA - numB;
+       
+       // Como tenemos que añadir el resulatdo que es integer a un JTextField
+       // que es un String
+       textResultado.setText(String.valueOf(resultado));
+    }
    
+   private void calcularDivi() {
+        
+       //Convertimos (parseamos/casteamos) el texto del JTextField a Integer
+       int numA = Integer.parseInt(textA.getText());
+       int numB = Integer.parseInt(textB.getText());
+       
+       int resultado = numA / numB;
+       
+       // Como tenemos que añadir el resulatdo que es integer a un JTextField
+       // que es un String
+       textResultado.setText(String.valueOf(resultado));
+    }
+   
+     private void calcularMulti() {
+        
+       //Convertimos (parseamos/casteamos) el texto del JTextField a Integer
+       int numA = Integer.parseInt(textA.getText());
+       int numB = Integer.parseInt(textB.getText());
+       
+       int resultado = numA * numB;
+       
+       // Como tenemos que añadir el resulatdo que es integer a un JTextField
+       // que es un String
+       textResultado.setText(String.valueOf(resultado));
+    }
+      */   
     public static void main(String[] args) {
         new Calculadora("Calculadora Molona");
         
