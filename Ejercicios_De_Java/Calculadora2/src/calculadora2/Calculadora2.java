@@ -14,7 +14,13 @@ import javax.swing.*;
 public class Calculadora2 extends JFrame {
 
     private JTextField total,num1,num2;
-    private JButton btnSumar, btnResta, btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0;
+    private JButton btnSumar, btnResta,btnDivi, btnMulti, btnIgual, btnReset; 
+    private JButton btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0;
+    
+    private boolean segundaOperacion = false;
+    
+    private int resultado;
+    private String operacion;
     
     public Calculadora2(){
         
@@ -24,14 +30,8 @@ public class Calculadora2 extends JFrame {
         setLocationRelativeTo(null);
         
         //Layout Grid, 4 filas de 4 columnas
-        setLayout(new GridLayout(4, 4, 10, 10));
+        setLayout(new GridLayout(7, 4, 10, 10));
         
-        /*
-        JButton[] btnNumeros = new JButton[10]; 
-        for(int i = 0;i<10;i++){
-            btnNumeros[i] = new JButton(String.valueOf(i));
-            add(btnNumeros[i]);
-        }*/
         
         add(new JLabel(""));
         btn1 = new JButton("1");
@@ -64,16 +64,16 @@ public class Calculadora2 extends JFrame {
         btn0 = new JButton("0");
         add(btn0);
         
-        btn1.addActionListener((e) -> sumar("1"));
-        btn2.addActionListener((e) -> sumar("2"));
-        btn3.addActionListener((e) -> sumar("3"));
-        btn4.addActionListener((e) -> sumar("4"));
-        btn5.addActionListener((e) -> sumar("5"));
-        btn6.addActionListener((e) -> sumar("6"));
-        btn7.addActionListener((e) -> sumar("7"));
-        btn8.addActionListener((e) -> sumar("8"));
-        btn9.addActionListener((e) -> sumar("9"));
-        btn0.addActionListener((e) -> sumar("0"));
+        btn1.addActionListener((e) -> numeros("1"));
+        btn2.addActionListener((e) -> numeros("2"));
+        btn3.addActionListener((e) -> numeros("3"));
+        btn4.addActionListener((e) -> numeros("4"));
+        btn5.addActionListener((e) -> numeros("5"));
+        btn6.addActionListener((e) -> numeros("6"));
+        btn7.addActionListener((e) -> numeros("7"));
+        btn8.addActionListener((e) -> numeros("8"));
+        btn9.addActionListener((e) -> numeros("9"));
+        btn0.addActionListener((e) -> numeros("0"));
         
         
         
@@ -82,11 +82,37 @@ public class Calculadora2 extends JFrame {
         btnSumar = new JButton("+");
         add(btnSumar);
         
-        btnSumar.addActionListener((e) -> sumar("+"));
+        btnSumar.addActionListener((e) -> calculo("+"));
         
         add(new JLabel(""));
         btnResta = new JButton("-");
         add(btnResta);
+        
+        btnResta.addActionListener(e -> calculo("-"));
+        
+        add(new JLabel(""));
+        btnDivi = new JButton("/");
+        add(btnDivi);
+        
+        btnDivi.addActionListener(e -> calculo("/"));
+        
+        add(new JLabel(""));
+        btnMulti = new JButton("X");
+        add(btnMulti);
+        
+        btnMulti.addActionListener(e -> calculo("x"));
+        
+        add(new JLabel(""));
+        btnIgual = new JButton("=");
+        add(btnIgual);
+        
+        btnIgual.addActionListener(e -> resultado());
+        
+        add(new JLabel(""));
+        btnReset = new JButton("C");
+        add(btnReset);
+        
+        btnReset.addActionListener(e -> resetear());
         
         add(new JLabel("num1"));
         num1 = new JTextField(5);
@@ -101,31 +127,57 @@ public class Calculadora2 extends JFrame {
         add(total);
         
         
-        
-        
-        
-        
-        
         setVisible(true);
     }
-    Integer numerosGuardados1 =  Integer.parseInt(num1.getText());
-    private void sumar(String num){
+    
+    
+    private void numeros(String numero){
         
-        numerosGuardados1 =  Integer.parseInt(num1.getText());
-        
+        if(segundaOperacion == false){
+            
+             num1.setText(num1.getText() + numero);
+             
+        }else{
+            
+             num2.setText(num2.getText() + numero);
+        }
         
     }
-     private void calcular() {
+    
+    private void calculo(String op){
         
-         Integer numerosGuardados2 =  Integer.parseInt(num2.getText());
-         
-         Integer total = numerosGuardados1 + numerosGuardados2;
+        operacion = op;
+        segundaOperacion = true;
         
-         //Integer resultado = numerosGuardados1 + numerosGuardados2;
-         
     }
-     
-     
+    
+    private void resultado() {
+        
+          
+        Integer num1I = Integer.parseInt(num1.getText());
+        Integer num2I = Integer.parseInt(num2.getText());
+        
+        if(operacion.equals("+")){
+            
+              resultado = num1I + num2I;
+        }else if(operacion.equals("-")){
+              resultado = num1I - num2I;
+        }else if(operacion.equals("/")){
+            resultado = num1I / num2I;
+        }else{
+            resultado = num1I * num2I;
+        }
+    
+        total.setText(String.valueOf(resultado));
+    }
+    
+    private void resetear(){
+        
+        num1.setText("");
+        num2.setText("");
+        total.setText("");
+        segundaOperacion = false;
+    }
     
     
     
@@ -153,6 +205,8 @@ public class Calculadora2 extends JFrame {
         
         new Calculadora2();
     }
+
+    
 
    
     
