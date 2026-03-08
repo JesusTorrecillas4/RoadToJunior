@@ -51,6 +51,10 @@ a{
     text-align: center;
 }
 
+li{
+    margin: 6px;
+}
+
 .container-quiensoy{
 
     background-color: green;
@@ -140,4 +144,19 @@ caption{
     padding: 15px;
     display: flex;
     justify-content: center;
+}
+
+.btn-pag{
+
+    width: 6%;
+    border-radius: 4px;
+    background-color: var(--primer-color);
+    margin: 5px;
+    margin-left: 90%;
+   
+}
+
+.btn-pag:hover{
+
+    background-color: var(--bg-card);
 }

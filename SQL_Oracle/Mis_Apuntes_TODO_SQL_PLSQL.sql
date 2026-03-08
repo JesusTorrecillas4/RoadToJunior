@@ -10,7 +10,7 @@ CREATE TABLE tablaejemplo(
     altura NUMBER,
     CONSTRAINT pk_tablaejemplo  PRIMARY KEY (id_ejemplo),
     CONSTRAINT uk_tablaejemplo_nombre UNIQUE (nombre),
-    CONSTRAINT ck_tablaejemplo CHECK (sexo = 'M' OR 'F')
+    CONSTRAINT ck_tablaejemplo CHECK (sexo = 'M' OR sexo = 'F'),
      --CONSTRAINT ck_pinguino_sexo CHECK (sexo IN ('M','F'))-- Tambien puedes hacerlo de esta forma
      CONSTRAINT ck_altura CHECK (altura IS NOT NULL)
 );
@@ -32,23 +32,29 @@ ALTER TABLE tablaejemplo ADD CONSTRAINT fk_tablaejemplo_foreign FOREIGN KEY (id_
 
 
 --Añadir datos a las tablas
-INSERT INTO tablaejemplo VALUES (1,'Jesus',M,163,2);
-INSERT INTO ejemploforeing VALUES (2,'Pedro',1);
+--Tiene quee star en null ya que no esa crada aun la id del padre
+INSERT INTO tablaejemplo VALUES (1,'Jesus','M',163,null);
+INSERT INTO ejemploforeign VALUES (2,'Pedro',1);
+
+----Actualizar datos
+
+UPDATE tablaejemplo SET id_foreign='2' WHERE id_ejemplo   = 1;
+
 
 --Eliminar tabla definitivamente y en cascada
 
 DROP TABLE tablaejemplo CASCADE CONSTRAINT PURGE;
-DROP TABLE ejmploforeign CASCADE CONSTRAINT PURGE;
+DROP TABLE ejemploforeign CASCADE CONSTRAINT PURGE;
 
 --Ver info de la tabla
 DESC tablaejemplo;
 
+SELECT * FROM tablaejemplo;
+
 --Eliminar algo exacto
 DELETE FROM tablaejemplo WHERE id_ejemplo = 1;
 
---Actualizar datos
 
-UPDATE tablaejemplo SET nombre='Juan' WHERE id_ejemplo   = 1;
 
 
 --Ahora con las Queris , esto solo enseña informacion lo que hagas no modificara la tabla
