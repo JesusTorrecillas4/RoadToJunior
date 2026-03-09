@@ -269,10 +269,81 @@ CREATE SEQUENCE seq_daw_logs2 START WITH 1 INCREMENT BY 1;
 
 SELECT seq_daw_logs2.currval FROM dual;
 
+/
+/*
+Tipo: Funcion
+nombre: calculadora_diferencia_salarial
+parametro: p_employee_id NUMBER
+DESC:  La funcion deve recibir el ID de un empleado y calcular la diferencia entre 
+su salario actual y el salario maximo permitido para su puesto(max_salary d la tabla jobs)
+-Debe devolver un valor positivo si el empleado aun puede subir de sueldo
+debe devolver 0 si ya esta en el maximo por encima
+Control de errores: Si el p_employee_id no existe, debe capturar la exprsion no_data_found y devolver un -1
+Cualquier otro error inesperado debe devolver -99
+*/
+/
+CREATE OR REPLACE FUNCTION calcu_difa_salarial(p_emp_id NUMBER)
+RETURN NUMBER
+IS
+    /*
+    v_fn VARCHAR2(200);
+    v_salary NUMBER;
+    v_max_salary NUMBER;*/
+    v_resto NUMBER;
 
+BEGIN
 
+    SELECT NVL(jo.max_salary - emp.salary,0) INTO v_resto
+            FROM employees emp LEFT JOIN jobs jo ON (emp.job_id = jo.job_id)
+        WHERE emp.employee_id = p_emp_id;
+    
+            RETURN v_resto;
+   /* 
+    SELECT emp.first_name, emp.salary, job.max_salary
+    INTO v_fn, v_salary, v_max_salary
+    FROM employees emp JOIN jobs job ON (emp.job_id = job.job_id)
+    WHERE emp.employee_id = p_employee_id;*/
+    
+   /* IF emp.salary > job.max_salary THEN
+    RETURN 0 
+    ELSIF emp.salary <= job.max_salary THEN 
+    RETURN (v_max_salary-v_salary)
+    ELSIF */
+    
+EXCEPTION
 
+    WHEN no_data_found THEN
+    RETURN -1;
+    WHEN OTHERS THEN
+    RETURN -99;
 
+END;
+/
+
+SELECT calcu_difa_salarial (100) FROM dual;
+
+/
+
+/*
+Tipo: procedure
+Nombre act_ubi_dep
+parametros: p_department_id NUMBER, P_new_location_id NUMBER
+DESCR: El procedimiento deve cambiar la localizacion de un departamento 
+especifico en la tabla DEPARTMENTS. Antes de realizar el UPDATE, el codigo debe
+verificar:
+que el departamento existe
+- Que la nueva localizacion existe en la tabla LOCATIONS
+Si ambas condiciones se cumple, se aplica el cambio y se imprime por
+consola (DBMS_OUTPUT) un mensaje de escito indicando el nombre del departamento afectado
+
+CONTROL DE ERORES:
+- Sila localizacion no existe, debe lanzar un error personalizado
+- Si el departamento no existe, debe mostrar un mensaje informativo y no realiza
+nunguna accion
+*/
+
+CREATE TABLE copy_departments AS
+SELECT * FROM departments;
 
 
 
