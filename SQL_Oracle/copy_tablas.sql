@@ -345,5 +345,64 @@ nunguna accion
 CREATE TABLE copy_departments AS
 SELECT * FROM departments;
 
+/*
+    Para cada empleado del departamento 80, muestra su nombre, apellido, antiguedad y ciudad
+    Si no tiene ciudad muestra un mensaje "No tiene ciudad"
+*/
+/
+DECLARE
+    CURSOR c_test IS
+    SELECT emp.first_name, emp.last_name,ROUND((SYSDATE- emp.hire_date)/365) AS antiguedad,loc.city
+    FROM employees emp  JOIN departments dep ON (dep.department_id = emp.department_id)
+    JOIN locations loc ON (loc.location_id = dep.location_id)
+    WHERE emp.department_id = 80;
+BEGIN
+    FOR mi_cursor IN c_test
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Nombre: '||mi_cursor.first_name||' '||mi_cursor.last_name);
+        DBMS_OUTPUT.PUT_LINE('Antiguedad: '||mi_cursor.antiguedad);
+        DBMS_OUTPUT.PUT_LINE('Ciudad: '||mi_cursor.city);
+        DBMS_OUTPUT.PUT_LINE('-----------------------');
+
+    END LOOP;
+END;
+/
+
+/*
+TIPO: PROCEDURE
+Nombre: informe_subordinados_manager
+parametdo: p_manager_id NUMBER
+DESC: El procedieimento debe identifica a todos los empleados que informan 
+directamente al manager indicado.Para cada uno de ellos, debe mostrar su nombre
+completo y comparar su salario con el del manager, indicanof mediante un mensaje 
+si el empleado cobra mas, menos o ogual que si jefe
+CONTROL DE ERRORES: validar si existe el manager en la tabla de employees
+gestionar el caso de  que el empleado no tenga a nadia a su cargo
+control de erroresgenerico para excepciones impervistas
+*/
+/
+CREATE OR REPLACE PROCEDURE infomre_sub_manager(p_manager_id NUMBER) IS
+CURSOR c_salarys IS
+    SELECT emp.first_name,emp.last_name, emp.salary AS empleado_salary , man.salary AS manager_salary
+    FROM employees emp LEFT JOIN employees man ON (man.employee_id = emp.manager_id)
+    WHERE emp.manager_id = p_manager_id;
+ BEGIN   
+ FOR cursor_salary IN c_salarys
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Nombre: '||cursor_salary.first_name||' '||cursor_salary.last_name);
+        DBMS_OUTPUT.PUT_LINE('Empleado salary: '||cursor_salary.empleado_salary);
+        DBMS_OUTPUT.PUT_LINE('Manager salary: '||cursor_salary.manager_salary);
+        DBMS_OUTPUT.PUT_LINE('-----------------------');
+
+    END LOOP;
+END;
+/
+
+EXEC infomre_sub_manager (2);
+
+
+
+
+
 
 

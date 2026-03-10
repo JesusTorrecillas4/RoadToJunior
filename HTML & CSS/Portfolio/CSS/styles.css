@@ -10,6 +10,11 @@
     --font-main: "Roboto", sans-serif;
 }
 
+body{
+
+    background: linear-gradient(90deg,rgb(75, 177, 173),rgb(60, 85, 174));
+}
+
 main{
     background-color: var(--bg-card);
 }
@@ -159,4 +164,7 @@ caption{
 .btn-pag:hover{
 
     background-color: var(--bg-card);
+}
+input{
+     box-shadow: 0 0 20px 0 rgba(83, 14, 14, 0.8);
 }

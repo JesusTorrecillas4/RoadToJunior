@@ -1,0 +1,30 @@
+
+body{
+    background-color: blue;
+}
+.principal{
+    background-color: red;
+   margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+}
+
+.img{
+     width: 50%;
+    box-shadow: 4px 4px 8px rgb(22, 20, 20);
+    border-radius: 160px;
+    
+}
+
+.text{
+    
+}
+.btn{
+    
+}
