@@ -386,20 +386,103 @@ CURSOR c_salarys IS
     SELECT emp.first_name,emp.last_name, emp.salary AS empleado_salary , man.salary AS manager_salary
     FROM employees emp LEFT JOIN employees man ON (man.employee_id = emp.manager_id)
     WHERE emp.manager_id = p_manager_id;
+    x NUMBER;
  BEGIN   
+ --Revisar si existe el emleado del manager
+    SELECT employee_id INTO x FROM employees WHERE employee_id = p_manager_id;
  FOR cursor_salary IN c_salarys
     LOOP
+    --Si cambia es que hay lineas
+    x := -67;
         DBMS_OUTPUT.PUT_LINE('Nombre: '||cursor_salary.first_name||' '||cursor_salary.last_name);
-        DBMS_OUTPUT.PUT_LINE('Empleado salary: '||cursor_salary.empleado_salary);
-        DBMS_OUTPUT.PUT_LINE('Manager salary: '||cursor_salary.manager_salary);
+        IF cursor_salary.empleado_salary > cursor_salary.manager_salary THEN
+        DBMS_OUTPUT.PUT_LINE('Salario: '||cursor_salary.empleado_salary ||' cobra mas que el manager');
+        ELSIF cursor_salary.empleado_salary < cursor_salary.manager_salary THEN
+        DBMS_OUTPUT.PUT_LINE('Salario: '|| cursor_salary.empleado_salary||' cobra menos que el manager' );
+        ELSE
+        DBMS_OUTPUT.PUT_LINE('Cobran lo mismo');
+       END IF;
         DBMS_OUTPUT.PUT_LINE('-----------------------');
 
     END LOOP;
+    IF x != -67 THEN DBMS_OUTPUT.PUT_LINE('El empleado no tiene subordinado');
+    END IF;
+    
+EXCEPTION
+    WHEN  NO_DATA_FOUND THEN
+         DBMS_OUTPUT.PUT_LINE('Error - No existe');
+    WHEN OTHERS THEN 
+         DBMS_OUTPUT.PUT_LINE('Error -'||sqlerrm);
+    
 END;
 /
 
-EXEC infomre_sub_manager (2);
+EXEC infomre_sub_manager (1010);
+EXEC infomre_sub_manager (178);
+EXEC infomre_sub_manager (101);
+/
 
+/*
+Tipo: procedure
+nombre: aplicar_subida_convenio
+parametros: p_job_id VARCHAR2, p_porcentaje_subido NUMBER
+DESC: El procedieimiento debe localizar a todos los empleados activos en el 
+puesto indicado y calcula su nuevo sueldo aplicando el porcentaje de subida.La regla de
+oro es que el nuevo salario nunca puede superar el limite maximo MAX_SALARY
+estipulado par ese puesto en la base de datos. Si el calculo lo supera, el empleado se 
+qedara exactamante con el suedlo maximo permitido. Tras realizar el UPDATE correspondiente
+en cada fila, el sistema imprimira el nombre del trabajdro, su sueldo anterior y el definitivo
+CONTROL DE ERRORES:
+Validar que el codigo de puesto existe previamente; si no, lanzar un error de aplicacion
+*/
+/
+CREATE OR REPLACE PROCEDURE ap_subida_conv( p_job_id VARCHAR2, p_porcentaje_subido NUMBER)IS
+CURSOR c_subida IS
+    SELECT employee_id,first_name||' '||last_name AS emp,job_id,salary
+    FROM employees WHERE job_id = p_job_id;
+    
+    
+   v_max_salary jobs.max_salary%TYPE;
+    v_salario_final NUMBER;
+BEGIN
+    -- max_salary y chk si no existe el job
+    SELECT max_salary INTO v_max_salary FROM jobs WHERE job_id = p_job_id;
+    FOR c IN c_subida LOOP
+        v_salario_final := c.salary * (1+NVL(p_porcentaje_subido,0));
+        
+        IF(v_salario_final <= v_max_salary) THEN
+             UPDATE copy_employees SET salary = v_salario_final
+                WHERE employee_id = c.employee_id;
+        ELSE
+            UPDATE copy_employees SET salary = v_max_salary
+                WHERE employee_id = c.employee_id;
+        END IF;
+        
+        DBMS_OUTPUT.PUT_LINE(c.emp || ' Salario inicial: ' || c.salary || ' Salario final: ' || v_salario_final);
+    END LOOP;
+    
+EXCEPTION
+
+    WHEN no_data_found THEN
+        DBMS_OUTPUT.PUT_LINE('Error - job no existe');
+        WHEN others THEN
+        DBMS_OUTPUT.PUT_LINE('Error -'||sqlerrm);
+END;
+/
+/*
+Tipo: procedure
+Nombre: rotacion_personal_masiva
+Parametro entrada: p_dep_id NUMBER, p_nuevo_job VARCHAR2, p_anios_min NUMBER
+DESC: El procedimiento deve localizar a los empleados de un deoartamento 
+especifico cutya antiguedad en la empresa suepera los años indicados en el parametro.
+Para cada uno de los afectasods , se debe realizar un cambo a su nuevo peusto p_nuevo_job
+, ahustnado automaticamente su salario al minimo estipuladopar esa nueva posocion.
+Ademas, por normatica de la empresa, es estrictamente necesario registrar el puesto 
+que acaban de dejar en la tabla historica de empleados. Al finalizar el proceso, 
+el sistema debe imprimirel numero total de tabajadores que han sido rotados
+*/
+CREATE OR REPLACE PROCEDURE rot_per_masiva(p_dep_id NUMBER, p_nuevo_job VARCHAR2, p_anios_min NUMBER)IS
+CURSOR IS
 
 
 
