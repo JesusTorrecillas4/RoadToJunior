@@ -20,10 +20,11 @@ main{
 }
 
 p {
-  line-height: 1.5;
+  line-height: 1.5rem;
   width: auto;
   height: auto;
   margin-left: 15px;
+  font-size: 25px;
 }
 
 a{
@@ -34,19 +35,20 @@ a{
     text-align: center;
     font-size: 3.8rem;
     color: var(--primer-color);
-
+    
 }
 .navbar{
     display: flex;
     justify-content: center;
     background-color: var(--tercer-color);
+    padding: 10px;
     
 }
 
 .navbar ul{
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 50px;
   margin: 0;
   padding: 0;
 }
@@ -58,16 +60,21 @@ a{
 
 li{
     margin: 6px;
+    font-size: 25px;
+}
+
+h2{
+    font-size: 45px;
 }
 
 .container-quiensoy{
 
     background-color: green;
-    display: grid;
-    grid-template-columns: 1fr 300px; /* izquierda flexible, derecha fija */
+    display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 30px;
-    padding: 15px;
+    padding: 20px;
 }
 .pleft{
 
@@ -75,6 +82,8 @@ li{
     
     margin-top: 10px;
 
+    width: 85%;
+    height: 45%;
 }
 #quien_soy p{
     background-color: red;
@@ -91,13 +100,19 @@ li{
     list-style: none;
     
 }
+
+.cara{
+
+    background-color: purple;
+    width: 15%;
+    margin: 20px;
+    
+}
 .micara{
     width: 100%;
-    margin-left: 0;
-    order: 2;
     box-shadow: 4px 4px 8px rgb(22, 20, 20);
     border-radius: 160px;
-    align-self: center;
+    display: block;
 }
 
 #Legnuaje{
@@ -116,11 +131,13 @@ caption{
     margin: 0 auto;
     border-collapse: collapse;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.377);
+    
 }
 .tabla th,
 .tabla td {
-    
+    padding: 8px;
     border: 2px solid black;
+    font-size: 25px;
 }
 
 
