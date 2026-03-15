@@ -163,9 +163,11 @@ caption{
 
 #Contactos{
 
+   
     padding: 15px;
     display: flex;
     justify-content: center;
+    
 }
 
 .btn-pag{
