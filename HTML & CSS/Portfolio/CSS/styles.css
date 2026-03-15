@@ -10,6 +10,11 @@
     --font-main: "Roboto", sans-serif;
 }
 
+@font-face {
+  font-family: "avatar";
+  src: url("TorukscRegular-z8MA1.ttf");
+}
+
 body{
 
     background: linear-gradient(90deg,rgb(75, 177, 173),rgb(60, 85, 174));
@@ -25,6 +30,7 @@ p {
   height: auto;
   margin-left: 15px;
   font-size: 25px;
+  font-family: "avatar";
 }
 
 a{
@@ -35,13 +41,14 @@ a{
     text-align: center;
     font-size: 3.8rem;
     color: var(--primer-color);
-    
+    font-family: "avatar";
 }
 .navbar{
     display: flex;
     justify-content: center;
     background-color: var(--tercer-color);
     padding: 10px;
+    font-family: "avatar";
     
 }
 
@@ -54,17 +61,20 @@ a{
 }
 
 #quien_soy h2{
-
+    
+    font-family: "avatar";
     text-align: center;
 }
 
 li{
+    font-family: "avatar";
     margin: 6px;
     font-size: 25px;
 }
 
 h2{
     font-size: 45px;
+    font-family: "avatar";
 }
 
 .container-quiensoy{
@@ -75,6 +85,13 @@ h2{
     justify-content: space-between;
     gap: 30px;
     padding: 20px;
+}
+h3{
+    font-family: "avatar";
+    font-size: 35px;
+    padding: auto;
+    margin: auto;
+    margin-left: 20px;
 }
 .pleft{
 
@@ -124,7 +141,8 @@ h2{
 
 caption{
 
-    font-size: 25px;
+    font-size: 45px;
+    font-family: "avatar";
 }
 .tabla {
     width: 80%;
@@ -138,6 +156,7 @@ caption{
     padding: 8px;
     border: 2px solid black;
     font-size: 25px;
+    font-family: "avatar";
 }
 
 
