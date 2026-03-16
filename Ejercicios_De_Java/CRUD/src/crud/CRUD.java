@@ -93,19 +93,69 @@ public class CRUD extends JFrame {
         
         //Boton par aupdate de usuario
         //Llamar a la funcion updateUser
-        bUpdate.addActionListener(e->updateUsuario(tabla, tNombre, tEmail, tEdad));
+        //bUpdate.addActionListener(e->updateUsuario(tabla, tNombre, tEmail, tEdad));
         
+        //Al clicar al boton abriremos la nueva ventana(JDialog)
+        //Para poder editar los datos de la fila seleccionada
+        //Primero tenemos que validar si hay una fila seleccionada
+        
+         bUpdate.addActionListener(e->{
+
+             int filaSeleccionada = tabla.getSelectedRow();
+             
+             if(filaSeleccionada == -1){
+                 JOptionPane.showMessageDialog(this,"Please select a user to modify",
+                         "No selection", JOptionPane.WARNING_MESSAGE);
+                 return;
+                        
+             }
+
+             abrirVentana(filaSeleccionada);
+
+        });          
         // Listener para la seleccion
         // Y una vez seleccion de la fila, cargaremos los datos al formulario
         tabla.getSelectionModel().addListSelectionListener(e->cargarFilaEnFormulario(tabla, tNombre, tEmail, tEdad));
         
     }
     
+    // Abrir ventana de edicion
+    // Crearemos la ventana "ventanaEditar" pasandole el objeto Usuario a editar
+    // Cargaremos los datos al formulario
+    // isGuardado() --> Metodo para controlar que todo ha salido correctamante
+    private void abrirVentana(int filaSeleccionada){
+        
+        Usuario usuario = listaUsuarios.get(filaSeleccionada);
+        
+        VentanaEditar ventana = new VentanaEditar(this, usuario);
+        // La ventana se ahce visible y se queda aqui esperando
+        ventana.setVisible(true);
+    }
     private void addUser(JTextField tNombre, JTextField tEmail, JTextField tEdad) {
         
-        String name  = tNombre.getText();
-        String email = tEmail.getText();
-        int age = Integer.parseInt(tEdad.getText());
+        //try-catch: Control de errores
+         //NumberException: para verificar que un argumento(varaible, etc)
+         // un numero
+         try{
+             // Lo que vamos a validar
+             //Si no es okey saltara el catch
+             // Comprobamos que la edad sea un numero entero
+             Integer.parseInt(tEdad.getText().trim());
+             
+         }catch(NumberFormatException ex){
+             
+             //Pop-up informanod de que la edad no es un numero
+             JOptionPane.showMessageDialog(this,
+                     "Age must be a valid integer",
+                     "Invalid age", JOptionPane.WARNING_MESSAGE);
+             return;
+         }
+         
+        String name  = tNombre.getText().trim();
+        String email = tEmail.getText().trim();
+        int age = Integer.parseInt(tEdad.getText().trim());
+        
+        
         
         // Creamos el objeto usuario de la clase Uusario
         Usuario user = new Usuario(name, email, age);
@@ -115,6 +165,7 @@ public class CRUD extends JFrame {
         
         // Añadir el user a la tabla (grid)
         modeloTabla.addRow(new Object[]{name, email, age});
+        limpiarFormulario(tNombre, tEmail, tEdad);
     }
     
     private void deleteUser(JTable tabla) {
@@ -160,23 +211,79 @@ public class CRUD extends JFrame {
          //Fila seleccionada con el index del array (grid)
          int filaSeleccionada = tabla.getSelectedRow();
          
-         //Control de errores
-         if(filaSeleccionada == -1){
+        //Control de errores
+        if(filaSeleccionada == -1){
              
-             JOptionPane.showMessageDialog(this,
-                     "Please select a user from the table to modify",
-                     "Selection chato",
-                     JOptionPane.WARNING_MESSAGE);
-         }
+            JOptionPane.showMessageDialog(this,
+                "Please select a user from the table to modify",
+                 "Selection chato",
+                  JOptionPane.WARNING_MESSAGE);
+        }
          
          //control de errores
          //Validar que los campos del formulario no esten vacios
-         //if(!camposValidos(tNombre, tEmail, tEdad)) return;
+         if(!camposValidos(tNombre, tEmail, tEdad)) return;
+         
+         String name = tNombre.getText().trim();
+         String email = tEmail.getText().trim();
+         int age = Integer.parseInt(tEdad.getText().trim());
+         
+         //Actualizamso el array de Usuarios
+         Usuario user = listaUsuarios.get(filaSeleccionada);
+         
+         //Actualizar datos en un array
+         user.setNombre(name);
+         user.setEmail(email);
+         user.setEdad(age);
+         
+         //A(name, filaSeleccionada, 0);ctualizar la fila en el modelo de la grid(tabla)
+         modeloTabla.setValueAt(name, filaSeleccionada, 0);
+         modeloTabla.setValueAt(email, filaSeleccionada, 1);
+         modeloTabla.setValueAt(age, filaSeleccionada, 2);
+         
+         //Limpiamos el formulario y deseleccionamos la fila
+         limpiarFormulario(tNombre, tEmail, tEdad);
+         tabla.clearSelection();
     }
     
-     /*private boolean camposValidos(JTextField tNombre, JTextField tEmail, JTextField tEdad) {
+    
+    
+     private boolean camposValidos(JTextField tNombre, JTextField tEmail, JTextField tEdad) {
         
-    }*/
+         //trim: para limpiar los espacios en blanco
+         // Validamos que los campos no estan vacios
+         if(tNombre.getText().trim().isEmpty() 
+                 || tEmail.getText().trim().isEmpty()
+                 || tEdad.getText().trim().isEmpty()){
+             
+             JOptionPane.showMessageDialog(this,
+                     "Please write a little in fields",
+                     "Can't field empty", JOptionPane.WARNING_MESSAGE);
+             return false;
+         }
+         
+         //try-catch: Control de errores
+         //NumberException: para verificar que un argumento(varaible, etc)
+         // un numero
+         try{
+             // Lo que vamos a validar
+             //Si no es okey saltara el catch
+             // Comprobamos que la edad sea un numero entero
+             Integer.parseInt(tEdad.getText().trim());
+             
+         }catch(NumberFormatException ex){
+             
+             //Pop-up informanod de que la edad no es un numero
+             JOptionPane.showMessageDialog(this,
+                     "Age must be a valid integer",
+                     "Invalid age", JOptionPane.WARNING_MESSAGE);
+             return false;
+         }
+         
+         
+         return true;
+         
+    }
     
     private void cargarFilaEnFormulario(JTable tabla, JTextField tNombre, JTextField tEmail, JTextField tEdad){
         
@@ -190,13 +297,20 @@ public class CRUD extends JFrame {
         }
     }
     
-    
+    private void limpiarFormulario(JTextField tNombre, JTextField tEmail, JTextField tEdad) {
+        
+        tNombre.setText("");
+        tEmail.setText("");
+        tEdad.setText("");
+    }
+
     
     
     public static void main(String[] args) {
         new CRUD();
     }
 
+    
    
 
     

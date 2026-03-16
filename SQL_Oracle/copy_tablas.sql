@@ -481,10 +481,57 @@ Ademas, por normatica de la empresa, es estrictamente necesario registrar el pue
 que acaban de dejar en la tabla historica de empleados. Al finalizar el proceso, 
 el sistema debe imprimirel numero total de tabajadores que han sido rotados
 */
-CREATE OR REPLACE PROCEDURE rot_per_masiva(p_dep_id NUMBER, p_nuevo_job VARCHAR2, p_anios_min NUMBER)IS
-CURSOR IS
+CREATE OR REPLACE PROCEDURE rot_per_masiva(p_dep_id NUMBER, p_nuevo_job VARCHAR2, p_anios_min NUMBER)
+IS
 
+   CURSOR c_emp IS
+    SELECT employee_id, department_id, job_id , hire_date
+    FROM employees 
+    WHERE department_id = p_dep_id 
+    AND (SYSDATE - hire_date)/365 > p_anios_min;
+    
+    
+    
+    v_exist NUMBER;
+    e_dep EXCEPTION;
+    e_job EXCEPTION;
+BEGIN
+        SELECT COUNT(*) INTO v_exist FROM employees WHERE department_id = p_dep_id;
+        IF v_exist = 0 THEN
+            RAISE e_dep;
+        END IF;
+        
+        
+        SELECT COUNT (*) INTO v_exist FROM jobs WHERE job_id =  p_nuevo_job;
+        IF v_exist = 0 THEN
+            RAISE e_job;
+        END IF;
+        
+        FOR c IN c_emp LOOP
+            v_exist = -67;
+            --Actualizo job_id
+            UPDATE copy_employees SET job_id = p_nuevo_job
+                WHERE employee_id = c.employee_id;
+            --Inserto en job_history
+            INSERT INTO
+    
+    END LOOP;
+    COMMIT;
+EXCEPTION
 
+   
+    WHEN e_dep THEN
+         DMBS_OUTPUT.PUT_LINE('Error - Departamento no existe');
+         
+    WHEN e_job THEN
+        DMBS_OUTPUT.PUT_LINE('Error - Job no existe');
+        
+    WHEN OTHERS THEN
+        DMBS_OUTPUT.PUT_LINE('Error Inesperado'||swlerrm);
+        ROLLBACK
+
+END;
+/
 
 
 
