@@ -481,6 +481,7 @@ Ademas, por normatica de la empresa, es estrictamente necesario registrar el pue
 que acaban de dejar en la tabla historica de empleados. Al finalizar el proceso, 
 el sistema debe imprimirel numero total de tabajadores que han sido rotados
 */
+/
 CREATE OR REPLACE PROCEDURE rot_per_masiva(p_dep_id NUMBER, p_nuevo_job VARCHAR2, p_anios_min NUMBER)
 IS
 
@@ -508,27 +509,69 @@ BEGIN
         END IF;
         
         FOR c IN c_emp LOOP
-            v_exist = -67;
+            v_exist := -67;
             --Actualizo job_id
-            UPDATE copy_employees SET job_id = p_nuevo_job
+            UPDATE copy_employees SET job_id = p_nuevo_job, hire_date = SYSDATE
                 WHERE employee_id = c.employee_id;
             --Inserto en job_history
-            INSERT INTO
+            INSERT INTO job_history VALUES(
+            c.employee_id,c.hire_date,SYSDATE,c.job_id,c.department_id);
     
     END LOOP;
     COMMIT;
+    
+    IF v_exist != -67 THEN DBMS_OUTPUT.PUT_LINE('Ningun Empleado actualiado');
+    END IF;
 EXCEPTION
 
    
     WHEN e_dep THEN
-         DMBS_OUTPUT.PUT_LINE('Error - Departamento no existe');
+         DBMS_OUTPUT.PUT_LINE('Error - Departamento no existe');
          
     WHEN e_job THEN
-        DMBS_OUTPUT.PUT_LINE('Error - Job no existe');
+        DBMS_OUTPUT.PUT_LINE('Error - Job no existe');
         
     WHEN OTHERS THEN
-        DMBS_OUTPUT.PUT_LINE('Error Inesperado'||swlerrm);
-        ROLLBACK
+        DBMS_OUTPUT.PUT_LINE('Error Inesperado'||sqlerrm);
+        ROLLBACK;
+
+END;
+/
+/*
+Tipo: Procedimiento
+nombre: ajuste_salarial_equitat
+Prametos de entrada: p_emp_id NUMBER - Id del empleat evaluat
+p_bonus_extra NUMBER - QUANTITAT base del bonus a repartir
+
+DESC:
+1.El procediemintoe ha d'esbrinar el salari actual de l'empleat indicat pel parametre
+2.A continuacio, ha de calcular el nou salri aplicant les seguents regles de negoci per afavorir l'equalitat
+- Si el salari actual es meno a 4000, l'empleat rep el bo integre(se li suma el 100% de p_bonus_extra)
+-Si el salariactual esta entre 4000 i 8000(ambos inclosos),l'empleatrep nomes la meitat del bonmus 50%
+-Ai el salari actual es major a 8000, l'empleat no rep bo
+
+3.Un cop calculat, el sistema ha de guardar definitivament aquest nou salari a la fitxa de l'empleat a la base de dades
+4. En finalitzar amb exit, imprimira per consola el missatge:"Proces acabat: El nou salari de l'empleat es de [nou_salari]euros"
+Control de errores:Si l'empleatno existeix, informa de l'error. En cas de qaulsevol altre error inesperat, controla tambe
+(assegurant-se de desfer les modificacions que haguessin quedat a mitges)
+*/
+/
+CREATE OR REPLACE PROCEDURE ajuste_salarial_equitat(p_emp_id NUMBER, p_bonus_extra NUMBER)
+IS
+
+    CURSOR c_emp IS
+    SELECT employee_id, first_name,salary
+    FROM employees
+    WHERE employee_id = p_emp_id;
+    
+    v_nuevo_salary NUMBER;
+    
+BEGIN
+
+
+
+EXCEPTION
+
 
 END;
 /
