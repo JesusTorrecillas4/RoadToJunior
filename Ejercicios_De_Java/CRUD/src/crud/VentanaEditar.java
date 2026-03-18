@@ -32,8 +32,8 @@ public class VentanaEditar extends JDialog{
        
        
        //Botones
-       JButton btnGuardar = new JButton();
-       JButton btnSalir = new JButton();
+       JButton btnGuardar = new JButton("Save");
+       JButton btnSalir = new JButton("Exit");
        
         // Panel de formulario
         JPanel pFormulario = new JPanel();
@@ -49,10 +49,28 @@ public class VentanaEditar extends JDialog{
         add(pFormulario);
         
         
+        tNombre.setText(usuario.getNombre());
+        tEmail.setText(usuario.getEmail());
+        tEdad.setText(String.valueOf(usuario.getEdad()));
+        
+        btnGuardar.addActionListener(e -> guardarInfo());
+        btnSalir.addActionListener(e-> exit());
+        
+        
+        
+    }
+    
+    private void guardarInfo(){
+        
+        
         
     }
     
     
+    private void exit(){
+        
+        dispose();
+    }
     // Constructor que le pasamos la ventana madre y el usuario seleccionado
     public VentanaEditar(JFrame padre, Usuario usuario){
         
