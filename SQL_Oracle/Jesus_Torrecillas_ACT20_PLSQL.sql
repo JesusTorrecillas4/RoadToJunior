@@ -72,19 +72,42 @@ EXERCICI 3
     "L’empleat XXXXX no el volen a cap departament..." 
 */
 
-
+/
 DECLARE
 
+CURSOR c_cur IS
 
+    SELECT employee_id,first_name,salary, department_id 
+    FROM employees;
+    
 
+    v_media NUMBER;
+BEGIN
 
-
-
-
-
-
-
-
+ FOR c_loop IN c_cur
+    LOOP
+        
+        IF c_loop.department_id IS NULL THEN
+        DBMS_OUTPUT.PUT_LINE('El empleat '||c_loop.first_name||' no el volen a cap departament... ');
+        ELSE
+        
+        SELECT AVG(salary)
+        INTO v_media
+        FROM employees
+        WHERE department_id = c_loop.department_id;
+        
+        IF v_media > c_loop.salary THEN
+         DBMS_OUTPUT.PUT_LINE('El empleat '||c_loop.first_name||'cobra MÁS que la mitja del seu departament');
+         
+        ELSIF v_media < c_loop.salary THEN
+            DBMS_OUTPUT.PUT_LINE('El empleat '||c_loop.first_name||'cobra MENOS que la mitja del seu departament');
+        END IF;
+    
+    END IF;
+    END LOOP;
+    
+END;
+/
 
 /*
 EXERCICI 4 
@@ -96,12 +119,35 @@ El programa mostrarà una llista de missatges pera a cada departament amb el seg
 Si el departament no té manager, el missatge serà: 
 "El departament <department_name> no té manager.” 
 */
+/
+DECLARE
+
+    CURSOR c_man IS
+        
+        SELECT dep.department_name  AS dep_name,man.first_name AS man_fn, man.last_name AS man_ln,dep.manager_id AS man_id
+        FROM departments dep
+        LEFT JOIN employees man ON (dep.manager_id = man.employee_id);
+BEGIN
+
+    FOR c_lp IN c_man
+    
+    LOOP
+    
+        IF c_lp.man_id IS NULL THEN
+        
+        DBMS_OUTPUT.PUT_LINE('El departament '||c_lp.dep_name||' no té manager');
+        
+        ELSIF c_lp.man_id IS NOT NULL THEN
+    
+        DBMS_OUTPUT.PUT_LINE('El departament '||c_lp.dep_name||' té el manager '||c_lp.man_fn||' '||c_lp.man_ln);
+    
+        END IF;
+    
+    END LOOP;
 
 
-
-
-
-
+END;
+/
 /*
 EXERCICI 5 
 
@@ -115,6 +161,8 @@ CONTROL D’ERRORS:  - Si ens passen un nombre negatiu – Genera error “salar
 Si ens passen un 0 – Genera error “Ningú fa tanta llàstima” 
 - Si no hi ha cap empleat que cobra la quantitat – Genera error “Ningú cobra la quantitat”
 */
+/
+CREATE OR PROCEDURE p_quien_cobra(p_salary NUMBER)IS
 
 
 
