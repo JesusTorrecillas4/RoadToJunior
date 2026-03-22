@@ -53,17 +53,19 @@ public class VentanaEditar extends JDialog{
         tEmail.setText(usuario.getEmail());
         tEdad.setText(String.valueOf(usuario.getEdad()));
         
-        btnGuardar.addActionListener(e -> guardarInfo());
+        btnGuardar.addActionListener(e -> guardarInfo(usuario, tNombre,  tEmail,  tEdad));
         btnSalir.addActionListener(e-> exit());
         
         
         
     }
     
-    private void guardarInfo(){
+    private void guardarInfo(Usuario usuario,JTextField tNombre, JTextField tEmail, JTextField tEdad){
         
         
-        
+         usuario.setNombre(tNombre.getText());
+        usuario.setEmail(tEmail.getText());
+        usuario.setEdad(Integer.parseInt(tEdad.getText()));
     }
     
     
