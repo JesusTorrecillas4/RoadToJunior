@@ -8,6 +8,8 @@ package crud;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 //Mostrara un formulario con los datos del usuario seleccionado
 //para poderlos editar
@@ -18,7 +20,18 @@ import java.awt.*;
 
 public class VentanaEditar extends JDialog{
     
-     private void crearFormulario(Usuario usuario) {
+    //Campos nuevos modificados de formulario
+    private JTextField tNombre;
+    private JTextField tEmail;
+    private JTextField tEdad;
+
+    //Componentes pasados por parametros
+    private final ArrayList<Usuario> listaUsuarios;
+    private final DefaultTableModel modeloTabla;
+    private final int filaSeleccionada;
+    
+    
+    private void crearFormulario(Usuario usuario) {
        
         
        JLabel lNombre = new JLabel("Name: ");
@@ -26,9 +39,9 @@ public class VentanaEditar extends JDialog{
        JLabel lEdad = new JLabel("Age");
        
        // Campo texto
-       JTextField tNombre = new JTextField(10);
-       JTextField tEmail = new JTextField(10);
-       JTextField tEdad = new JTextField(10);
+       tNombre = new JTextField(10);
+       tEmail = new JTextField(10);
+       tEdad = new JTextField(10);
        
        
        //Botones
@@ -36,7 +49,8 @@ public class VentanaEditar extends JDialog{
        JButton btnSalir = new JButton("Exit");
        
         // Panel de formulario
-        JPanel pFormulario = new JPanel();
+        JPanel pFormulario = new JPanel(new GridLayout(4, 2, 10, 10));
+        pFormulario.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         pFormulario.add(lNombre);
         pFormulario.add(tNombre);
         pFormulario.add(lEmail);
@@ -46,6 +60,7 @@ public class VentanaEditar extends JDialog{
         pFormulario.add(btnGuardar);
         pFormulario.add(btnSalir);
              
+        
         add(pFormulario);
         
         
@@ -53,19 +68,32 @@ public class VentanaEditar extends JDialog{
         tEmail.setText(usuario.getEmail());
         tEdad.setText(String.valueOf(usuario.getEdad()));
         
-        btnGuardar.addActionListener(e -> guardarInfo(usuario, tNombre,  tEmail,  tEdad));
+        btnGuardar.addActionListener(e -> guardarInfo());
         btnSalir.addActionListener(e-> exit());
         
         
         
     }
     
-    private void guardarInfo(Usuario usuario,JTextField tNombre, JTextField tEmail, JTextField tEdad){
+    private void guardarInfo(){
         
+        String name = tNombre.getText().trim();
+        String email = tEmail.getText().trim();
+        int edad = Integer.parseInt(tEdad.getText());
         
-         usuario.setNombre(tNombre.getText());
-        usuario.setEmail(tEmail.getText());
-        usuario.setEdad(Integer.parseInt(tEdad.getText()));
+        //Modificamos usuario en el ArrayList original
+        Usuario usuario = listaUsuarios.get(filaSeleccionada);
+        usuario.setNombre(name);
+        usuario.setEmail(email);
+        usuario.setEdad(edad);
+        
+        //Modificar los datos de la tabla para que se vean correctamente
+        modeloTabla.setValueAt(name, filaSeleccionada, 0);
+        modeloTabla.setValueAt(email, filaSeleccionada, 1);
+        modeloTabla.setValueAt(edad, filaSeleccionada, 2);
+
+        dispose();
+        
     }
     
     
@@ -73,8 +101,11 @@ public class VentanaEditar extends JDialog{
         
         dispose();
     }
+    
+    
     // Constructor que le pasamos la ventana madre y el usuario seleccionado
-    public VentanaEditar(JFrame padre, Usuario usuario){
+    public VentanaEditar(JFrame padre, Usuario usuario, ArrayList<Usuario> listaUsuarios, 
+            DefaultTableModel modeloTabla, int filaSeleccionada){
         
         //Llamamos al constructor de JDialog
         //padre --> JFrame
@@ -84,6 +115,10 @@ public class VentanaEditar extends JDialog{
         
         super(padre, "Edit user "+usuario.getNombre(), true);
         
+        this.listaUsuarios = listaUsuarios;
+        this.modeloTabla = modeloTabla;
+        this.filaSeleccionada = filaSeleccionada;
+                
         setSize(350,220);
         //hija
         setLocationRelativeTo(padre);

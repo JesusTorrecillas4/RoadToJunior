@@ -5,6 +5,8 @@
 package crud;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -55,6 +57,17 @@ public class CRUD extends JFrame {
         JButton bUpdate = new JButton("Modify");
         JButton bDelete = new JButton("Delete");
        
+        // Panel de formulario
+        JPanel pFormulario = new JPanel(new GridLayout(3, 2, 10, 10));
+        pFormulario.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        pFormulario.add(lNombre);
+        pFormulario.add(tNombre);
+        pFormulario.add(lEmail);
+        pFormulario.add(tEmail);
+        pFormulario.add(lEdad);
+        pFormulario.add(tEdad);
+        
+        
         // Configurar la tabla (grid) donde vamos a mostrar los usuarios  
         modeloTabla = new DefaultTableModel(new Object[]{"Name","Email","Age"}, 0);
         
@@ -63,24 +76,17 @@ public class CRUD extends JFrame {
         //Añadir scroll a la tabla
         JScrollPane sPane = new JScrollPane(tabla);
         
-        // Panel de formulario
-        JPanel pFormulario = new JPanel();
-        pFormulario.add(lNombre);
-        pFormulario.add(tNombre);
-        pFormulario.add(lEmail);
-        pFormulario.add(tEmail);
-        pFormulario.add(lEdad);
-        pFormulario.add(tEdad);
-        
         // Añadimos los botones al formulario
-        pFormulario.add(bCreate);
-        pFormulario.add(bUpdate);
-        pFormulario.add(bDelete);
+        JPanel pBotones = new JPanel();
+        pBotones.add(bCreate);
+        pBotones.add(bUpdate);
+        pBotones.add(bDelete);
         
         // Vamos a organizar los componentes
         setLayout(new BorderLayout());
         add(pFormulario, BorderLayout.NORTH);
         add(sPane, BorderLayout.CENTER);
+        add(pBotones, BorderLayout.SOUTH);
         
         
         //Boton para crear un usuario
@@ -127,10 +133,12 @@ public class CRUD extends JFrame {
         
         Usuario usuario = listaUsuarios.get(filaSeleccionada);
         
-        VentanaEditar ventana = new VentanaEditar(this, usuario);
+        VentanaEditar ventana = new VentanaEditar(this, usuario, listaUsuarios, 
+                modeloTabla, filaSeleccionada);
         // La ventana se ahce visible y se queda aqui esperando
         ventana.setVisible(true);
     }
+    
     private void addUser(JTextField tNombre, JTextField tEmail, JTextField tEdad) {
         
         //try-catch: Control de errores
@@ -209,7 +217,7 @@ public class CRUD extends JFrame {
     private void updateUsuario(JTable tabla, JTextField tNombre, JTextField tEmail, JTextField tEdad) {
        
          //Fila seleccionada con el index del array (grid)
-         int filaSeleccionada = tabla.getSelectedRow();
+        int filaSeleccionada = tabla.getSelectedRow();
          
         //Control de errores
         if(filaSeleccionada == -1){
