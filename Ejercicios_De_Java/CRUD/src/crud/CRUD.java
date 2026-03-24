@@ -5,6 +5,7 @@
 package crud;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class CRUD extends JFrame {
         pFormulario.add(tEmail);
         pFormulario.add(lEdad);
         pFormulario.add(tEdad);
-        
+        pFormulario.setBackground(new Color(48, 184, 176));
         
         // Configurar la tabla (grid) donde vamos a mostrar los usuarios  
         modeloTabla = new DefaultTableModel(new Object[]{"Name","Email","Age"}, 0);
@@ -117,7 +118,7 @@ public class CRUD extends JFrame {
              }
 
              abrirVentana(filaSeleccionada);
-
+             limpiarFormulario(tNombre, tEmail, tEdad);
         });          
         // Listener para la seleccion
         // Y una vez seleccion de la fila, cargaremos los datos al formulario
@@ -131,6 +132,7 @@ public class CRUD extends JFrame {
     // isGuardado() --> Metodo para controlar que todo ha salido correctamante
     private void abrirVentana(int filaSeleccionada){
         
+       
         Usuario usuario = listaUsuarios.get(filaSeleccionada);
         
         VentanaEditar ventana = new VentanaEditar(this, usuario, listaUsuarios, 

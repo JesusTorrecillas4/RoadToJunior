@@ -77,6 +77,19 @@ public class VentanaEditar extends JDialog{
     
     private void guardarInfo(){
         
+        try{
+            
+            Integer.parseInt(tEdad.getText().trim());
+            
+        }catch(NumberFormatException ex){
+            
+                JOptionPane.showMessageDialog(this,
+                     "Age must be a valid integer",
+                     "Invalid age", JOptionPane.WARNING_MESSAGE);
+             return;
+            
+            
+        }
         String name = tNombre.getText().trim();
         String email = tEmail.getText().trim();
         int edad = Integer.parseInt(tEdad.getText());
