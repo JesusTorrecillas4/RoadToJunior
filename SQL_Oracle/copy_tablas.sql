@@ -575,6 +575,66 @@ EXCEPTION
 
 END;
 /
+/*
+Tipus d'estrucutra: Function
+NOM: calcular_bous_antiguitat
+Parametros: p_emp_id NUMBER
+Tipus de pramaetre de sortida: NUMBER
+
+DESC: 
+1. La funcion ha d'obtenir la data de contactacio(hire_date) i el salari de l'empleat indicat
+2.Ha de calulcar quants anys sencers fa que l'empleat traballa a l'empresa (antiguitat)
+3.La funcion ha de retonar una quantitat economica extra egons aquestes regles:
+    -Si te mes de 20 anys d'antiguitat: el bonus es del 15% de seu salari
+    -Si te entre 10 - 20 (ambos inclosos): el bonus es el 10% del seu salari
+    -Si te menys de 10 anys: el bonus es de 200$ fixos
+CONTROL DE ERORRS: Si l'empleat no existeis, la funcion¡ ha de terornar -1. En cas de
+aualsevol altre error inespaerat, ha de retornar 0
+*/
+/
+CREATE OR REPLACE PROCEDURE f_caluclar_bonus(p_emp_id NUMBER) RETURN NUMBER
+IS
+    v_asal NUMBER;
+    v_anios NUMBER;
+BEGIN
+    SELECT salary, ROUND((SYSDATE-hire_date)/365)
+    INTO v_sal, v_anios
+    FROM employees
+    WHERE employee_id = p_emp_id
+
+    IF v_anios > 20 THEN RETURN v_sal*0.2
+    ELSIF v_anios BETWEEN 10 AND 20 THEN RETURN v_sal*0.15
+    ELSIF v_anios < 10 THEN RETURN 200;
+    END IF;
+
+ WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error Inesperado'||sqlerrm);
+        
+
+END;
+/
+/*
+tIPO: function
+nom: obtenir_cost_total_dep
+parametro: p_dep_id NUMBER
+tipo parametro salida: NUMBER
+DESC:
+1.La funcion ha de calcular la suuma total de todos los saltios de los epmleado que pertenecen al departametno indiciado
+2.Esta suma se le tiene que añadir el coste de comisisones. para hacerlo se tiene que sumar el resultado aplicado el
+porcentage de comison(commisison_pct) al salario d cada empledo que tenga
+3.La funcion tiene que devolver el coste total (salario + comission) del departamento
+Control de errores: si el departamtento no exitte o no tinene ningun empleado asignadno, la fncnion  tiene que devolver 0.
+si e¡se produce un error matematoco o de sistema  deve devolver -999
+*/
+
+
+
+
+
+
+
+
+
 
 
 

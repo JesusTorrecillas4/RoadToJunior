@@ -52,9 +52,9 @@ DECLARE
 BEGIN
     FOR c_emp_loop IN c_emp
     LOOP
-    
+        IF MOD(c_emp_loop.employee_id,2) = 1 THEN
         DBMS_OUTPUT.PUT_LINE('L empleat: '||c_emp_loop.first_name||' te el id: '||c_emp_loop.employee_id);
-    
+    END IF;
     END LOOP;
 
 END;
@@ -144,7 +144,9 @@ BEGIN
         END IF;
     
     END LOOP;
-
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error inesperat: ' || SQLERRM);
 
 END;
 /
