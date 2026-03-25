@@ -314,10 +314,10 @@ BEGIN
     LOOP
         v_count := v_count + 1;
 
-        DBMS_OUTPUT.PUT_LINE('Inici: ' || c_lop.data_inici);
-        DBMS_OUTPUT.PUT_LINE('Fi: ' || c_lop.data_fi);
-        DBMS_OUTPUT.PUT_LINE('Departament: ' || c_lop.dep_name);
-        DBMS_OUTPUT.PUT_LINE('Durada:      ' || c_lop.dies || ' dies');
+        DBMS_OUTPUT.PUT_LINE('Inici: ' || c_lop.data_inici||' Fi: ' || c_lop.data_fi);
+        
+        DBMS_OUTPUT.PUT_LINE('Departament: ' || c_lop.dep_name||' Durada: ' || c_lop.dies || ' dies');
+        
 
     END LOOP;
 
@@ -328,8 +328,7 @@ BEGIN
 
 EXCEPTION
     WHEN no_data_found THEN
-        DBMS_OUTPUT.PUT_LINE('ERROR: L ID ' || p_employee_id || 
-                             ' no existeix en cap de les dues taules.');
+        DBMS_OUTPUT.PUT_LINE('ERROR: La ID ' || p_employee_id ||' no existeix en cap de les dues taules.');
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error inesperat: ' || SQLERRM);
 END;
