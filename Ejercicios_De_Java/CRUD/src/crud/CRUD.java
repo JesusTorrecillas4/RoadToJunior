@@ -161,11 +161,16 @@ public class CRUD extends JFrame {
              return;
          }
          
+             
+         
         String name  = tNombre.getText().trim();
         String email = tEmail.getText().trim();
         int age = Integer.parseInt(tEdad.getText().trim());
         
-        
+        if(age < 0){
+            throw new IllegalArgumentException("La edad no puede ser menor a 0");
+            
+        }
         
         // Creamos el objeto usuario de la clase Uusario
         Usuario user = new Usuario(name, email, age);

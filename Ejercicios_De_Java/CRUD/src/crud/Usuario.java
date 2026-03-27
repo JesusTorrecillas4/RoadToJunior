@@ -41,6 +41,10 @@ public class Usuario {
     }
 
     public void setEdad(int edad) {
+        
+        if(edad<0){
+            throw new IllegalArgumentException("La edad no puede ser menro a 0");
+         }
         this.edad = edad;
     }
 
