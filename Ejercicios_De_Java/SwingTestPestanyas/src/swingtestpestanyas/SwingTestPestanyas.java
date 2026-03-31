@@ -4,6 +4,8 @@
  */
 package swingtestpestanyas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author jesus
@@ -16,8 +18,8 @@ public class SwingTestPestanyas {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        
-        new Inicio();
+        ArrayList<Instrumento>Instrumentos = new ArrayList<>();
+        new Inicio(Instrumentos);
     }
     
 }
