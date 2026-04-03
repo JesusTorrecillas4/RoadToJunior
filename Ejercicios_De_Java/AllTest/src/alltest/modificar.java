@@ -15,7 +15,10 @@ import java.util.ArrayList;
  * @author jesus
  */
 public class modificar extends JDialog {
-    
+
+    private final ArrayList<Usuario> Usuarios;
+    private final DefaultTableModel modeloTabla;
+    private final int seleccion;
     
     
     public modificar(JFrame padre, Usuario usuario, ArrayList<Usuario>Usuarios,
@@ -23,13 +26,18 @@ public class modificar extends JDialog {
         
         
         super(padre,"Editando al suauario " + usuario.getName(), true);
+        
+        this.Usuarios = Usuarios;
+        this.modeloTabla = modeloTabla;
+        this.seleccion = seleccion;
+        
         setSize(padre.getSize());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        Componentes();
+        Componentes(usuario);
         
     }
     
-    private void Componentes(){
+    private void Componentes(Usuario Usuarios){
         
         JLabel lmName = new JLabel("Name");
         JLabel lmAge = new JLabel("Age");
@@ -55,11 +63,43 @@ public class modificar extends JDialog {
         add(pInfo, BorderLayout.NORTH);
         add(pBtn, BorderLayout.SOUTH);
         
-        cargarInfo(mtName, mtAge);
+        btnSave.addActionListener(e->guardar(mtName, mtAge));
+        btnExit.addActionListener(e->salir());
+        mtName.setText(Usuarios.getName());
+        mtAge.setText(String.valueOf(Usuarios.getAge()));
+         
     }
     
-    private void cargarInfo(JTextField mtName, JTextField mtAge){
+    private void guardar(JTextField mtName, JTextField mtAge){
         
-       
+        try{
+            
+            int age = Integer.parseInt(mtAge.getText());
+            
+        }catch(NumberFormatException ex){
+            
+            JOptionPane.showMessageDialog(this, "Invalid age please put a valid nuber",
+                    "Invaliod Age", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        String nam = mtName.getText();
+        int age = Integer.parseInt(mtAge.getText());
+        
+        Usuario usu = Usuarios.get(seleccion);
+        
+        usu.setName(nam);
+        usu.setAge(age);
+        
+        Usuarios.set(seleccion, usu);
+        
+        modeloTabla.setValueAt(nam, seleccion, 0);
+        modeloTabla.setValueAt(age, seleccion, 1);
+        
+        dispose();
+    }
+   
+    private void salir(){
+        
+        dispose();
     }
 }
