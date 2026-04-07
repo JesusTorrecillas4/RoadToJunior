@@ -594,19 +594,19 @@ aualsevol altre error inespaerat, ha de retornar 0
 /
 CREATE OR REPLACE PROCEDURE f_caluclar_bonus(p_emp_id NUMBER) RETURN NUMBER
 IS
-    v_asal NUMBER;
+    v_sal NUMBER;
     v_anios NUMBER;
 BEGIN
     SELECT salary, ROUND((SYSDATE-hire_date)/365)
     INTO v_sal, v_anios
     FROM employees
-    WHERE employee_id = p_emp_id
+    WHERE employee_id = p_emp_id;
 
     IF v_anios > 20 THEN RETURN v_sal*0.2
     ELSIF v_anios BETWEEN 10 AND 20 THEN RETURN v_sal*0.15
-    ELSIF v_anios < 10 THEN RETURN 200;
+    ELSIF v_anios < 10 THEN RETURN 200
     END IF;
-
+EXCEPTION
  WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Error Inesperado'||sqlerrm);
         

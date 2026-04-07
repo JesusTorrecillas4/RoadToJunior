@@ -333,3 +333,239 @@ FROM job_history;
 /
 
 SELECT * FROM v_hire_dates;
+
+
+/
+CREATE OR REPLACE PROCEDURE resum_departament_managers(p_dept_id NUMBER)
+IS
+    CURSOR c_c IS
+        SELECT first_name, salary
+        FROM employees
+        WHERE department_id = p_dept_id;
+
+    v_count    NUMBER := 0;
+    v_sal4     NUMBER := 0;
+    v_tot_sala NUMBER := 0;
+    v_dep      NUMBER;
+BEGIN
+    SELECT department_id
+    INTO v_dep
+    FROM departments
+    WHERE department_id = p_dept_id;
+
+    FOR c_l IN c_c LOOP
+        v_count := v_count + 1;
+        v_tot_sala := v_tot_sala + c_l.salary;
+
+        IF c_l.salary > 4000 THEN
+            v_sal4 := v_sal4 + 1;
+            DBMS_OUTPUT.PUT_LINE(
+                'Empleat: ' || c_l.first_name ||
+                ' | Salari: ' || c_l.salary ||
+                ' | Estat: ALT'
+            );
+        ELSE
+            DBMS_OUTPUT.PUT_LINE(
+                'Empleat: ' || c_l.first_name ||
+                ' | Salari: ' || c_l.salary ||
+                ' | Estat: NORMAL'
+            );
+        END IF;
+    END LOOP;
+
+    IF v_count = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('El departament existeix però no té empleats.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('El total d''empleats és: ' || v_count);
+        DBMS_OUTPUT.PUT_LINE('Els empleats que cobren més de 4000 són: ' || v_sal4);
+        DBMS_OUTPUT.PUT_LINE('La suma total de tots els salaris és: ' || v_tot_sala);
+    END IF;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('El departament no existeix.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+/
+
+/*
+TIPUS: Procediment (PROCEDURE).
+NOM: CONTROL_SALARIS_DEPARTAMENT.
+PARÀMETRES D'ENTRADA: p_department_id (NUMBER).
+
+DESCRIPCIÓ: El procediment ha de recórrer, mitjançant un cursor, tots els empleats que
+pertanyen a un departament concret. Per a cada empleat, s'ha de mostrar:
+
+El seu nom
+El seu salari
+Un missatge segons el salari:
+Si el salari és superior a 5000, mostrar: "SALARI ALT"
+Si el salari és inferior o igual a 5000, mostrar: "SALARI NORMAL"
+
+En finalitzar el recorregut, el procediment ha de mostrar:
+
+El nombre total d’empleats revisats
+El nombre d’empleats amb salari superior a 5000
+La suma total de tots els salaris del departament
+
+CONTROL D'ERRORS:
+Cal gestionar el cas en què el departament indicat no existeixi a la taula DEPARTMENTS.
+Si el departament existeix però no té empleats associats, s'ha d'indicar amb un missatge informatiu.
+
+*/
+CREATE OR REPLACE PROCEDURE CONTROL_SALARIS_DEPARTAMENT(p_department_id NUMBER)IS
+
+    CURSOR c_c IS
+    SELECT first_name,salary
+    FROM employees
+    WHERE department_id = p_department_id;
+    
+    v_count NUMBER := 0;
+    v_emp5 NUMBER := 0;
+    v_tot_sal NUMBER := 0;
+    
+    v_dep NUMBER;
+BEGIN
+
+    SELECT department_id
+    INTO v_dep
+    FROM employees
+    WHERE department_id = p_department_id;
+
+    FOR c_l IN c_c
+    LOOP
+        
+        v_count := v_count +1;
+        
+        IF c_l.salary > 5000 THEN
+             DBMS_OUTPUT.PUT_LINE('L empleat: '||c_l.first_name||' cobra mes de 5k');
+             v_emp5 := v_emp5 +1;
+        ELSIF c_l.salary <= 5000 THEN 
+            DBMS_OUTPUT.PUT_LINE('L empleat: '||c_l.first_name||' te un salri normal');
+        END IF;
+    
+        v_tot_sal := v_tot_sal + c_l.salary;
+    END LOOP;
+
+    IF v_count = 0 THEN
+         DBMS_OUTPUT.PUT_LINE('El dep existe pro no tiene empleados');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('El total de emps revisat es '||v_count);
+        DBMS_OUTPUT.PUT_LINE('El nombre de empleats amb salari superior a 5000 es '||v_emp5);
+        DBMS_OUTPUT.PUT_LINE('La suma total de tots els salaris del departament es: '||v_tot_sal);
+        
+   END IF;
+        
+EXCEPTION
+
+    WHEN no_data_found THEN
+        DBMS_OUTPUT.PUT_LINE('El departametno no existe');
+    WHEN OTHERS THEN
+         DBMS_OUTPUT.PUT_LINE('ERROR '||SQLERRM);
+
+
+END;
+
+
+
+/*
+TIPUS: Procediment (PROCEDURE).
+NOM: RESUM_FEINES_EMPLEAT.
+PARÀMETRES D'ENTRADA: p_employee_id (NUMBER).
+
+DESCRIPCIÓ: El procediment ha d'utilitzar un cursor per recórrer tots els registres de la
+taula JOB_HISTORY associats a un empleat concret. Per a cada registre, s'ha de mostrar:
+
+La data d'inici
+La data de finalització
+El JOB_ID
+El nom del departament on va treballar
+
+A més, per a cada registre s'ha de calcular la durada en dies de cada etapa laboral.
+En finalitzar el recorregut, el procediment ha de mostrar:
+
+El nombre total de registres històrics trobats
+La suma total de dies treballats en l’històric
+
+CONTROL D'ERRORS:
+Cal gestionar el cas en què l’empleat indicat no existeixi a la taula EMPLOYEES.
+Si l’empleat existeix però no té registres a la taula JOB_HISTORY, s'ha d'indicar amb un missatge informatiu
+*/
+/
+CREATE OR REPLACE PROCEDURE RESUM_FEINES_EMPLEAT(p_employee_id NUMBER)IS
+
+    CURSOR c_c IS
+    SELECT job.start_date AS data_inici,job.end_date AS data_fi,job.job_id, dep.department_name AS dep_name
+    FROM job_history job 
+    JOIN departments dep ON (job.department_id = dep.department_id)
+    WHERE employee_id = p_employee_id;
+
+    v_count NUMBER := 0;
+    v_dies NUMBER := 0;
+    v_emp NUMBER;
+BEGIN
+
+    SELECT employee_id
+    INTO v_emp
+    FROM employees
+    WHERE job.employee_id = p_employee_id;
+
+    FOR c_l IN c_c
+    LOOP
+
+    v_count := v_count +1;
+    v_dies := v_dies + (c_l.data_fi - c_l.data_inici);
+    
+    DBMS_OUTPUT.PUT_LINE('Inicio'||c_l.data_inici||' y la data de fi es: '|| c_l.data_fi);
+    DBMS_OUTPUT.PUT_LINE('Job: ' || c_l.job_id ||' | Departament: ' || c_l.dep_name ||' | Durada: ' ||(c_l.data_fi - c_l.data_inici) || ' dies');
+
+    END LOOP;
+    
+    IF v_count = 0 THEN
+        DBMS_OUTPUT.PUT_LINE(' l empleat existeix però no té registres a la taula JOB_HISTORY');
+    ELSE
+     DBMS_OUTPUT.PUT_LINE('Total registres històrics: ' || v_count);
+        DBMS_OUTPUT.PUT_LINE('Suma total de dies treballats: ' || v_dies);
+    
+    
+    END IF;
+EXCEPTION
+
+    WHEN no_data_found THEN
+         DBMS_OUTPUT.PUT_LINE('l empleat indicat no existeixi a la taula EMPLOYEES');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR ' ||SQLERRM);
+END;
+/
+/*
+
+*/
+
+/*
+TIPO: Funcion
+NOMBRE: jesus
+ENTRADA: p_salary NUMBER
+SALIDA: VARCHAR2
+DESC: Saber el nombre y apellido del empleado con ese salario
+ERRORES: Si hay muchos o si no hay nadie con ese salario
+*/
+/
+CREATE OR REPLACE FUNCTION jesus (p_salary NUMBER)
+RETURN VARCHAR2 IS
+    v_nombre VARCHAR2(200);
+BEGIN
+    SELECT first_name || ' ' || last_name
+    INTO v_nombre
+    FROM employees
+    WHERE salary = p_salary;
+   
+    RETURN v_nombre;
+EXCEPTION
+    WHEN no_data_found THEN
+        RETURN 'no existe';
+    WHEN too_many_rows THEN
+        RETURN 'muchos empleados';
+END;
+/
+

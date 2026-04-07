@@ -6,6 +6,7 @@ package swingtestpestanyas;
 
 import java.awt.event.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.*;
 
@@ -15,6 +16,7 @@ import javax.swing.*;
  */
 public class Inicio extends JFrame {
     
+    ArrayList<Instrumento>Instrumentos = new ArrayList<>();
     
     public Inicio(){
         
