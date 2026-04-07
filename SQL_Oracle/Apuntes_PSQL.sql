@@ -569,3 +569,63 @@ EXCEPTION
 END;
 /
 
+/*
+TIPO: Procedimiento
+NOMBRE: salis
+ENTRADA: p_id NUMBER
+DESC: Si cobra mas o menos que cada empleado
+*/
+CREATE OR REPLACE PROCEDURE salis (p_id NUMBER)
+IS
+    CURSOR busqueda IS
+        SELECT first_name  ' '  last_name AS nombre, salary
+        FROM eployees;
+    v_nombre VARCHAR2(200);
+    v_salario NUMBER;
+BEGIN
+    SELECT first_name  ' '  last_name, salary 
+    INTO v_nombre, v_salario
+    FROM employees WHERE employee_id = p_id;
+
+    FOR c IN busqueda LOOP
+        IF c.salary < v_salario THEN
+            DBMS_OUTPUT.PUT_LINE('El empleado '  c.nombre  ' cobra menos que '  v_nombre);
+        ELSIF c.salary > v_salario THEN
+            DBMS_OUTPUT.PUT_LINE('El empleado '  c.nombre  ' cobra mas que '  v_nombre);
+        ELSE 
+            DBMS_OUTPUT.PUT_LINE('El empleado '  c.nombre  ' cobra igual que ' || v_nombre);
+        END IF;
+    END LOOP;
+EXCEPTION
+    WHEN others THEN
+        DBMS_OUTPUT.PUT_LINE(sqlerrm);
+END;
+/
+/*
+TIPO: Funcion
+NOMBRE: oscar
+ENTRADA: p_id NUMBER
+SALIDA: NUMBER
+DESC: Retornar todo el dinero que ha cobrado el empleado en su ultimo puesto de trabajo
+*/
+/
+CREATE OR REPLACE FUNCTION oscar (p_id NUMBER)
+RETURN NUMBER IS
+    v_meses NUMBER;
+    v_salario NUMBER;
+    v_total NUMBER;
+BEGIN
+    SELECT ROUND((SYSDATE - hire_date)/30), salary 
+    INTO v_meses, v_salario
+    FROM employees WHERE employee_id = p_id;
+
+    v_total := v_meses * salary;
+
+    RETURN v_total;
+EXCEPTION
+    WHEN no_data_found THEN
+        RETURN 'empleado no encontrado';
+    WHEN others THEN
+        RETURN 'error inesperado';
+END;
+/

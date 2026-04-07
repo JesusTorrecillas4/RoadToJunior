@@ -1,21 +1,45 @@
+:root{
 
+        --primer-color: #00F4CB;
+        --segundo-color: #105591;
+        --tercero-color: #30D3F2;
+        --quarto-color: #30F290;
+        --quinto-color: #3059F2;
+        --sexto-color: #81E0F2;
 
+}
 
+h1{
+    color: var(--quinto-color);
+    font-size: 45px;
+}
+p{
+    color: var(--segundo-color);
+    font-size: 25px;
+}
+
+.main {
+  background-color: rgb(192, 223, 221);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 25px;
+  box-sizing: border-box; 
+  padding-top: 100px;
+}
 
 .contenedor{
     display: flex;
-    background-color: red;
-    align-items: center;
-    justify-content: center;
-    
+    width: 75%;
+    height: 75%;
 }
 
 .foto{
     width: 90%;
-    border-radius: 120px;
+    border-radius: 150px;
 }
 .imgbg{
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -24,14 +48,14 @@
     width: 50%;
 }
 .left{
-    background-color: blue;
+    background-color: var(--primer-color);
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
     width: 50%;
-    height: 100vh;
     padding-top:50px ;
+    padding-bottom: 25px;
 }
 
 .btn1{
@@ -45,14 +69,23 @@
     gap:10px;
 }
 .right{
-    background-color: yellow;
+    background-color: var(--quarto-color);
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 30px;
     width: 50%;
-    height: 100vh;
     padding-top:50px ;
+}
+
+.texto {
+  width: 70%;            
+  text-align: left;      
+}
+
+.texto h1 {
+  margin-bottom: 20px;
 }
 
 .btn{

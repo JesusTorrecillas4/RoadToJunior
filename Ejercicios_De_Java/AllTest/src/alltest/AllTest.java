@@ -61,6 +61,7 @@ public class AllTest extends JFrame{
         JTable tabla = new JTable(modeloTabla);
         
         JPanel pBtn = new JPanel();
+        pBtn.setBackground(Color.blue);
         pBtn.add(btnPantalla2);
         
         JScrollPane pMedio = new JScrollPane(tabla);
@@ -77,7 +78,14 @@ public class AllTest extends JFrame{
         btnDelete.addActionListener(e->deleteUser(tabla));
         btnModify.addActionListener(e ->{
         
-            int seleccion = tabla.getSelectedRow();
+             int seleccion = tabla.getSelectedRow();
+            
+             if(seleccion < 0){
+                
+                 JOptionPane.showMessageDialog(this, "Select a an user please","User Error",JOptionPane.WARNING_MESSAGE);
+                 return;
+                }
+           
             modify(seleccion);
         });
         btnPantalla2.addActionListener(e -> {
