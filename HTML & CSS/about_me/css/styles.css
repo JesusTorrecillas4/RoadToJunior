@@ -1,0 +1,69 @@
+
+
+
+
+.contenedor{
+    display: flex;
+    background-color: red;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.foto{
+    width: 90%;
+    border-radius: 120px;
+}
+.imgbg{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px;
+    margin: 25px;
+    width: 50%;
+}
+.left{
+    background-color: blue;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    width: 50%;
+    height: 100vh;
+    padding-top:50px ;
+}
+
+.btn1{
+    width: 115px;
+    height: 55px;
+    border-radius: 1px;
+}
+
+.icon{
+    display: flex;
+    gap:10px;
+}
+.right{
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    width: 50%;
+    height: 100vh;
+    padding-top:50px ;
+}
+
+.btn{
+    background-color: pink;
+    display: flex;
+    gap: 50px;
+    margin: 50px;
+}
+
+.btn2{
+    width: 115px;
+    height: 55px;
+    border-radius: 1px;
+}
