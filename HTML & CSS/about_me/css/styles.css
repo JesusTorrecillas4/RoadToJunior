@@ -1,29 +1,37 @@
 :root{
 
-        --primer-color: #00F4CB;
-        --segundo-color: #105591;
-        --tercero-color: #30D3F2;
-        --quarto-color: #30F290;
-        --quinto-color: #3059F2;
-        --sexto-color: #81E0F2;
+        --primer-color: #DED9D7;
+        --segundo-color: #CAC2BE;
+        --tercero-color: #B6AAA5;
+        --quarto-color: #A1928C;
+        --quinto-color: #8C7A73;
+        --sexto-color: #73645E;
+        --font-main: "Yellowtail", cursive;
+}
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 h1{
+    font-family: var(--font-main);
     color: var(--quinto-color);
     font-size: 45px;
 }
+
 p{
+     font-family: var(--font-main);
     color: var(--segundo-color);
     font-size: 25px;
 }
 
 .main {
-  background-color: rgb(192, 223, 221);
+  background-color: rgb(151, 131, 131);
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  padding: 25px;
   box-sizing: border-box; 
   padding-top: 100px;
 }
@@ -38,8 +46,9 @@ p{
     width: 90%;
     border-radius: 150px;
 }
+
 .imgbg{
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(175, 161, 161);
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -47,6 +56,7 @@ p{
     margin: 25px;
     width: 50%;
 }
+
 .left{
     background-color: var(--primer-color);
     display: flex;
@@ -58,16 +68,20 @@ p{
     padding-bottom: 25px;
 }
 
-.btn1{
-    width: 115px;
-    height: 55px;
-    border-radius: 1px;
+.tx1{
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
 }
+
 
 .icon{
     display: flex;
     gap:10px;
 }
+
 .right{
     background-color: var(--quarto-color);
     display: flex;
@@ -88,15 +102,26 @@ p{
   margin-bottom: 20px;
 }
 
+.btnw{
+
+    width: 215px;
+    height: 35px;
+    border-radius: 1px;   
+    border-style: none;
+    color: var(--tercero-color);
+    background-color: #887e7a;
+    font-size: 15px;
+    font-family: var(--font-main);
+}
+
+
 .btn{
-    background-color: pink;
     display: flex;
     gap: 50px;
     margin: 50px;
 }
 
-.btn2{
-    width: 115px;
-    height: 55px;
-    border-radius: 1px;
+.ic{
+    text-decoration: none;
+    color: inherit;
 }

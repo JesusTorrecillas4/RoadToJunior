@@ -53,6 +53,9 @@ public class modificar extends JDialog {
         JPanel pInfo = new JPanel(new GridLayout(2,2,15,15));
         JPanel pBtn = new JPanel(new GridLayout(2,2,15,15));
         
+        pInfo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pBtn.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
         pInfo.add(lmName);
         pInfo.add(mtName);
         pInfo.add(lmAge);
@@ -60,7 +63,7 @@ public class modificar extends JDialog {
         
         pBtn.add(btnSave);
         pBtn.add(btnExit);
-        add(pInfo, BorderLayout.NORTH);
+        add(pInfo, BorderLayout.CENTER);
         add(pBtn, BorderLayout.SOUTH);
         
         btnSave.addActionListener(e->guardar(mtName, mtAge));
