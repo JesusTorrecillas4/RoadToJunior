@@ -107,7 +107,29 @@ END;
 /
 
 --Funcioin
+CREATE OR REPLACE FUNCTION sumar(p_emp_id NUMBER)
+RETURN NUMBER IS
 
+    v_sal NUMBER;
+    v_antiguedad NUMBER;
+     
+
+BEGIN
+    SELECT salary, ROUND((SYSDATE - hire_date)/365)
+    INTO v_sal, v_antiguedad
+    FROM employees
+    WHERE employee_id = p_emp_id;
+    
+    RETURN v_sal * v_antiguedad;
+
+
+EXCEPTION
+
+    WHEN no_data_found THEN
+        RETURN 'no se encuentra el empleado';
+    WHEN too_many_rows THEN
+        'Demasiados empleados';
+END;
 
 
 

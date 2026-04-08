@@ -57,6 +57,21 @@ public class AllTest extends JFrame{
         pPrincipal.add(btnDelete);
         pPrincipal.add(btnModify);  
         
+        //Esto es para el border MARGIN 
+        pPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+         
+        // Cambaismo la font para que sea mas guay
+        tName.setFont(new Font("Consolas",Font.BOLD, 28));
+        tName.setBackground(new Color(169, 237, 252));
+        
+        // Cambiamos el color del texto
+        tName.setForeground(Color.black);
+        // Para el border entre los botones
+        tName.setBorder(BorderFactory.createCompoundBorder(
+        
+                BorderFactory.createLineBorder(new Color(0, 191, 255), 1),
+                BorderFactory.createEmptyBorder(10, 5, 10, 5)
+        ));
         modeloTabla = new DefaultTableModel(new Object[]{"Name", "Age"},0);
         JTable tabla = new JTable(modeloTabla);
         
