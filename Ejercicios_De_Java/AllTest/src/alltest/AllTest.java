@@ -167,8 +167,18 @@ public class AllTest extends JFrame{
     //Metodo para eliminar user, le pasamos la tabla
     private void deleteUser(JTable tabla){
         
+        
+        
         //Comprobamos cual esta seleccioando
         int seleccionado = tabla.getSelectedRow();
+            
+        if(seleccionado == -1){
+            
+            JOptionPane.showMessageDialog(this,"Error you need select an user",
+            "Invalid method",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         
         //Lo eliminamos del arryList
         Usuarios.remove(seleccionado);
