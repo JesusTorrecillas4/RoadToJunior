@@ -96,15 +96,19 @@ public class BlocNotas extends JFrame implements ActionListener{
             
             case "Abrir":
                 abrirArchivo();
+                break;
             case "Guardar":
                 guardarArchivo();
+                break;
             case "Salir":
                 salirArchivo();
+                break;
             case "Cambiar Fuente":
                 cFuente();
+                break;
             case "Cambiar Color":
                 cColor();
-                
+                break;
             default:
                 
                 break;
@@ -122,7 +126,7 @@ public class BlocNotas extends JFrame implements ActionListener{
     
     private void salirArchivo(){
         
-        
+           dispose();
     }
     
     private void cFuente(){

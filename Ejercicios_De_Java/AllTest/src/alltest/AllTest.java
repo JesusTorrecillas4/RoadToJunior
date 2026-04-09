@@ -46,7 +46,7 @@ public class AllTest extends JFrame{
         JButton btnDelete = new JButton("Delete");
         JButton btnModify = new JButton("Modify");
         JButton btnPantalla2 = new JButton("Pag 2");
-        
+        JButton btnMenu = new JButton("Menu");
         //Panel principal
         JPanel pPrincipal = new JPanel(new GridLayout(4,2,10,10));
         
@@ -91,7 +91,7 @@ public class AllTest extends JFrame{
         //Defino el color de fondo del boton
         pBtn.setBackground(Color.blue);
         pBtn.add(btnPantalla2);
-        
+        pBtn.add(btnMenu);
         //Creo un JScroll como panel para la tabla
         //Sine esto no funciona
         JScrollPane pMedio = new JScrollPane(tabla);
@@ -131,6 +131,15 @@ public class AllTest extends JFrame{
                  
                  //Lo hago visible aqui para que cuadno clique se abra y se vea
                  pant.setVisible(true);
+        });
+        
+        btnMenu.addActionListener(e -> {
+        
+                Menu m = new Menu(this);
+                
+                m.setVisible(true);
+        
+        
         });
         
         
