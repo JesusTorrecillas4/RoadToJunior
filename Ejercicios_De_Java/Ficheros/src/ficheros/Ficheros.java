@@ -69,7 +69,7 @@ public class Ficheros {
                     
                    int a = i * j; 
                     
-                    tabla.write(i+ "X"+ j+"= "+ a+"\n");
+                    tabla.write(i+ " X "+ j+"= "+ a+"\n");
                 }
             }
             
@@ -88,16 +88,18 @@ public class Ficheros {
             Scanner sc = new Scanner(leerM);
             
             
+            while(sc.hasNextLine()){
+                
+                System.out.println(sc.nextLine());
+            }
+            
+            sc.close();
+            
         }catch(FileNotFoundException e){
             
-            
+            System.out.println("Error :"+ e.getMessage());
         }
-        
-        
-        
-        
-        
-        
+      
     }
     
 }

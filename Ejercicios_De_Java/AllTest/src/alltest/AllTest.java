@@ -8,6 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.io.*;
 
 /**
  *
@@ -150,10 +151,24 @@ public class AllTest extends JFrame{
             return;
         }
         
+        
         //Paso los JTextField a String e integer
         String name = tName.getText().trim();
         int age = Integer.parseInt(tAge.getText().trim());
         
+        //Esto es para abrir un archivo y meter dentro el nombre y la edad
+        try{
+            FileWriter escritura = new FileWriter("usuarios.txt", true);
+            
+            escritura.write("Name: "+name+ " \n");
+            escritura.write("Age: "+age);
+            
+            escritura.close();
+            
+        }catch(IOException e){
+            
+            System.out.println("Error: "+e.getMessage());
+        }
         //Creo un objeto con los parametros que avabo de transformar
         Usuario usu = new Usuario(name,age);
         
@@ -184,6 +199,9 @@ public class AllTest extends JFrame{
         Usuarios.remove(seleccionado);
         //Lo eliminamos de la tabla
         modeloTabla.removeRow(seleccionado);
+        
+        
+       
     }
    
     //Metodo de  modificar que abre un JDialog, se le pasa la seleccion
