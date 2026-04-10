@@ -4,7 +4,9 @@
  */
 package blocnotas;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.*;
@@ -40,6 +42,8 @@ public class BlocNotas extends JFrame implements ActionListener{
         //Funcion para crear el Menu
         crearMenu();
         setVisible(true);
+        
+        fileSelector = new JFileChooser();
     }
     
     public  void crearMenu(){
@@ -87,6 +91,7 @@ public class BlocNotas extends JFrame implements ActionListener{
         setJMenuBar(barraMenu);
     }
     
+    @Override
     public void actionPerformed(ActionEvent e){
         
         // TODO OBLIGADO menu para los eventos
@@ -95,13 +100,15 @@ public class BlocNotas extends JFrame implements ActionListener{
         switch(evento){
             
             case "Abrir":
+                System.out.println("Abreindo...");
                 abrirArchivo();
                 break;
             case "Guardar":
+                
                 guardarArchivo();
                 break;
             case "Salir":
-                salirArchivo();
+                dispose();
                 break;
             case "Cambiar Fuente":
                 cFuente();
@@ -117,26 +124,71 @@ public class BlocNotas extends JFrame implements ActionListener{
     
     private void abrirArchivo(){
         
+        int opcion = fileSelector.showOpenDialog(this);
         
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            File arx = fileSelector.getSelectedFile();
+            
+            try(BufferedReader reader = new BufferedReader(new FileReader(arx))){
+                
+                areaTexto.read(reader, null);
+            }catch(IOException e){
+                
+                JOptionPane.showMessageDialog(this, e);
+            }
+        }
     }
     
     private void guardarArchivo(){
         
-    }
-    
-    private void salirArchivo(){
+        int opcion = fileSelector.showSaveDialog(this);
         
-           dispose();
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            File arx = fileSelector.getSelectedFile();
+            
+            try(BufferedWriter write = new BufferedWriter(new FileWriter(arx))){
+                
+                areaTexto.write(write);
+            }catch(IOException e){
+                
+                JOptionPane.showMessageDialog(this, "Error al guardar el fichero",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
     
     private void cFuente(){
         
+        String[] fuentes = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         
+        String fuenteSeleccionada = (String) JOptionPane.showInputDialog(this,"Elige una fuente", "Fuente", JOptionPane.PLAIN_MESSAGE, null,fuentes, areaTexto.getFont().getFamily());
+        
+        if(fuenteSeleccionada != null){
+            
+            String tFuente = JOptionPane.showInputDialog(this,"Introduce el tamaño",
+                    areaTexto.getFont().getSize());
+                    
+                    try{
+                        
+                        int tam = Integer.parseInt(tFuente);
+                        
+                        areaTexto.setFont(new Font(fuenteSeleccionada, Font.PLAIN, tam));
+                    }catch(NumberFormatException e){
+                        
+                        JOptionPane.showMessageDialog(this, "Tamaño no valido", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+        }
     }
     
     private void cColor(){
         
+        Color cNuevo = JColorChooser.showDialog(this, "Elige un color",
+                areaTexto.getForeground());
         
+        if(cNuevo != null){
+            areaTexto.setForeground(cNuevo);
+        }
     }
     
     
