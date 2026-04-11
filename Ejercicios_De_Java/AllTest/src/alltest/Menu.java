@@ -6,27 +6,16 @@ package alltest;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 import javax.swing.*;
-import javax.swing.JRadioButton;
-import javax.swing.JSlider;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  *
  * @author jesus
  */
-public class Menu extends JDialog{
+public class Menu extends JDialog implements ActionListener{
     
     private JTextArea areaTexto;
     
@@ -42,6 +31,8 @@ public class Menu extends JDialog{
         
         add(scrollpane);
         componentes();
+        
+        fileSelector = new JFileChooser();
     }
     
      public void componentes(){
@@ -56,13 +47,82 @@ public class Menu extends JDialog{
         JMenu Opciones = new JMenu("Opciones");
         
         JMenuItem Guardar = new JMenuItem("Guardar");
+        JMenuItem Abrir = new JMenuItem("Abrir");
         
         menuBar.add(Opciones);
         
-        Opciones.add(Guardar);
         
-       setJMenuBar(menuBar);
+        Opciones.add(Guardar);
+        Opciones.add(Abrir);
+        
+        
+        Guardar.addActionListener(this);
+        Abrir.addActionListener(this);
+        
+        setJMenuBar(menuBar);
+       
+       
     }
     
+    @Override
+    public void actionPerformed(ActionEvent e){
+        
+        String evento = e.getActionCommand();
+        
+        switch(evento){
+            
+            case "Guardar":
+                guardarArchivo();
+                break;
+            case "Abrir":
+                    abrirArchivo();
+                break;
+        }
+    }
   
+    public void guardarArchivo(){
+        
+        int opcion = fileSelector.showSaveDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            
+            File arx = fileSelector.getSelectedFile();
+            
+            try(BufferedWriter write = new BufferedWriter(new FileWriter(arx))){
+                
+                areaTexto.write(write);
+            }catch(IOException e){
+                
+                JOptionPane.showMessageDialog(this, "Error al guardar el fichero",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
+    }
+    
+    public void abrirArchivo(){
+        
+        
+        
+        int opcion = fileSelector.showOpenDialog(this);
+        
+        if(opcion == JFileChooser.APPROVE_OPTION){
+            
+            
+            File arx = fileSelector.getSelectedFile();
+            
+            try(BufferedReader read = new BufferedReader(new FileReader(arx))){
+                
+                areaTexto.read(read, null);
+                
+                
+            }catch(IOException e){
+                
+                JOptionPane.showMessageDialog(this, "Error al guardar el fichero",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        
+    }
 }
