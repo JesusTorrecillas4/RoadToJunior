@@ -203,11 +203,20 @@ public class AllTest extends JFrame{
             return;
         }
         
+        String nameConfirm = Usuarios.get(seleccionado).getName();
         
-        //Lo eliminamos del arryList
-        Usuarios.remove(seleccionado);
-        //Lo eliminamos de la tabla
-        modeloTabla.removeRow(seleccionado);
+        int confirm = JOptionPane.showConfirmDialog(this, "Estas seguro que quieres eliminar el usuairo \""+nameConfirm+"\"?", "Confirm delete", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        
+        if(confirm == seleccionado){
+             
+            //Lo eliminamos del arryList
+            Usuarios.remove(seleccionado);
+            //Lo eliminamos de la tabla
+            modeloTabla.removeRow(seleccionado);
+            
+        }
+       
         
         
        
