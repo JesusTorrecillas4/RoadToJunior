@@ -13,7 +13,8 @@ public class Professor extends Usuari{
     private String departament;
     private int assigantures;
     
-    public Professor(String nom, String email, String tipo){
+    public Professor(String nom, String email, String tipo,
+            String departament, int assigantures){
         
         super(nom,email,tipo);
         this.departament = departament;

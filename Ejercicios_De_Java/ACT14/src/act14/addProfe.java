@@ -18,8 +18,9 @@ public class addProfe extends JDialog {
       private ArrayList<Usuari> Usuarios;
       private DefaultTableModel modeloTabla;
     
-    public addProfe(ArrayList<Usuari> Usuarios, DefaultTableModel modeloTabla){
+    public addProfe(JFrame padre,ArrayList<Usuari> Usuarios, DefaultTableModel modeloTabla){
         
+        super(padre,true);
         this.Usuarios = Usuarios;
         this.modeloTabla = modeloTabla;
         
@@ -37,10 +38,10 @@ public class addProfe extends JDialog {
         JTextField tnom = new JTextField(10);
         JLabel lemail = new JLabel("Email");
         JTextField temail = new JTextField(10);
-        JLabel lcurs = new JLabel("Curs");
-        JTextField tcurs = new JTextField(10);
-        JLabel lnota = new JLabel("Nota");
-        JTextField tnota = new JTextField(10);
+        JLabel ldepartament = new JLabel("Departament");
+        JTextField tdepartament = new JTextField(10);
+        JLabel lassigantures = new JLabel("Assigantures");
+        JTextField tassigantures = new JTextField(10);
         
         JButton btnCrear = new JButton("Crear");
         JButton btnSalir = new JButton("Salir");
@@ -54,10 +55,10 @@ public class addProfe extends JDialog {
         pPrin.add(tnom);
         pPrin.add(lemail);
         pPrin.add(temail);
-        pPrin.add(lcurs);
-        pPrin.add(tcurs);
-        pPrin.add(lnota);
-        pPrin.add(tnota);
+        pPrin.add(ldepartament);
+        pPrin.add(tdepartament);
+        pPrin.add(lassigantures);
+        pPrin.add(tassigantures);
         
         pBtn.add(btnCrear);
         pBtn.add(btnSalir);
@@ -65,7 +66,22 @@ public class addProfe extends JDialog {
         add(pPrin);
         add(pBtn, BorderLayout.SOUTH);
                
-        btnCrear.addActionListener(e -> crearus(tnom, temail, tcurs, tnota));
+        btnCrear.addActionListener(e -> crearus(tnom, temail, tdepartament, tassigantures));
         btnSalir.addActionListener(e -> dispose());
+    }
+    
+    public void crearus(JTextField tnom, JTextField temail,
+                JTextField tdepartament, JTextField tassigantures){
+        
+        String nom = tnom.getText();
+        String email = temail.getText();
+        String depa = tdepartament.getText();
+        int assi = Integer.parseInt(tassigantures.getText());
+        
+        Professor prof = new Professor(nom,email,"Professor",depa,assi);
+        
+        Usuarios.add(prof);
+        
+        modeloTabla.addRow(new Object[]{nom,email,"Professor",depa,assi});
     }
 }
