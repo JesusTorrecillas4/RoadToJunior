@@ -1,0 +1,268 @@
+/* Declaracion de varaiables globales */
+:root{
+
+    --color1: rgb(104, 200, 202);
+    --color2: rgb(44, 127, 159);
+    --color3: rgb(27, 95, 220);
+    --color4: rgb(143, 228, 228); 
+    --colorcalro: rgb(131, 182, 181); 
+
+}
+/*
+h1{
+
+    color:red;
+    text-align: center;
+    font-size: 50px;
+}*/
+
+/* rem: 1 rem --> 10px para que sea 100% responsive u que se adapte correctamante a todas las pantallas*/
+/* Para asegurarnso que 1 ream sea 10 px */
+html{
+
+    font-size: 62.5%;
+}
+body{
+    font-size: 1.6rem;  /* 16 pixeles*/
+    font-family: "Roboto", sans-serif;
+}
+
+i.bx {
+  font-size: 24px;
+}
+
+/* Estilo al titulo */
+.titulo{
+    text-align: center;
+    font-size: 3.8rem;
+    color: var(--color1);
+}
+.titulo span{
+    font-size: 2rem;
+    color: var(--color2);
+}
+/* Navegacion */
+.nav-bg{
+    background-color: var(--color3);
+}
+.navegacion-principal{
+    display: flex;
+    /* felx-direction por default es row (fila) y ordena de izquierda a derecha */
+    flex-direction: row;
+    justify-content: space-around; /* de izqueira a derecha*/
+    align-items: center; /*de arriba a abajo*/
+}
+
+.navegacion-principal a{
+    text-decoration: none;
+    color: var(--colorcalro);
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 2rem, 0rem, 2rem, 0rem;
+
+
+}
+
+/*Efecto al pasar el cursor por enima de un link*/
+.navegacion-principal a:hover{
+
+        background-color: var(--color1);
+        color: var(--color2);
+
+}
+/*div para cabecera, añadimos una imagen*/
+.cabecera{
+    /*Para tirar una ruta para atras en la carpeta de css, se tiene queponer ../ */
+    background-image: url(../img/img1.jpg);
+    /*Para que la imagen no se repita*/
+    background-repeat: no-repeat;
+    /* Para que la imagen ocupe todo el tamaño del sectio*/
+    background-size: cover;
+    height: 450px;
+    background-position: center;
+    /* Si el hijpo tiene postiion absolute, el padre tiene que tener position relative*/
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.contenido-cabecera{
+    /* Colocar los elemetnos en una posicion concreta */
+    position: absolute;
+    background-color: rgba(100, 71, 8, 0.584);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.contenido-cabecera h2, .contenido-cabecera p{
+    color: var(--color1);
+
+}
+
+.boton{
+    background-color: var(--color3);
+    color: white;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    font-size: 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    /* Esto se aplicara luego cuando s ehaga la web apr movil */
+    /*width: 80%;*/
+    text-align: center;
+    font-weight: bold;
+    border: none;
+
+}
+
+/* Definir el contenedor principal (main)*/
+.contenedor{
+
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+.sombra{
+
+    /* chrome */
+    -webkit-bo-shadow:2px 4px 21px 1px rgba(228, 226, 228, 0.77);
+    /* firefox */
+    -moz-box-shadow:2px 4px 21px 1px rgba(228, 226, 228, 0.77);
+    /* el resto */
+    box-shadow: 2px 4px 21px 1px rgba(228, 226, 228, 0.77);
+
+    padding: 2rem;
+    border-radius: 1rem;
+
+    display: flex;
+    flex-direction: column;
+}
+.titulo-sombra{
+
+    text-align: center;
+    color: var(--color1);
+}
+
+/*Padre*/
+.servicios{
+
+    /* Dispaly felx*/
+   /* display: flex;
+    flex-direction:row;
+    text-align: center;*/
+    /* Dispaly Grid*/
+    display: grid;
+
+    /* Tamaño de columnas*/
+    /*grid-template-columns: 300px 100px 100px;
+    Tamaño heigh de la row*/
+    /*grid-template-rows: 200px;*/
+
+    /*Forma reducida de juntar los dos*/
+    /*grid: 300px 200px / 200px 200px;*/
+
+    /*Porcentajes: responsive de la web*/
+    /*grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 70% 30%;*/
+
+    /*Fracciones: responsive*/
+    /*grid-template-columns: 1fr 1fr 1fr;*/
+
+    /*grid-template-columns: repeat(3, 1fr);*/
+}
+/*Hijos*/
+.servicio{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.servicio p{
+
+    line-height: 1.5;
+    text-align: center;
+}
+
+.servicio h3{
+    color: ver(--color4);
+/*Quitar la negria que vinee por deafualt*/
+    font-weight: normal;
+}
+
+.servicio .icono{
+    height: 10rem;
+    width: 10rem;
+    background-color: var(--color3);
+    /*Para que salga una redonda  detras del icono*/
+    border-radius: 50%;
+
+    /*Para que el icono este centradp*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 768px){
+
+    .servicios{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        /*En displey: frid */
+        column-gap: 2rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Media Queries: para responsive*/
+/*Movil*/
+/*Width: 480px*/
+/*@media (min-width: 480px){
+
+    /* A partir de 480px se aplicara l que pongamos aqui dentro*/
+    /*body{
+        background-color: pink;
+    }
+}*/
+
+/*Tablets*/
+/*Whidth: 768px*/
+/*@media (min-width: 768px){
+
+    /*A partir de 768 se aplicara lo que pongamos aqui*/
+    /*body{
+        background-color: blue;
+    }
+}*/
+/*Portatiles*/
+/*Width: 1140px*/
+/*@media (min-width: 1140px){
+
+    /*A partir de 1140 se aplicara lo que pongamos aqui*/
+    /*body{
+        background-color: yellow;
+    }
+}*/
+/*Pantallas mas grandes*/
+/*Width: 1400px*/
