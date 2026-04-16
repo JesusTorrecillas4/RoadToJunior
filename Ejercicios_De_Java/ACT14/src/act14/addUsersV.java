@@ -18,9 +18,7 @@ public class addUsersV extends JDialog{
     private ArrayList<Usuari> Usuarios;
     private DefaultTableModel modeloTabla;
     
-    public addUsersV(JFrame padre,ArrayList<Usuari> Usuarios, DefaultTableModel modeloTabla){
-        
-        super(padre, true);
+    public addUsersV(ArrayList<Usuari> Usuarios, DefaultTableModel modeloTabla){
         
            this.Usuarios = Usuarios;
             this.modeloTabla = modeloTabla;
@@ -66,8 +64,6 @@ public class addUsersV extends JDialog{
         
         add(pPrin);
         add(pBtn, BorderLayout.SOUTH);
-        
-       
                
         btnCrear.addActionListener(e -> crearus(tnom, temail, tcurs, tnota));
         btnSalir.addActionListener(e -> dispose());

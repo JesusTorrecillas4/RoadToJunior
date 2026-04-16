@@ -45,14 +45,26 @@ i.bx {
 .nav-bg{
     background-color: var(--color3);
 }
+
+
 .navegacion-principal{
     display: flex;
     /* felx-direction por default es row (fila) y ordena de izquierda a derecha */
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around; /* de izqueira a derecha*/
     align-items: center; /*de arriba a abajo*/
 }
 
+@media (min-width: 480px){
+
+   
+    .navegacion-principal{
+       
+        flex-direction: row;
+        justify-content: space-around; /* de izqueira a derecha*/
+        align-items: center; /*de arriba a abajo*/
+    }
+}
 .navegacion-principal a{
     text-decoration: none;
     color: var(--colorcalro);
@@ -206,6 +218,53 @@ i.bx {
     justify-content: center;
     align-items: center;
 }
+
+
+
+.formulario{
+
+    background-color: var(--color4);
+    /*Utilizamos la funcion preestablecia la caul aplica un minimo de 60 rem, lo aplica */
+    /* sino,  pondra el width al 90% (responsive, y evitamos hacer el media query)*/
+    width: min(60rem, 90%);
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 4px 4px 8px rgb(22, 20, 20);
+}
+
+.formulario fieldset{
+    border: none;
+}
+
+.formulario legend{
+    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--color3);
+}
+
+.campo{
+
+    margin-bottom: 1rem;
+}
+
+.campo label{
+    color: var(--color2);
+    /* dispaly block para que nos ponga uno debajo del otro*/
+    display: block;
+}
+
+.input-text{
+    width:90%;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 1rem;
+
+}
+
 
 @media (min-width: 768px){
 

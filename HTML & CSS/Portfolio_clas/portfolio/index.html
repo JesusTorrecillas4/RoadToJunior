@@ -39,8 +39,8 @@
 
         <a href="#">Inicio</a>
         <a href="#">Sobre Mi</a>
-        <a href="#">Mis Proyectos</a>
-        <a href="#">Contacto</a>
+        <a href="proyectos.html">Mis Proyectos</a>
+        <a href="#contacto">Contacto</a>
     </nav>
   </div>
 
@@ -63,7 +63,7 @@
         <i class='bxl bx-twitter-x'></i>
         <i class="bx bx-seal-check"></i>-->
 
-        <a class="boton" href="#">contacto</a>
+        <a class="boton" href="#contacto">contacto</a>
     </div>
 
 
@@ -120,8 +120,10 @@
         </div>
 
         <!-- Apartado de contacto-->
-         <section>
-            <h2>Contacto</h2>
+         <section id="contacto">
+            <div class="contacto">
+                <h2>Contacto</h2>
+            </div>
             <!-- Formulario de contacto-->
              <form class="formulario">
 
@@ -129,7 +131,27 @@
                     <!--Titulo dento del formulario-->
                     <legend>Rellena los datos:</legend>
 
+                    <div class="campo">
+                        <label>Nombre</label>
+                        <input class="input-text" type="text" minlength="1" maxlength="64" placeholder="Tu nombre" required>
+                    </div>
                     
+                    <div class="campo">
+                        <label>Telefono</label>
+                        <input class="input-text" type="tel" placeholder="Tu telefono" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Email</label>
+                        <input class="input-text" type="email" placeholder="Tu email" required>
+                    </div>
+
+                    <div class="campo">
+                        <label>Tu opinion</label>
+                        <textarea class="input-text" type=text placeholder="Escribe tu opinion de mi"></textarea>
+                    </div>
+
+                    <input class="boton" type="submit" value="Enviar">
                 </fieldset>
 
 
