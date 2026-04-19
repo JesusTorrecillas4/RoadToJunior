@@ -62,6 +62,17 @@ public class gu extends JFrame{
          
          btnAfalumne.addActionListener(e -> addUser(Usuarios, modeloTabla));
          btnAfprofe.addActionListener(e-> addProfessor(Usuarios, modeloTabla));
+         
+         btnEdit.addActionListener(e ->{
+         
+              int seleccionado = tabla.getSelectedRow();
+              
+              editUser(seleccionado);
+              
+         });
+         
+        
+        
     }
     
     public void addUser(ArrayList<Usuari> Usuarios, DefaultTableModel modeloTabla){
@@ -79,7 +90,15 @@ public class gu extends JFrame{
         profPag.setVisible(true);
     }
     
-    
+     public void editUser(int seleccionado){
+        
+        
+        Usuari usu = Usuarios.get(seleccionado);
+        
+        editUsuari edUs = new editUsuari(this,usu,Usuarios,modeloTabla,seleccionado);
+        
+        edUs.setVisible(true);
+    }
     
     
     

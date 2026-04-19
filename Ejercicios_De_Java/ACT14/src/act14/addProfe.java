@@ -37,10 +37,10 @@ public class addProfe extends JDialog {
         JTextField tnom = new JTextField(10);
         JLabel lemail = new JLabel("Email");
         JTextField temail = new JTextField(10);
-        JLabel lcurs = new JLabel("Curs");
-        JTextField tcurs = new JTextField(10);
-        JLabel lnota = new JLabel("Nota");
-        JTextField tnota = new JTextField(10);
+        JLabel ldepa = new JLabel("Departament");
+        JTextField tdepa = new JTextField(10);
+        JLabel lassi = new JLabel("Assignatura");
+        JTextField tassi = new JTextField(10);
         
         JButton btnCrear = new JButton("Crear");
         JButton btnSalir = new JButton("Salir");
@@ -54,10 +54,10 @@ public class addProfe extends JDialog {
         pPrin.add(tnom);
         pPrin.add(lemail);
         pPrin.add(temail);
-        pPrin.add(lcurs);
-        pPrin.add(tcurs);
-        pPrin.add(lnota);
-        pPrin.add(tnota);
+        pPrin.add(ldepa);
+        pPrin.add(tdepa);
+        pPrin.add(lassi);
+        pPrin.add(tassi);
         
         pBtn.add(btnCrear);
         pBtn.add(btnSalir);
@@ -65,7 +65,22 @@ public class addProfe extends JDialog {
         add(pPrin);
         add(pBtn, BorderLayout.SOUTH);
                
-        btnCrear.addActionListener(e -> crearus(tnom, temail, tcurs, tnota));
+        btnCrear.addActionListener(e -> crearprof(tnom, temail, tdepa, tassi));
         btnSalir.addActionListener(e -> dispose());
+    }
+    
+      public void crearprof(JTextField tnom, JTextField temail,
+                JTextField tdepa, JTextField tassi){
+        
+        String nom = tnom.getText();
+        String email = temail.getText();
+        String depa = tdepa.getText();
+        int assig = Integer.parseInt(tassi.getText());
+        
+        Alumne alum = new Alumne(nom,email,"Professor",depa,assig);
+        
+        Usuarios.add(alum);
+        
+        modeloTabla.addRow(new Object[]{nom,email,"Professor",depa,assig});
     }
 }
