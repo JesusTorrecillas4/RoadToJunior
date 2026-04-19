@@ -13,11 +13,18 @@ abstract class LibroMadre {
     private String titulo;
     private String autor;
     private int fehcaPubli;
-
-    public LibroMadre(String titulo, String autor, int fehcaPubli) {
+    private Boolean estado;
+    
+    public LibroMadre(String titulo, String autor, int fehcaPubli,
+            Boolean estado) {
         this.titulo = titulo;
         this.autor = autor;
         this.fehcaPubli = fehcaPubli;
+        this.estado = estado;
+    }
+
+    public Boolean getEstado() {
+        return estado;
     }
 
     public String getTitulo() {
@@ -30,6 +37,10 @@ abstract class LibroMadre {
 
     public int getFehcaPubli() {
         return fehcaPubli;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     public void setTitulo(String titulo) {

@@ -10,7 +10,8 @@ package act16;
  */
 public class mangas extends LibroMadre{
     
-     public mangas(String titulo, String autor, int fehcaPubli) {
-        super(titulo,autor,fehcaPubli );
+     public mangas(String titulo, String autor, int fehcaPubli,
+             Boolean estado) {
+        super(titulo,autor,fehcaPubli,estado );
     }
 }

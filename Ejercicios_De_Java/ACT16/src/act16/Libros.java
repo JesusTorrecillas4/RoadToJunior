@@ -11,8 +11,9 @@ package act16;
 public class Libros extends LibroMadre{
     
     
-    public Libros(String titulo, String autor, int fehcaPubli) {
-        super(titulo,autor,fehcaPubli );
+    public Libros(String titulo, String autor, int fehcaPubli,
+            Boolean estado) {
+        super(titulo,autor,fehcaPubli,estado );
     }
     
     
