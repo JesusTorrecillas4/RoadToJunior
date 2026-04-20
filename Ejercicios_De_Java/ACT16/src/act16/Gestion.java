@@ -20,6 +20,7 @@ public class Gestion extends JDialog implements ActionListener{
     
     private DefaultTableModel modeloTabla;
     private ArrayList<LibroMadre>lista;
+    private JTable tabla;
     
     public Gestion(JFrame padre, ArrayList<LibroMadre>lista){
         
@@ -77,9 +78,10 @@ public class Gestion extends JDialog implements ActionListener{
         
         add(pBtn, BorderLayout.SOUTH);
         
-        JTable tabla = new JTable(modeloTabla);
+        tabla = new JTable(modeloTabla);
         JScrollPane scroll = new JScrollPane(tabla);
         
+         
          
         iVolver.addActionListener(this);
         iBuscar.addActionListener(this);
@@ -109,10 +111,10 @@ public class Gestion extends JDialog implements ActionListener{
                  add(this,lista, modeloTabla);
                 break;
             case "Editar":
-                
+                edit();
                 break;
             case "Eliminar":
-                
+                delete(tabla);
                 break;
             
             
@@ -124,5 +126,34 @@ public class Gestion extends JDialog implements ActionListener{
         addContenido ac = new addContenido(padre,lista, modeloTabla);
         
         ac.setVisible(true);
+    }
+    
+    public void delete(JTable tabla){
+        
+        int seleccionado = tabla.getSelectedRow();
+        
+        if(seleccionado == -1){
+        JOptionPane.showMessageDialog(this, "Selecciona una fila");
+        return;
+        }
+        
+        lista.remove(seleccionado);
+        modeloTabla.removeRow(seleccionado);
+    }
+    
+    public void edit(){
+    
+    int seleccionado = tabla.getSelectedRow();
+    
+        if(seleccionado == -1){
+            JOptionPane.showMessageDialog(this, "Selecciona una fila");
+            return;
+        }
+
+        LibroMadre libroSeleccionado = lista.get(seleccionado);
+
+        editComp ed = new editComp(this, libroSeleccionado, lista, modeloTabla, seleccionado);
+        
+        ed.setVisible(true);
     }
 }

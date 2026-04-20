@@ -95,7 +95,7 @@ public class editUsuari extends JDialog {
         String nom = tnom.getText();
         String email = temail.getText();
         String curs = tcurs.getText();
-        int nota = Integer.parseInt(tnota.getText());
+        int nota = (int) Double.parseDouble(tnota.getText());
         
         Alumne alum = (Alumne) Usuarios.get(seleccionado);
 

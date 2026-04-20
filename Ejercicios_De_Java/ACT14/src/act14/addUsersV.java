@@ -75,7 +75,7 @@ public class addUsersV extends JDialog{
         String nom = tnom.getText();
         String email = temail.getText();
         String curs = tcurs.getText();
-        int nota = Integer.parseInt(tnota.getText());
+        int nota = (int) Double.parseDouble(tnota.getText());
         
         Alumne alum = new Alumne(nom,email,"Alumno",curs,nota);
         

@@ -4,36 +4,52 @@
  */
 package act16;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author jesus
  */
-public class addContenido extends JDialog{
+public class editComp extends JDialog{
     
-    private ArrayList<LibroMadre>lista;
+    
     private DefaultTableModel modeloTabla;
+    private ArrayList<LibroMadre>lista;
+    private int seleccionado;
+    private LibroMadre libroSeleccionado;
     
-    public addContenido(JDialog padre,ArrayList<LibroMadre>lista, DefaultTableModel modeloTabla){
+    public editComp(JDialog padre, LibroMadre libroSeleccionado, ArrayList<LibroMadre> lista, 
+            DefaultTableModel modeloTabla, int seleccionado){
         
-        super(padre, true);    
+       
+        
+        super(padre, true);
+        
+        this.libroSeleccionado = libroSeleccionado;
         this.lista = lista;
         this.modeloTabla = modeloTabla;
-        
-        setTitle("Añadir");
-        setSize(300,400);
+        this.seleccionado = seleccionado;
+    
+        setTitle("Biblio");
+        setSize(600,800);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        compon();
-        
+        componentes();
     }
     
-    public void compon(){
+    public void componentes(){
         
         JLabel lTitulo = new JLabel("Titulo");
         JTextField tTitulo = new JTextField(10);
@@ -77,34 +93,11 @@ public class addContenido extends JDialog{
         add(pPr, BorderLayout.CENTER);
         add(pBtn, BorderLayout.SOUTH);
         
-        btnAdd.addActionListener(e -> addCon(tTitulo,tAutor,tFecha,chEstadoDis,chEstadoPres,cmTipo));
+        tTitulo.setText(libroSeleccionado.getTitulo());
+        tAutor.setText(libroSeleccionado.getAutor());
+        tFecha.setText(String.valueOf(libroSeleccionado.getFehcaPubli()));
         
     }
     
-    public void addCon(JTextField tTitulo,JTextField tAutor, JTextField tFecha,
-            JRadioButton chEstadoDis, JRadioButton chEstadoPres,JComboBox cmTipo
-    ){
-        
-        
-        String titulo = tTitulo.getText();
-        String Autor = tAutor.getText();
-        int fecha = Integer.parseInt(tFecha.getText());
-        Boolean estado = chEstadoDis.isSelected();
-        
-        if (cmTipo.getSelectedItem().equals("Libro")) {
-            Libros li = new Libros(titulo,Autor,fecha,estado);
-            lista.add(li);
-            modeloTabla.addRow(new Object[]{titulo,Autor,fecha,estado,"Libro"});
-
-        }else{
-            mangas man = new mangas(titulo,Autor,fecha,estado);
-            lista.add(man);
-            modeloTabla.addRow(new Object[]{titulo,Autor,fecha,estado,"Manga"});
-        }
-        
-        
-                
-        
-        
-    }
+    
 }
