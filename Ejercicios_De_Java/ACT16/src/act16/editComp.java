@@ -97,7 +97,52 @@ public class editComp extends JDialog{
         tAutor.setText(libroSeleccionado.getAutor());
         tFecha.setText(String.valueOf(libroSeleccionado.getFehcaPubli()));
         
+        btnAdd.addActionListener(e -> addLi(tTitulo,tAutor,tFecha,chEstadoDis,chEstadoPres,cmTipo));
+        
     }
     
+    public void addLi(JTextField tTitulo,JTextField tAutor, JTextField tFecha,
+            JRadioButton chEstadoDis, JRadioButton chEstadoPres,JComboBox cmTipo){
+        
+        
+         String titulo = tTitulo.getText();
+        String Autor = tAutor.getText();
+        int fecha = Integer.parseInt(tFecha.getText());
+        Boolean estado = chEstadoDis.isSelected();
+        
+        if (cmTipo.getSelectedItem().equals("Libro")) {
+          
+            LibroMadre li = lista.get(seleccionado);
+            
+            li.setTitulo(titulo);
+            li.setAutor(Autor);
+            li.setFehcaPubli(fecha);
+            li.setEstado(estado);
+            
+            lista.set(seleccionado, li);
+            modeloTabla.setValueAt(titulo, seleccionado, 0);
+            modeloTabla.setValueAt(Autor, seleccionado, 1);
+            modeloTabla.setValueAt(fecha, seleccionado, 2);
+            modeloTabla.setValueAt(estado, seleccionado, 3);
+            
+           
+            
+        }else{
+              LibroMadre li = lista.get(seleccionado);
+            
+            li.setTitulo(titulo);
+            li.setAutor(Autor);
+            li.setFehcaPubli(fecha);
+            li.setEstado(estado);
+            
+            lista.set(seleccionado, li);
+            modeloTabla.setValueAt(titulo, seleccionado, 0);
+            modeloTabla.setValueAt(Autor, seleccionado, 1);
+            modeloTabla.setValueAt(fecha, seleccionado, 2);
+            modeloTabla.setValueAt(estado, seleccionado, 3);
+        }
+        
+        
+    }
     
 }

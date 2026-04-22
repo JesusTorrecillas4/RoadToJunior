@@ -7,6 +7,7 @@ package act16;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,7 +16,7 @@ import javax.swing.*;
 public class ACT16 extends JFrame{
 
     private ArrayList<LibroMadre>lista = new ArrayList<>();
-    
+    private DefaultTableModel modeloTabla;
     public ACT16(){
         
         setTitle("Biblio");
@@ -43,6 +44,7 @@ public class ACT16 extends JFrame{
         pPrin.add(btnCons);
         
         btnGest.addActionListener(e -> gestionar(this,lista));
+        btnCons.addActionListener(e -> busc(this,lista,modeloTabla));
         add(pPrin);
         
     }
@@ -54,7 +56,12 @@ public class ACT16 extends JFrame{
         ge.setVisible(true);
     }
     
-    
+    public void busc(JFrame padre,ArrayList<LibroMadre>lista,DefaultTableModel modeloTabla){
+        
+        buscar bu = new buscar(padre,lista,modeloTabla);
+        
+        bu.setVisible(true);
+    }
     public static void main(String[] args) {
         new ACT16();
     }

@@ -105,7 +105,7 @@ public class Gestion extends JDialog implements ActionListener{
                 dispose();
                 break;
             case "Buscar":
-                
+                busc(this,lista, modeloTabla);
                 break;
             case "Añadir":
                  add(this,lista, modeloTabla);
@@ -120,6 +120,14 @@ public class Gestion extends JDialog implements ActionListener{
             
         }
     }
+    
+    public void busc(JDialog padre,ArrayList<LibroMadre>lista,DefaultTableModel modeloTabla){
+        
+        buscar bu = new buscar(this,lista,modeloTabla);
+        
+        bu.setVisible(true);
+    }
+    
     
     public void add(JDialog padre,ArrayList<LibroMadre>lista,DefaultTableModel modeloTabla){
         
@@ -156,4 +164,5 @@ public class Gestion extends JDialog implements ActionListener{
         
         ed.setVisible(true);
     }
+    
 }
