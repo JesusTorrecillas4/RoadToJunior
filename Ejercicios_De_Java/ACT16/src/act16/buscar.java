@@ -7,7 +7,9 @@ package act16;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 
@@ -51,6 +53,13 @@ public class buscar extends JDialog{
     
     public void componentes(){
         
+        JLabel lbus = new JLabel("Buscador");
+        JTextField tbus = new JTextField();
+        JButton btnBus = new JButton("Buscar");
         
+       JScrollPane scr = new JScrollPane(tabla);
+       
+       JPanel pPri = new JPanel();
+       
     }
 }
