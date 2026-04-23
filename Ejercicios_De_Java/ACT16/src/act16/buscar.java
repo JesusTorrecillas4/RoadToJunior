@@ -4,6 +4,7 @@
  */
 package act16;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class buscar extends JDialog{
       
     private DefaultTableModel modeloTabla;
+    private DefaultTableModel modeloBus;
     private ArrayList<LibroMadre>lista;
     private JTable tabla;
     
@@ -29,6 +31,8 @@ public class buscar extends JDialog{
         
         super(padre, true);
         this.lista = lista;
+        this.modeloTabla = modeloTabla;
+        this.modeloBus = modeloBus;
         setTitle("Biblio");
         setSize(600,800);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -42,6 +46,8 @@ public class buscar extends JDialog{
         
         super(padre, true);
         this.lista = lista;
+        this.modeloTabla = modeloTabla;
+        this.modeloBus = modeloBus;
         setTitle("Buscador");
         setSize(600,800);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -54,12 +60,58 @@ public class buscar extends JDialog{
     public void componentes(){
         
         JLabel lbus = new JLabel("Buscador");
-        JTextField tbus = new JTextField();
+        JTextField tbus = new JTextField(15);
         JButton btnBus = new JButton("Buscar");
         
-       JScrollPane scr = new JScrollPane(tabla);
+        JButton btnExit = new JButton("Salir");
+        
+         modeloBus = new DefaultTableModel(
+        new Object[]{"Ttitulo","Autor",
+         "Fecha de Publicacion","Estado","Tipo"}, 0);
+        tabla = new JTable(modeloBus);
+        JScrollPane scr = new JScrollPane(tabla);
        
        JPanel pPri = new JPanel();
        
+       pPri.add(lbus);
+       pPri.add(tbus);
+       pPri.add(btnBus);
+       pPri.add(btnExit);
+       
+       add(pPri, BorderLayout.NORTH);
+       add(scr, BorderLayout.CENTER);
+       
+       btnBus.addActionListener(e -> buscar(tbus));
+       btnExit.addActionListener(e->dispose());
     }
+    
+    public void buscar(JTextField tbus){
+
+    String buscar = tbus.getText().toLowerCase();
+
+    modeloBus.setRowCount(0);
+
+    for(LibroMadre item : lista){
+
+        if(item.getTitulo().toLowerCase().contains(buscar)){
+
+            String titulo = item.getTitulo();
+            String autor = item.getAutor();
+            int fecha = item.getFehcaPubli();
+            Boolean estado = item.getEstado();
+
+            String tipo;
+
+            if(item instanceof mangas){
+                tipo = "Manga";
+            } else {
+                tipo = "Libro";
+            }
+
+            modeloBus.addRow(new Object[]{
+                titulo, autor, fecha, estado, tipo
+            });
+        }
+    }
+}
 }
