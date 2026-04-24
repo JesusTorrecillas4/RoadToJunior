@@ -43,6 +43,8 @@ public class ACT14 extends JFrame {
          add(pPrincipal);
     }
     
+    
+    
     public void gesUsu(){
         
         gu pagGu = new gu();

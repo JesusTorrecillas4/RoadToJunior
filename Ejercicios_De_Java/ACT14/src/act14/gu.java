@@ -39,6 +39,7 @@ public class gu extends JFrame{
          JButton btnAfalumne = new JButton("Afegir alumne");
          JButton btnAfprofe = new JButton("Afegir professor");
          JButton btnEdit = new JButton("Editar usuari");
+         JButton btnDelete = new JButton("Eliminar");
          /*
          JButton btnCerca = new JButton("Cerca");
          JButton btnGuardar = new JButton("Guardar");
@@ -51,6 +52,7 @@ public class gu extends JFrame{
           pBtn.add(btnAfalumne);
           pBtn.add(btnAfprofe);
           pBtn.add(btnEdit);
+          pBtn.add(btnDelete);
           
           setLayout(new BorderLayout());
           
@@ -71,6 +73,7 @@ public class gu extends JFrame{
               
          });
          
+         btnDelete.addActionListener(e -> delete(tabla));
         
         
     }
@@ -88,6 +91,19 @@ public class gu extends JFrame{
         addProfe profPag = new addProfe(Usuarios, modeloTabla);
         
         profPag.setVisible(true);
+    }
+    
+    public void delete(JTable tabla){
+        
+        int seleccionado = tabla.getSelectedRow();
+        
+        if(seleccionado == -1){
+        JOptionPane.showMessageDialog(this, "Selecciona una fila");
+        return;
+        }
+        
+        Usuarios.remove(seleccionado);
+        modeloTabla.removeRow(seleccionado);
     }
     
      public void editUser(int seleccionado){

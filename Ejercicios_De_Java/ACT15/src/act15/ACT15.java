@@ -5,6 +5,8 @@
 package act15;
 
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -29,10 +31,11 @@ public class ACT15 extends JFrame implements ActionListener{
     
     public void componentes(){
         
+        
         JButton btnJugar = new JButton("Jugar");
         JButton btnSalir = new JButton("Salir");
         
-        JPanel pPrin = new JPanel();
+        JPanel pPrin = new JPanel(new GridLayout(1, 2));
         
         btnJugar.addActionListener(this);
         btnSalir.addActionListener(this);
@@ -40,7 +43,7 @@ public class ACT15 extends JFrame implements ActionListener{
         pPrin.add(btnJugar);
         pPrin.add(btnSalir);
         
-        add(pPrin);
+        add(pPrin, BorderLayout.CENTER);
     }
     
     @Override

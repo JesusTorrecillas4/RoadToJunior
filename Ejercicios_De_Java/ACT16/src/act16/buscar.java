@@ -5,6 +5,7 @@
 package act16;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -73,6 +74,7 @@ public class buscar extends JDialog{
        
        JPanel pPri = new JPanel();
        
+       pPri.setLayout(new GridLayout(2,2));
        pPri.add(lbus);
        pPri.add(tbus);
        pPri.add(btnBus);
