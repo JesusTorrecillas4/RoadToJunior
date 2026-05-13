@@ -4,104 +4,121 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MangaZone | Carrito</title>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
 <header class="navbar">
-  <a href="index.html" class="logo">MangaZone</a>
+
+  <a href="index.html" class="logo">
+    MangaZone
+  </a>
+
   <nav>
     <a href="index.html">Inicio</a>
     <a href="categoria.html">Mangas</a>
-    <a href="producte.html">Producto</a>
-    <a href="carret.html">Carrito 🛒 <span>3</span></a>
+    <a href="carret.html">Carrito</a>
     <a href="comanda.html">Pedido</a>
   </nav>
+
 </header>
 
 <main class="section">
-  <h1>El teu carret</h1>
-  <p>Tienes 3 artículos en el carrito.</p>
 
-  <div class="carrito-layout">
-    <section class="lista-carrito">
+  <h1>Mi carrito</h1>
 
-      <div class="fila-carrito">
-        <img src="img/manga1.jpg" alt="Manga">
-        <div>
-          <h3>One Piece Vol. 1</h3>
-          <p>8,95 €</p>
-        </div>
-        <div class="cantidad">
-          <button>-</button>
-          <span>1</span>
-          <button>+</button>
-        </div>
-        <p class="subtotal">8,95 €</p>
-        <button class="eliminar">X</button>
+  <section class="lista-carrito">
+
+    <!-- PRODUCTO 1 -->
+
+    <div class="fila-carrito">
+
+      <img src="img/manga1.jpg" alt="Manga">
+
+      <div>
+        <h3>One Piece Vol. 1</h3>
+        <p class="precio">8,95 €</p>
       </div>
 
-      <div class="fila-carrito">
-        <img src="img/manga2.jpg" alt="Manga">
-        <div>
-          <h3>Naruto Vol. 1</h3>
-          <p>7,95 €</p>
-        </div>
-        <div class="cantidad">
-          <button>-</button>
-          <span>1</span>
-          <button>+</button>
-        </div>
-        <p class="subtotal">7,95 €</p>
-        <button class="eliminar">X</button>
+      <div class="cantidad">
+        <button>-</button>
+        <span>1</span>
+        <button>+</button>
       </div>
 
-      <div class="fila-carrito">
-        <img src="img/manga3.jpg" alt="Manga">
-        <div>
-          <h3>Dragon Ball Vol. 1</h3>
-          <p>8,50 €</p>
-        </div>
-        <div class="cantidad">
-          <button>-</button>
-          <span>1</span>
-          <button>+</button>
-        </div>
-        <p class="subtotal">8,50 €</p>
-        <button class="eliminar">X</button>
+      <button class="eliminar">
+        X
+      </button>
+
+    </div>
+
+    <!-- PRODUCTO 2 -->
+
+    <div class="fila-carrito">
+
+      <img src="img/manga2.jpg" alt="Manga">
+
+      <div>
+        <h3>Naruto Vol. 1</h3>
+        <p class="precio">7,95 €</p>
       </div>
 
-      <a href="categoria.html" class="btn-secundario">Continuar comprando</a>
-    </section>
+      <div class="cantidad">
+        <button>-</button>
+        <span>1</span>
+        <button>+</button>
+      </div>
 
-    <aside class="resumen">
-      <h2>Resumen</h2>
-      <p>Subtotal: 25,40 €</p>
-      <p>Envío: 3,99 €</p>
-      <p>Descuento: 0 €</p>
-      <hr>
-      <p class="total">TOTAL: 29,39 €</p>
-      <a href="comanda.html" class="btn grande-btn">Finalizar comanda</a>
-    </aside>
-  </div>
+      <button class="eliminar">
+        X
+      </button>
+
+    </div>
+
+    <!-- BOTONES -->
+
+    <div class="acciones-carrito">
+
+      <a href="comanda.html" class="btn grande-btn">
+        Finalizar pedido
+      </a>
+
+      <a href="categoria.html" class="btn-secundario">
+        Seguir comprando
+      </a>
+
+    </div>
+
+  </section>
+
 </main>
 
 <footer class="footer">
+
   <div>
     <h3>MangaZone</h3>
     <p>Tienda online de mangas.</p>
   </div>
+
   <div>
     <h3>Links</h3>
-    <a href="index.html">Inicio</a>
-    <a href="categoria.html">Mangas</a>
-    <a href="carret.html">Carrito</a>
+
+    <a href="index.html">
+      Inicio
+    </a>
+
+    <a href="categoria.html">
+      Mangas
+    </a>
   </div>
+
   <div>
     <h3>Contacto</h3>
     <p>info@mangazone.com</p>
-    <p>Terrassa, Barcelona</p>
   </div>
+
 </footer>
 
 </body>
