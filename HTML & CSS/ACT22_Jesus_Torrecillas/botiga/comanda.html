@@ -1,168 +1,165 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>MangaZone | Pedido</title>
-
   <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <header class="navbar">
-
-  <a href="index.html" class="logo">
-    MangaZone
-  </a>
-
+  <a href="index.html" class="logo">MangaZone</a>
   <nav>
     <a href="index.html">Inicio</a>
     <a href="categoria.html">Mangas</a>
-    <a href="carret.html">Carrito</a>
+    <a href="producte.html">Producto</a>
+    <a href="carret.html">Carrito (3)</a>
     <a href="comanda.html">Pedido</a>
   </nav>
-
 </header>
 
 <main class="section">
-
   <h1>Finalizar pedido</h1>
 
-  <form class="formulario">
+  <div class="pasos">
+    <span>1. Carrito</span>
+    <span class="activo">2. Datos</span>
+    <span>3. Confirmar</span>
+  </div>
 
-    <!-- DATOS -->
+  <div class="checkout-layout">
+    <form class="formulario">
 
-    <h2>Datos personales</h2>
+      <h2>Datos personales</h2>
 
-    <div class="form-grid">
+      <div class="form-grid">
+        <div>
+          <label>Nombre</label>
+          <input type="text" required>
+        </div>
 
-      <div>
-        <label>Nombre</label>
-        <input type="text" required>
+        <div>
+          <label>Apellidos</label>
+          <input type="text" required>
+        </div>
+
+        <div>
+          <label>Email</label>
+          <input type="email" required>
+        </div>
+
+        <div>
+          <label>Teléfono</label>
+          <input type="tel" required>
+        </div>
       </div>
 
-      <div>
-        <label>Apellidos</label>
-        <input type="text" required>
+      <h2>Dirección de envío</h2>
+
+      <label>Dirección</label>
+      <input type="text" required>
+
+      <div class="form-grid">
+        <div>
+          <label>Código postal</label>
+          <input type="text" pattern="[0-9]{5}" required>
+        </div>
+
+        <div>
+          <label>Ciudad</label>
+          <input type="text" required>
+        </div>
+
+        <div>
+          <label>Provincia</label>
+          <select required>
+            <option value="">Selecciona provincia</option>
+            <option>Barcelona</option>
+            <option>Madrid</option>
+            <option>Valencia</option>
+            <option>Sevilla</option>
+            <option>Málaga</option>
+            <option>Zaragoza</option>
+            <option>Girona</option>
+            <option>Tarragona</option>
+            <option>Murcia</option>
+            <option>Alicante</option>
+          </select>
+        </div>
+
+        <div>
+          <label>País</label>
+          <input type="text" value="España" required>
+        </div>
       </div>
 
-      <div>
-        <label>Email</label>
-        <input type="email" required>
+      <h2>Método de pago</h2>
+
+      <div class="radios">
+        <label><input type="radio" name="pago" required> Tarjeta</label>
+        <label><input type="radio" name="pago"> PayPal</label>
+        <label><input type="radio" name="pago"> Transferencia</label>
       </div>
 
-      <div>
-        <label>Teléfono</label>
-        <input type="tel" required>
+      <div class="form-grid">
+        <div>
+          <label>Número de tarjeta</label>
+          <input type="text">
+        </div>
+
+        <div>
+          <label>Titular</label>
+          <input type="text">
+        </div>
+
+        <div>
+          <label>Caducidad</label>
+          <input type="text" placeholder="MM/AA">
+        </div>
+
+        <div>
+          <label>CVV</label>
+          <input type="text">
+        </div>
       </div>
 
-    </div>
+      <h2>Notas de la comanda</h2>
+      <textarea placeholder="Escribe aquí si tienes alguna indicación especial"></textarea>
 
-    <!-- DIRECCIÓN -->
+      <button class="btn grande-btn" type="submit">Confirmar pedido</button>
 
-    <h2>Dirección</h2>
+    </form>
 
-    <div class="form-grid">
-
-      <div>
-        <label>Ciudad</label>
-        <input type="text" required>
-      </div>
-
-      <div>
-        <label>Código postal</label>
-        <input type="text" pattern="[0-9]{5}" required>
-      </div>
-
-    </div>
-
-    <!-- PROVINCIA -->
-
-    <label>Provincia</label>
-
-    <select required>
-
-      <option value="">
-        Selecciona provincia
-      </option>
-
-      <option>Barcelona</option>
-      <option>Madrid</option>
-      <option>Málaga</option>
-      <option>Girona</option>
-      
-
-    </select>
-
-    <!-- PAGO -->
-
-    <h2>Método de pago</h2>
-
-    <div class="radios">
-
-      <label>
-        <input type="radio" name="pago" required>
-        Tarjeta
-      </label>
-
-      <label>
-        <input type="radio" name="pago">
-        PayPal
-      </label>
-
-      <label>
-        <input type="radio" name="pago">
-        Transferencia
-      </label>
-
-    </div>
-
-    <!-- BOTÓN -->
-
-    <button class="btn grande-btn" type="submit">
-
-      Confirmar pedido
-
-    </button>
-
-  </form>
-
+    <aside class="resumen">
+      <h2>Resumen</h2>
+      <p>One Piece Vol. 1 - 8,95 €</p>
+      <p>Naruto Vol. 1 - 7,95 €</p>
+      <p>Dragon Ball Vol. 1 - 8,50 €</p>
+      <hr>
+      <p>Subtotal: 25,40 €</p>
+      <p>Envío: 3,99 €</p>
+      <p class="total">Total: 29,39 €</p>
+    </aside>
+  </div>
 </main>
 
 <footer class="footer">
-
   <div>
     <h3>MangaZone</h3>
     <p>Tienda online de mangas.</p>
   </div>
-
   <div>
-
     <h3>Links</h3>
-
-    <a href="index.html">
-      Inicio
-    </a>
-
-    <a href="categoria.html">
-      Mangas
-    </a>
-
+    <a href="index.html">Inicio</a>
+    <a href="categoria.html">Mangas</a>
+    <a href="carret.html">Carrito</a>
   </div>
-
   <div>
-
     <h3>Contacto</h3>
-
-    <p>
-      info@mangazone.com
-    </p>
-
+    <p>info@mangazone.com</p>
+    <p>Terrassa, Barcelona</p>
   </div>
-
 </footer>
 
 </body>
