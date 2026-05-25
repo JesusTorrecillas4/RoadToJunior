@@ -11,12 +11,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class VentanaModificarLuchador extends JFrame {
 
-    public VentanaModificarLuchador(JFrame padre,
-                                    ArrayList<Luchador> listaLuchadores,
-                                    DefaultTableModel modeloTabla,
-                                    int filaSeleccionada,
-                                    String[] categoriasUFC,
-                                    String[] rankings) {
+    public VentanaModificarLuchador(JFrame padre,ArrayList<Luchador> listaLuchadores,
+        DefaultTableModel modeloTabla,int filaSeleccionada,String[] categoriasUFC,
+         String[] rankings) {
 
         setTitle("Modificar luchador");
         setSize(400, 350);
