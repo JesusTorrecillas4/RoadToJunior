@@ -5,8 +5,17 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 
 public class Mma_admin extends JFrame {
+
+    private static final String URL = "jdbc:mysql://localhost:3306/mma_admin";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
+
+    private static Connection obtenirConexio() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
 
     ArrayList<Luchador> listaLuchadores = new ArrayList<>();
     ArrayList<Combate> listaCombates = new ArrayList<>();
@@ -39,8 +48,42 @@ public class Mma_admin extends JFrame {
 
         crearMenu();
         crearComponentes();
+        carregarLuchadoresDeDB();
 
         setVisible(true);
+    }
+
+    private static void crearTaules() {
+
+        String sqlLuchadores = "CREATE TABLE IF NOT EXISTS Luchadores ("
+                + " id INT AUTO_INCREMENT PRIMARY KEY,"
+                + " nombre VARCHAR(100) NOT NULL,"
+                + " categoria VARCHAR(100) NOT NULL,"
+                + " peso DOUBLE,"
+                + " victorias INT,"
+                + " derrotas INT,"
+                + " ranking INT"
+                + ")";
+        
+        String sqlCombates = "CREATE TABLE IF NOT EXISTS Combates ("
+                + " id VARCHAR(50) PRIMARY KEY,"
+                + " luchador1 VARCHAR(100) NOT NULL,"
+                + " luchador2 VARCHAR(100) NOT NULL,"
+                + " hora VARCHAR(20),"
+                + " lugar VARCHAR(100)"
+                + ")";
+
+        try (Connection conn = obtenirConexio();
+             Statement stmt = conn.createStatement()) {
+
+            stmt.executeUpdate(sqlLuchadores);
+            System.out.println("Taula Luchadores creada correctament.");
+            stmt.executeUpdate(sqlCombates);
+            System.out.println("Taula Combates creada correctament.");
+
+        } catch (SQLException e) {
+            System.out.println("Error en crear les taules: " + e.getMessage());
+        }
     }
 
     private void crearMenu() {
@@ -115,30 +158,9 @@ public class Mma_admin extends JFrame {
         add(new JScrollPane(tabla), BorderLayout.CENTER);
         add(pBotones, BorderLayout.SOUTH);
 
-        bCrear.addActionListener(e -> {
-
-            try {
-                String nombre = tNombre.getText().trim();
-                String categoria = cbCategoria.getSelectedItem().toString();
-                double peso = Double.parseDouble(tPeso.getText().trim());
-                int victorias = Integer.parseInt(tVictorias.getText().trim());
-                int derrotas = Integer.parseInt(tDerrotas.getText().trim());
-                int ranking = Integer.parseInt(cbRanking.getSelectedItem().toString());
-
-                Luchador luchador = new Luchador(nombre, categoria, peso, victorias, derrotas, ranking);
-
-                listaLuchadores.add(luchador);
-
-                modeloTabla.addRow(new Object[]{
-                    nombre, categoria, peso, victorias, derrotas, ranking
-                });
-
-                limpiarFormulario(tNombre, tPeso, tVictorias, tDerrotas);
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Introduce datos válidos");
-            }
-        });
+        bCrear.addActionListener(e ->
+                addLuchador(tNombre, cbCategoria, tPeso,
+                        tVictorias, tDerrotas, cbRanking));
 
         bModificar.addActionListener(e -> {
 
@@ -157,201 +179,193 @@ public class Mma_admin extends JFrame {
             limpiarFormulario(tNombre, tPeso, tVictorias, tDerrotas);
         });
 
-        bEliminar.addActionListener(e -> {
+        bEliminar.addActionListener(e -> deleteLuchador(tabla));
+    }
 
-            int fila = tabla.getSelectedRow();
+    private void addLuchador(JTextField tNombre,
+                             JComboBox<String> cbCategoria,
+                             JTextField tPeso,
+                             JTextField tVictorias,
+                             JTextField tDerrotas,
+                             JComboBox<String> cbRanking) {
 
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(this, "Selecciona un luchador");
-                return;
+        try {
+            Double.parseDouble(tPeso.getText().trim());
+            Integer.parseInt(tVictorias.getText().trim());
+            Integer.parseInt(tDerrotas.getText().trim());
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Peso, victorias y derrotas deben ser números",
+                    "Datos inválidos",
+                    JOptionPane.WARNING_MESSAGE);
+
+            return;
+        }
+
+        String nombre = tNombre.getText().trim();
+        String categoria = cbCategoria.getSelectedItem().toString();
+        double peso = Double.parseDouble(tPeso.getText().trim());
+        int victorias = Integer.parseInt(tVictorias.getText().trim());
+        int derrotas = Integer.parseInt(tDerrotas.getText().trim());
+        int ranking = Integer.parseInt(cbRanking.getSelectedItem().toString());
+
+        if (nombre.isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Rellena el nombre",
+                    "Campo vacío",
+                    JOptionPane.WARNING_MESSAGE);
+
+            return;
+        }
+
+        String sql = "INSERT INTO Luchadores "
+                + "(nombre, categoria, peso, victorias, derrotas, ranking) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = obtenirConexio();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, categoria);
+            pstmt.setDouble(3, peso);
+            pstmt.setInt(4, victorias);
+            pstmt.setInt(5, derrotas);
+            pstmt.setInt(6, ranking);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Error: " + e.getMessage(),
+                    "ERROR BBDD",
+                    JOptionPane.ERROR_MESSAGE);
+
+            return;
+        }
+
+        listaLuchadores.add(
+                new Luchador(nombre, categoria, peso,
+                        victorias, derrotas, ranking)
+        );
+
+        modeloTabla.addRow(new Object[]{
+            nombre, categoria, peso,
+            victorias, derrotas, ranking
+        });
+
+        limpiarFormulario(tNombre, tPeso, tVictorias, tDerrotas);
+    }
+
+    private void deleteLuchador(JTable tabla) {
+
+        int filaSeleccionada = tabla.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona un luchador para eliminar",
+                    "No selection",
+                    JOptionPane.WARNING_MESSAGE);
+
+            return;
+        }
+
+        String nombreLuchador =
+                listaLuchadores.get(filaSeleccionada).getNombre();
+
+        int confirmacion = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que quieres eliminar a \"" + nombreLuchador + "\"?",
+                "Confirmar eliminar",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            String sql = "DELETE FROM Luchadores WHERE nombre = ?";
+
+            try (Connection conn = obtenirConexio();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                pstmt.setString(1, nombreLuchador);
+
+                pstmt.executeUpdate();
+
+            } catch (SQLException e) {
+
+                System.out.println("Error eliminant: " + e.getMessage());
             }
 
-            listaLuchadores.remove(fila);
-            modeloTabla.removeRow(fila);
-        });
+            listaLuchadores.remove(filaSeleccionada);
+            modeloTabla.removeRow(filaSeleccionada);
+        }
+    }
+
+    private void carregarLuchadoresDeDB() {
+
+        String sql = "SELECT nombre, categoria, peso, victorias, derrotas, ranking "
+                + "FROM Luchadores ORDER BY id";
+
+        try (Connection conn = obtenirConexio();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+
+                String nombre = rs.getString("nombre");
+                String categoria = rs.getString("categoria");
+                double peso = rs.getDouble("peso");
+                int victorias = rs.getInt("victorias");
+                int derrotas = rs.getInt("derrotas");
+                int ranking = rs.getInt("ranking");
+
+                listaLuchadores.add(
+                        new Luchador(nombre, categoria,
+                                peso, victorias,
+                                derrotas, ranking)
+                );
+
+                modeloTabla.addRow(new Object[]{
+                    nombre, categoria, peso,
+                    victorias, derrotas, ranking
+                });
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println("Error carregant luchadores: "
+                    + e.getMessage());
+        }
     }
 
     private void abrirVentana(int filaSeleccionada) {
 
-        VentanaModificarLuchador ventana = new VentanaModificarLuchador(
-                this,
-                listaLuchadores,
-                modeloTabla,
-                filaSeleccionada,
-                categoriasUFC,
-                rankings
-        );
+        VentanaModificarLuchador ventana =
+                new VentanaModificarLuchador(
+                        this,
+                        listaLuchadores,
+                        modeloTabla,
+                        filaSeleccionada,
+                        categoriasUFC,
+                        rankings
+                );
 
         ventana.setVisible(true);
     }
 
     private void abrirVentanaCombates() {
-
-        JFrame ventanaCombates = new JFrame("Combates");
-        ventanaCombates.setSize(800, 400);
-        ventanaCombates.setLocationRelativeTo(this);
-        ventanaCombates.setLayout(new BorderLayout());
-
-        DefaultTableModel modeloCombates = new DefaultTableModel(
-                new Object[]{"ID", "Peleador 1", "Peleador 2", "Hora", "Lugar"}, 0
-        );
-
-        JTable tablaCombates = new JTable(modeloCombates);
-
-        for (Combate c : listaCombates) {
-            modeloCombates.addRow(new Object[]{
-                c.getId(),
-                c.getLuchador1(),
-                c.getLuchador2(),
-                c.getFecha(),
-                c.getLugar()
-            });
-        }
-
-        JButton bCrearCombate = new JButton("Crear combate");
-        JButton bModificarCombate = new JButton("Modificar combate");
-        JButton bEliminarCombate = new JButton("Eliminar combate");
-
-        JPanel pBotones = new JPanel();
-        pBotones.add(bCrearCombate);
-        pBotones.add(bModificarCombate);
-        pBotones.add(bEliminarCombate);
-
-        ventanaCombates.add(new JScrollPane(tablaCombates), BorderLayout.CENTER);
-        ventanaCombates.add(pBotones, BorderLayout.SOUTH);
-
-        bCrearCombate.addActionListener(e -> {
-
-            if (listaLuchadores.size() < 2) {
-                JOptionPane.showMessageDialog(ventanaCombates, "Necesitas mínimo 2 luchadores");
-                return;
-            }
-
-            crearOModificarCombate(ventanaCombates, modeloCombates, -1);
-        });
-
-        bModificarCombate.addActionListener(e -> {
-
-            int fila = tablaCombates.getSelectedRow();
-
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(ventanaCombates, "Selecciona un combate");
-                return;
-            }
-
-            crearOModificarCombate(ventanaCombates, modeloCombates, fila);
-        });
-
-        bEliminarCombate.addActionListener(e -> {
-
-            int fila = tablaCombates.getSelectedRow();
-
-            if (fila == -1) {
-                JOptionPane.showMessageDialog(ventanaCombates, "Selecciona un combate");
-                return;
-            }
-
-            listaCombates.remove(fila);
-            modeloCombates.removeRow(fila);
-        });
-
-        ventanaCombates.setVisible(true);
+        
+        VentanaCombates ventana = new VentanaCombates(this, listaLuchadores, listaCombates);
+        ventana.setVisible(true);
     }
 
-    private void crearOModificarCombate(JFrame ventanaCombates, DefaultTableModel modeloCombates, int filaEditar) {
-
-        JComboBox<String> cbPeleador1 = new JComboBox<>();
-        JComboBox<String> cbPeleador2 = new JComboBox<>();
-
-        for (Luchador l : listaLuchadores) {
-            cbPeleador1.addItem(l.getNombre());
-            cbPeleador2.addItem(l.getNombre());
-        }
-
-        JComboBox<String> cbHora = new JComboBox<>(new String[]{
-            "18:00", "18:30", "19:00", "19:30",
-            "20:00", "20:30", "21:00", "21:30",
-            "22:00", "22:30"
-        });
-
-        JComboBox<String> cbLugar = new JComboBox<>(new String[]{
-            "Madrid", "Barcelona", "Valencia", "Sevilla",
-            "Zaragoza", "Málaga", "Murcia", "Bilbao",
-            "Alicante", "Terrassa"
-        });
-
-        if (filaEditar != -1) {
-            Combate combate = listaCombates.get(filaEditar);
-
-            cbPeleador1.setSelectedItem(combate.getLuchador1());
-            cbPeleador2.setSelectedItem(combate.getLuchador2());
-            cbHora.setSelectedItem(combate.getFecha());
-            cbLugar.setSelectedItem(combate.getLugar());
-        }
-
-        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
-
-        panel.add(new JLabel("Peleador 1:"));
-        panel.add(cbPeleador1);
-
-        panel.add(new JLabel("Peleador 2:"));
-        panel.add(cbPeleador2);
-
-        panel.add(new JLabel("Hora:"));
-        panel.add(cbHora);
-
-        panel.add(new JLabel("Lugar:"));
-        panel.add(cbLugar);
-
-        int opcion = JOptionPane.showConfirmDialog(
-                ventanaCombates,
-                panel,
-                "Combate",
-                JOptionPane.OK_CANCEL_OPTION
-        );
-
-        if (opcion == JOptionPane.OK_OPTION) {
-
-            String peleador1 = cbPeleador1.getSelectedItem().toString();
-            String peleador2 = cbPeleador2.getSelectedItem().toString();
-            String hora = cbHora.getSelectedItem().toString();
-            String lugar = cbLugar.getSelectedItem().toString();
-
-            if (peleador1.equals(peleador2)) {
-                JOptionPane.showMessageDialog(ventanaCombates, "No puede luchar contra sí mismo");
-                return;
-            }
-
-            if (filaEditar == -1) {
-
-                String id = "C" + (listaCombates.size() + 1);
-
-                Combate combate = new Combate(id, peleador1, peleador2, lugar, hora);
-                listaCombates.add(combate);
-
-                modeloCombates.addRow(new Object[]{
-                    id, peleador1, peleador2, hora, lugar
-                });
-
-            } else {
-
-                Combate combate = listaCombates.get(filaEditar);
-
-                combate.setLuchador1(peleador1);
-                combate.setLuchador2(peleador2);
-                combate.setFecha(hora);
-                combate.setLugar(lugar);
-
-                modeloCombates.setValueAt(peleador1, filaEditar, 1);
-                modeloCombates.setValueAt(peleador2, filaEditar, 2);
-                modeloCombates.setValueAt(hora, filaEditar, 3);
-                modeloCombates.setValueAt(lugar, filaEditar, 4);
-            }
-        }
-    }
-
-    private void limpiarFormulario(JTextField tNombre, JTextField tPeso,
-                                   JTextField tVictorias, JTextField tDerrotas) {
+    private void limpiarFormulario(JTextField tNombre,
+                                   JTextField tPeso,
+                                   JTextField tVictorias,
+                                   JTextField tDerrotas) {
 
         tNombre.setText("");
         tPeso.setText("");
@@ -360,6 +374,9 @@ public class Mma_admin extends JFrame {
     }
 
     public static void main(String[] args) {
+
+        crearTaules();
+
         new Mma_admin();
     }
 }
