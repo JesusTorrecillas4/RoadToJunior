@@ -70,7 +70,6 @@ public class Mma_admin extends JFrame {
                 + " luchador1 VARCHAR(100) NOT NULL,"
                 + " luchador2 VARCHAR(100) NOT NULL,"
                 + " hora VARCHAR(20),"
-                + " lugar VARCHAR(100)"
                 + ")";
 
         try (Connection conn = obtenirConexio();
@@ -183,82 +182,95 @@ public class Mma_admin extends JFrame {
     }
 
     private void addLuchador(JTextField tNombre,
-                             JComboBox<String> cbCategoria,
-                             JTextField tPeso,
-                             JTextField tVictorias,
-                             JTextField tDerrotas,
-                             JComboBox<String> cbRanking) {
+                         JComboBox<String> cbCategoria,
+                         JTextField tPeso,
+                         JTextField tVictorias,
+                         JTextField tDerrotas,
+                         JComboBox<String> cbRanking) {
 
-        try {
-            Double.parseDouble(tPeso.getText().trim());
-            Integer.parseInt(tVictorias.getText().trim());
-            Integer.parseInt(tDerrotas.getText().trim());
+    try {
+        Double.parseDouble(tPeso.getText().trim());
+        Integer.parseInt(tVictorias.getText().trim());
+        Integer.parseInt(tDerrotas.getText().trim());
 
-        } catch (NumberFormatException ex) {
+    } catch (NumberFormatException ex) {
 
-            JOptionPane.showMessageDialog(this,
-                    "Peso, victorias y derrotas deben ser números",
-                    "Datos inválidos",
-                    JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+                "Peso, victorias y derrotas deben ser números",
+                "Datos inválidos",
+                JOptionPane.WARNING_MESSAGE);
 
-            return;
-        }
-
-        String nombre = tNombre.getText().trim();
-        String categoria = cbCategoria.getSelectedItem().toString();
-        double peso = Double.parseDouble(tPeso.getText().trim());
-        int victorias = Integer.parseInt(tVictorias.getText().trim());
-        int derrotas = Integer.parseInt(tDerrotas.getText().trim());
-        int ranking = Integer.parseInt(cbRanking.getSelectedItem().toString());
-
-        if (nombre.isEmpty()) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Rellena el nombre",
-                    "Campo vacío",
-                    JOptionPane.WARNING_MESSAGE);
-
-            return;
-        }
-
-        String sql = "INSERT INTO Luchadores "
-                + "(nombre, categoria, peso, victorias, derrotas, ranking) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = obtenirConexio();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, nombre);
-            pstmt.setString(2, categoria);
-            pstmt.setDouble(3, peso);
-            pstmt.setInt(4, victorias);
-            pstmt.setInt(5, derrotas);
-            pstmt.setInt(6, ranking);
-
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Error: " + e.getMessage(),
-                    "ERROR BBDD",
-                    JOptionPane.ERROR_MESSAGE);
-
-            return;
-        }
-
-        listaLuchadores.add(
-                new Luchador(nombre, categoria, peso,
-                        victorias, derrotas, ranking)
-        );
-
-        modeloTabla.addRow(new Object[]{
-            nombre, categoria, peso,
-            victorias, derrotas, ranking
-        });
-
-        limpiarFormulario(tNombre, tPeso, tVictorias, tDerrotas);
+        return;
     }
+
+    String nombre = tNombre.getText().trim();
+    String categoria = cbCategoria.getSelectedItem().toString();
+    double peso = Double.parseDouble(tPeso.getText().trim());
+    int victorias = Integer.parseInt(tVictorias.getText().trim());
+    int derrotas = Integer.parseInt(tDerrotas.getText().trim());
+    int ranking = Integer.parseInt(cbRanking.getSelectedItem().toString());
+
+    if (nombre.isEmpty()) {
+
+        JOptionPane.showMessageDialog(this,
+                "Rellena el nombre",
+                "Campo vacío",
+                JOptionPane.WARNING_MESSAGE);
+
+        return;
+    }
+
+    // COMPROBAR SI EL RANKING YA EXISTE EN ESA CATEGORIA
+    for (Luchador l : listaLuchadores) {
+
+        if (l.getCategoria().equals(categoria)
+                && l.getRanking() == ranking) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Ese ranking ya está ocupado en " + categoria);
+
+            return;
+        }
+    }
+
+    String sql = "INSERT INTO Luchadores "
+            + "(nombre, categoria, peso, victorias, derrotas, ranking) "
+            + "VALUES (?, ?, ?, ?, ?, ?)";
+
+    try (Connection conn = obtenirConexio();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, nombre);
+        pstmt.setString(2, categoria);
+        pstmt.setDouble(3, peso);
+        pstmt.setInt(4, victorias);
+        pstmt.setInt(5, derrotas);
+        pstmt.setInt(6, ranking);
+
+        pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+
+        JOptionPane.showMessageDialog(this,
+                "Error: " + e.getMessage(),
+                "ERROR BBDD",
+                JOptionPane.ERROR_MESSAGE);
+
+        return;
+    }
+
+    listaLuchadores.add(
+            new Luchador(nombre, categoria, peso,
+                    victorias, derrotas, ranking)
+    );
+
+    modeloTabla.addRow(new Object[]{
+        nombre, categoria, peso,
+        victorias, derrotas, ranking
+    });
+
+    limpiarFormulario(tNombre, tPeso, tVictorias, tDerrotas);
+}
 
     private void deleteLuchador(JTable tabla) {
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package mma_admin;
 
 import java.awt.GridLayout;
@@ -30,7 +26,6 @@ public class VentanaModificarLuchador extends JFrame {
         setLayout(new GridLayout(7, 2, 10, 10));
 
         Luchador luchador = listaLuchadores.get(filaSeleccionada);
-
         String nombreAntiguo = luchador.getNombre();
 
         JTextField tNombre = new JTextField(luchador.getNombre());
@@ -82,6 +77,23 @@ public class VentanaModificarLuchador extends JFrame {
                     return;
                 }
 
+                for (int i = 0; i < listaLuchadores.size(); i++) {
+
+                    if (i != filaSeleccionada) {
+
+                        Luchador l = listaLuchadores.get(i);
+
+                        if (l.getCategoria().equals(categoria)
+                                && l.getRanking() == ranking) {
+
+                            JOptionPane.showMessageDialog(this,
+                                    "Ese ranking ya está ocupado en " + categoria);
+
+                            return;
+                        }
+                    }
+                }
+
                 String sql = "UPDATE Luchadores SET nombre = ?, categoria = ?, peso = ?, "
                         + "victorias = ?, derrotas = ?, ranking = ? WHERE nombre = ?";
 
@@ -126,8 +138,6 @@ public class VentanaModificarLuchador extends JFrame {
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Peso, victorias y derrotas deben ser números");
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Introduce datos válidos");
             }
         });
 
