@@ -69,7 +69,7 @@ public class Mma_admin extends JFrame {
                 + " id VARCHAR(50) PRIMARY KEY,"
                 + " luchador1 VARCHAR(100) NOT NULL,"
                 + " luchador2 VARCHAR(100) NOT NULL,"
-                + " hora VARCHAR(20),"
+                + " hora VARCHAR(20)"
                 + ")";
 
         try (Connection conn = obtenirConexio();

@@ -1,0 +1,36 @@
+:root{
+    --primer-color: #27B1BF;
+    --segundo-color: #36CECC;
+    --tercer-color: #C2E4CB;
+    --bg-dark: #c2e4cb1e;
+    --bg-card: #3cc2da4b;
+    --text-light: #000000;
+    --text-muted: #C2E4CB ;
+    --font-main: "Roboto", sans-serif;
+}
+
+body{
+
+    background: linear-gradient(90deg,rgb(75, 177, 173),rgb(60, 85, 174));
+}
+
+main{
+    background-color: var(--bg-card);
+}
+
+p {
+  line-height: 1.5rem;
+  width: auto;
+  height: auto;
+  margin-left: 15px;
+  font-size: 25px;
+  font-family: "avatar";
+}
+
+.titulo{
+
+    text-align: center;
+    font-size: 3.8rem;
+    color: var(--primer-color);
+    font-family: "avatar";
+}
