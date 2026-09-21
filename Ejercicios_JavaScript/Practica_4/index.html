@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        h2{
+            text-align: center;
+        }
+        div{
+            width: 300px;
+            border: 1px solid black;
+            border-radius: 10px;
+            margin: auto;
+            text-align: center;
+        }
+
+        div#galeria img{
+            width: 130px;
+            border-radius: 10px;
+        }
+        div#controles{
+            padding: 20px;
+            width: 200px;
+
+        }
+
+        input{
+            display: block;
+            text-align: left;
+            margin: 10px
+
+        }
+        
+    </style>
+</head>
+<body>
+    
+
+
+
+
+
+
+
+    <h2>Galeria</h2>
+    <div id="galeria"> 
+
+        <img id="f1" src="img/foto1.jpeg" alt="">
+        <img id="f2"  src="img/foto2.jpeg" alt="">
+        <img id="f3" src="img/foto3.jpg" alt="">
+        <img id="f4" src="img/foto4.jpeg" alt="">
+
+        
+    </div>
+
+    <h2>Controles de las imagenes</h2>
+    <div id="controles">
+
+        <label for="nFoto">Numero de la foto</label>
+        <input type="number" name="" id="nFoto">
+
+        <label for="alto">Alto</label>
+        <input type="number" name="" id="alto">
+        <label for="ancho">Ancho</label>
+        <input type="number" name="" id="ancho">
+
+        <label for="url">Url</label>
+        <input type="text" name="" id="url">
+        <button onclick="modificar()">Modificar foto</button>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

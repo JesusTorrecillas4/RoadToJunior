@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+
+    <style>
+
+        div{
+            border: 1px solid black;
+            border-radius: 10px;
+            width: 400px;
+            margin: 10px auto;
+            text-align: center;
+            padding: 10px;
+
+        }
+
+        input{
+            display: block;
+            margin: 10px;
+        }
+        span{
+            display: block;
+            font-size: 10px;
+            margin-bottom: 5px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <h2>Email</h2>
+        <input type="email" name="" id="email" placeholder="Introduce tu email">
+
+        <span id="menssajeEmail"></span>
+
+        <h2>Password</h2>
+
+        <input type="password" name="" id="pass" placeholder="Introduce la contraseña">
+
+        <span id="menssajePass"></span>
+        <button onclick="validar()">Validar</button>
+    </div>
+    <div id="resultado">
+        <h4></h4>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
