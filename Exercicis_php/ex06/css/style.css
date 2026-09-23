@@ -1,0 +1,29 @@
+:root{
+
+
+
+}
+
+p{
+    margin: 15px;
+}
+
+header, main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(135, 113, 113);
+}
+.producte{
+    font-size: 25px;
+}
+.carta1{
+    background-color: rgb(80, 80, 105);
+    display: flex;
+
+}
+
+.cartaImg{
+    border-radius: 15px;
+}
