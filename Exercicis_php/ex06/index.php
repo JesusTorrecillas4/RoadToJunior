@@ -1,10 +1,10 @@
 <?php
-const botiga = 'TGCNew';
-const IVA = 0.21;
-const descuento = 0.15 ;
-$preu = 1289;
+const BOTIGA = 'TGCNew';
+define ("IVA",  0.21);
+const DESCUENTO = 0.15 ;
+$preu = 1289.873;
 $total = round($preu * (1+ IVA), 2);
-$totalDescuento = round($preu * (1 - descuento));
+$totalDescuento = round($preu * (1 - DESCUENTO));
 
 
 $producto = 'Carta de Luffy';
@@ -33,8 +33,8 @@ $estoc = 2;
             <article class="producte">
                 <h2><?=$producto?></h2>
                 <p class="descripcio"><?=$descripcion?></p>
-                <p class="preu">IVA (21%): <?= $total?></p>
-                <p class="total">Total: <?= $preu?></p>
+                <p class="preu">IVA (21%): <?= number_format($total, 2)?></p>
+                <p class="total">Total: <?= number_format($preu, 2)?></p>
 
                 <p>Precio con descuento <?= $totalDescuento?></p>
                 <p class="estoc">Unidades disponibles: <?=$estoc?></p>
@@ -45,7 +45,7 @@ $estoc = 2;
     </main>
 
     <footer>
-        <p>Footer de la tienda <?= botiga?></p>
+        <p>Footer de la tienda <?= BOTIGA?></p>
     </footer>
 </body>
 </html>
