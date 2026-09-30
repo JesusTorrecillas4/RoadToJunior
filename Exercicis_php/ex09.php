@@ -28,40 +28,53 @@ if(isset($var)){
 // is_integer(var), is_double(var), is_array(var), is_string(var) --> para saber si una varaible
 // es integer, double, string, array, etc
 
-// Ex1: for para la tabla de multiplicar del 5
-// var existe?
-
-// Ex2: mostrar los numeros del 1 al 1000
-
-// Ex3:  dibuja una tabla html donde salgan las tablas de multiplicar del 1 al 10
-
-
-for ($i = 1; $i <= 10; $i++) {
-    echo "5 x $i = " . (5 * $i) . "<br>";
-    if(isset($i)){
-    echo "La variable $i existe";
-}
+// Ex1: for para la tabla de multiplicar del 5, var existe?
+$num = 5;
+if(isset($num)){
+    for($i = 1; $i <= 10; $i++){
+        echo "$num x $i = " . $num * $i;
+        echo "<br>";
+    }
+}else{
+    echo "La variable no existe";
 }
 
-for ($i = 1; $i <= 1000; $i++) {
-    echo $i ;
-}
-
-
-echo "<table border='1'>";
-
-for ($i = 1; $i <= 10; $i++) {
-
-    echo "<tr>";
-
-    for ($j = 1; $j <= 10; $j++) {
-        echo "<td>" . ($i * $j) . "</td>";
+// Ex2: mostrar los numeros pares del 1 al 1000
+    for($i = 1; $i <= 100; $i++){
+        if($i %2 == 0){
+            echo "$i <br>";
+        }
     }
 
-    echo "</tr>";
-}
-
-echo "</table>";
+// Ex3: dibuja una tabla html donde salgan las tablas de multiplicar del 1 al 10
 
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        table, tr, td{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ex3 -->
+    <table>
+    <?php for($i = 1; $i <= 10; $i++): ?>
+        <tr>
+        <?php for($j = 1; $j <= 10; $j++): ?>
+                <td><?= $i ?> x <?= $j ?> = <?= $i * $j ?></td>
+        <?php endfor; ?>
+        </tr>
+    <?php endfor; ?>
+    </table>
+
+</body>
+</html>
