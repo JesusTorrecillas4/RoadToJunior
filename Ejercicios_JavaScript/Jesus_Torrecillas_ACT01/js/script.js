@@ -10,12 +10,16 @@ function validar(){
         document.getElementById("registro").style="display:none;";
         console.log("registrado");
     }else{
-
-            console.log("error");
-
-    }
-
-
+        console.log("error");
+        
+        if(n === "" || p === ""){
+                document.getElementById("error1").innerHTML = "Rellena usuario y contraseña";
+            }else if(n !== "j"){
+                document.getElementById("error1").innerHTML = "El usuario no existe";
+            }else{
+                document.getElementById("error1").innerHTML = "Contraseña incorrecta";
+            }
+    };
 }
 
 
@@ -38,6 +42,40 @@ function guardar(){
  empresa = document.getElementById("empresa").value;
  puesto = document.getElementById("puesto").value;
  tiempo = document.getElementById("tiempo").value;
+
+ let errores = "";
+
+  if(nombre == ""){
+    errores += "- El nombre no puede estar vacío.<br>";
+ }
+
+ 
+ if(gmail == "" || gmail.includes("@") == false){
+    errores += "- El gmail es obligatorio y debe llevar @<br>";
+ }
+
+ 
+ if(tel == ""){
+    errores += "El teléfono no puede estar vacío y solo admite números.<br>";
+ }else if(tel < 100000000 || tel > 999999999){
+    errores += "El teléfono debe tener 9 dígitos.<br>";
+ }
+
+ if(empresa == ""){
+    errores += " La empresa no puede estar vacía.<br>";
+ }
+ if(puesto == ""){
+    errores += "El puesto no puede estar vacío.<br>";
+ }
+ if(tiempo == ""){
+    errores += "El tiempo no puede estar vacío.<br>";
+ }
+
+ if(errores != ""){
+    document.getElementById("error2").innerHTML = errores;
+    return;
+ }
+ document.getElementById("error2").innerHTML = "";
 
  document.getElementById("cv").style="display:none;";
  console.log("guardado");
