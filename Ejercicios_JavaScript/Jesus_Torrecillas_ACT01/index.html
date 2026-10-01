@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        #cv{
+            display: none;
+        }
+
+        #curriculum {
+
+            display: none;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        #curriculum .foto {
+            display: block;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+        }
+        #curriculum h1 {
+            margin: 0 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4a90e2;
+            color: #333;
+        }
+
+        #curriculum section {
+            margin-bottom: 20px;
+        }
+
+        #curriculum h3 {
+            margin: 0 0 10px;
+            color: #4a90e2;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        #curriculum p {
+            margin: 6px 0;
+            color: #555;
+        }
+
+        #curriculum .fila {
+            display: flex;         
+            align-items: center;   
+            margin-bottom: 10px;
+        }
+
+        #curriculum .fila h2 {
+            width: 150px;           
+            margin: 0;
+            font-size: 18px;
+        }
+
+        #curriculum .fila p {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        fieldset {
+            max-width: 400px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #357abd;
+        }
+
+    </style>
+</head>
+<body>
+    
+       <fieldset id="registro"> 
+            <legend for="" >Register</legend>
+            <p>Nombre</p>
+            <input type="text" id="nombre1">
+            <p>Password</p>
+            <input type="number" id="password">
+            <button onclick="validar()">Validar</button>
+        </fieldset>
+
+
+
+        <fieldset id="cv">
+            <legend for="" >Curriculum</legend>
+            <p>Nombre</p>
+            <input type="text" id="nombre2">
+            <p>Gmail</p>
+            <input type="email" id="gmail">
+            <p>Telefono</p>
+            <input type="number" id="telefono">
+            <p>Foto</p>
+            <input type="text" id="foto">
+
+            
+            <fieldset id="experiencias">
+                <legend>Experiencia</legend>
+                <p>Empresa</p>
+                <input type="text" id="empresa">
+                <p>Puesto</p>
+                <input type="text" id="puesto">
+                <p>tiempo</p>
+                <input type="text" id="tiempo">
+
+            </fieldset>
+            <button onclick="guardar()">Crear</button>
+        </fieldset>
+
+        <div id="curriculum">
+           
+        </div>
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>
