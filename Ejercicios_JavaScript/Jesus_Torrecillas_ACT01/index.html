@@ -99,6 +99,11 @@
             background: #357abd;
         }
 
+        .error{
+            color: red;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 <body>
@@ -109,8 +114,10 @@
             <input type="text" id="nombre1">
             <p>Password</p>
             <input type="number" id="password">
+             <p class="error" id="error1"></p>
             <button onclick="validar()">Validar</button>
         </fieldset>
+        
 
 
 
@@ -122,8 +129,8 @@
             <input type="email" id="gmail">
             <p>Telefono</p>
             <input type="number" id="telefono">
-            <p>Foto</p>
-            <input type="text" id="foto">
+            <p>Foto (URL)</p>
+            <input type="url" id="foto" placeholder="https://...">
 
             
             <fieldset id="experiencias">
@@ -136,6 +143,7 @@
                 <input type="text" id="tiempo">
 
             </fieldset>
+            <p class="error" id="error2"></p> 
             <button onclick="guardar()">Crear</button>
         </fieldset>
 
