@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="formulario">
+        <fieldset>
+            <legend>Fondo web</legend>
+            <label for="fondo">Color de fondo</label>
+            <input type="color" name="" id="colorFondo"><br>
+        </fieldset>
+        <fieldset>
+            <legend>Formato texto</legend><label for="alineacion">Alineación text</label><br>
+            <select name="" id="alineacion">
+                <option value="left">izquierda</option>
+                <option value="center">centro</option>
+                <option value="right">derecha</option>
+                <option value="justify">justificado</option>
+            </select><br>
+            <label for="Tipo">Tipo de letra</label><br>
+            <select name="" id="tipo">
+                <option value="serif">Serif (Times, Georgia)</option>
+                <option value="monospace">Monospace (Courier)</option>
+                <option value="sans-serfi">Sans-Serif</option>
+
+            </select><br>
+            <label for="fondo">Color letra</label>
+            <input type="color" name="" id="colorLetra"><br>
+        </fieldset>
+        <fieldset>
+            <legend>Formato imagenes</legend>
+
+            <label for="imagenT">Ancho de imagen %</label><br>
+            <input type="range" name="" id="imagenT" max="100" value="100">
+        </fieldset>
+        <br>
+
+
+        <button onclick="resetWeb()">Valores defecto</button>
+        <button onclick="guardarWeb()">guardar</button>
+    </div>
+
+    <div id="web">
+        <h2>Holitaaaaa</h2>
+        <p>Llueve mucho...</p>
+
+        <h2>aaaa</h2>
+        <p>Ya no llueve...</p>
+        <img src="imgs/tux1.jpg">
+
+        <h2>Holitaaaaa</h2>
+        <p>Llueve mucho...</p>
+
+
+        <h2>Holitaaaaa</h2>
+        <p>Llueve mucho...</p>
+
+        <h2>Holitaaaaa</h2>
+        <p>Llueve mucho...</p>
+    </div>
+    <script src="js/color.js"></script>
+</body>
+
+</html>

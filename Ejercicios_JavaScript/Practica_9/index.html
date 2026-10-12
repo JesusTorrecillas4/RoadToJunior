@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <!-- LOGIN -->    
+    <div id="login">
+        <input type="text" name="" id="usuario" placeholder="Usuario" value="marcos">
+        <input type="password" name="" id="pass" placeholder="Contraseña" value="123456">
+        <button onclick="validar()">validar</button>
+    </div>
+
+    <!-- RELLENAR CV -->
+    <div id="formulario">
+        <input type="text" name="" id="nombre" placeholder="nombre">
+        <input type="text" name="" id="apellido" placeholder="apellido">
+        <select name="" id="sexo">
+            <option value="Si">Si</option>
+            <option value="No">No</option>
+            <option value="Jesus">Jesus</option>
+        </select>
+        <textarea name="" id="observaciones"></textarea>
+        <label for="info">Quieres info?</label><input type="checkbox" name="" id="info" value="info">
+        <button onclick="enviar()">enviar</button>
+       </div>
+
+   <!-- MOSTRAR EL CV -->
+    <div id="resultado">
+        <h2>My CV</h2>
+
+    </div>
+
+
+
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>

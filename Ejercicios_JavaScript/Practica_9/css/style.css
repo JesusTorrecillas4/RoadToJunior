@@ -1,0 +1,11 @@
+div{
+
+    border: 1px solid black;
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+#formulario, #resultado{
+    display: none;
+}
