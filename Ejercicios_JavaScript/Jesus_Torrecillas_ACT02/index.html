@@ -3,44 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tienda de chuches</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
 
-    <fieldset id="iniciar">
+    <fieldset id="login">
         <legend>Inicio de Usuario</legend>
         <p>Nombre</p>
         <input id="nombre" type="text" placeholder="Nombre de Usuario">
-        <p>Contaseña</p>
-        <input id="password" type="text" placeholder="Contraseña">
+        <p>Contraseña</p>
+        <input id="password" type="password" placeholder="Contraseña">
         <button onclick="iniciar()">Registrarse</button>
     </fieldset>
 
-    <div id="chuches">
+    <div id="tienda" style="display:none">
 
-        <li>
-            Chuchces Blandas
-            <ul>Ositos de goma</ul>
-            <ul>Llave ácidas</ul>
-            <ul>Cocacola</ul>
-            <ul>Nube de azucar</ul>
-        </li>
+        <div id="chuches">
+            <h3>Chuches Blandas</h3>
+            <ul>
+                <li>Ositos de goma - 1 €
+                    <button onclick="add('Ositos de goma', 1)">Añadir</button>
+                </li>
+                <li>Llaves ácidas - 1 €
+                    <button onclick="add('Llaves ácidas', 1)">Añadir</button>
+                </li>
+                <li>Cocacola - 1 €
+                    <button onclick="add('Cocacola', 1)">Añadir</button>
+                </li>
+                <li>Nube de azúcar - 1 €
+                    <button onclick="add('Nube de azúcar', 1)">Añadir</button>
+                </li>
+            </ul>
 
-        <li>
-            Chuchces Duras
-            <ul>Piruleta</ul>
-            <ul>Caramelo</ul>
-            <ul>Lacasito</ul>
-           
-        </li>
+            <h3>Chuches Duras</h3>
+            <ul>
+                <li>Piruleta - 1 €
+                    <button onclick="add('Piruleta', 1)">Añadir</button>
+                </li>
+                <li>Caramelo - 1 €
+                    <button onclick="add('Caramelo', 1)">Añadir</button>
+                </li>
+                <li>Lacasito - 1 €
+                    <button onclick="add('Lacasito', 1)">Añadir</button>
+                </li>
+            </ul>
+        </div>
 
-        <button>Añadir</button>
+        <h2>Mi carrito</h2>
+        <div id="carrito"></div>
+        <p id="total"></p>
+        <button onclick="finalizarCompra()">Finalizar compra</button>
 
+        <hr>
 
+        <button onclick="mostrarHistorial()">Historial de compras</button>
+
+        <div id="historial" style="display:none">
+            <h2>Historial de compras</h2>
+            <div id="tickets"></div>
+            <div id="detalle"></div>
+        </div>
 
     </div>
-
 
     <script src="js/script.js"></script>
 </body>

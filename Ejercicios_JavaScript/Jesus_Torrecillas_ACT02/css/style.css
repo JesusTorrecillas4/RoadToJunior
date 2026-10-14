@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eaf3ff;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+h2, h3 {
+    color: #1565c0;
+}
+
+
+#login {
+    width: 300px;
+    margin: 40px auto;
+    padding: 15px;
+    border: 2px solid #1976d2;
+    border-radius: 8px;
+    background-color: white;
+}
+
+#login legend {
+    color: #1565c0;
+    font-weight: bold;
+}
+
+input {
+    padding: 6px;
+    border: 1px solid #1976d2;
+    border-radius: 4px;
+}
+
+
+#tienda {
+    width: 450px;
+    margin: 0 auto;
+}
+
+
+#chuches, #carrito, #historial {
+    border: 2px solid #1976d2;
+    border-radius: 8px;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#chuches ul {
+    list-style: none;
+    padding: 0;
+}
+
+#chuches li {
+    padding: 5px 0;
+}
+
+#carrito {
+    min-height: 40px;
+}
+
+#detalle {
+    border-top: 1px solid #1976d2;
+    margin-top: 10px;
+}
+
+button {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+

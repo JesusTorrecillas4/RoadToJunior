@@ -8,3 +8,4 @@ function guardarProducto(){
     elemento.textContent = prod.value;
     lista.append(elemento);
 }
+
