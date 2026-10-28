@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestió de tasques</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login">
+        <h1>Iniciar sessió</h1>
+
+        <form onsubmit="iniciarSessio(); return false;">
+            <input type="text" id="usuari" placeholder="Usuari" required>
+            <input type="password" id="contrasenya" placeholder="Contrasenya" required>
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p id="errorLogin"></p>
+    </div>
+
+    <div id="aplicacio" style="display: none;">
+        <h1>Gestió de tasques</h1>
+
+        <h2>Afegir tasca</h2>
+
+        <form onsubmit="afegirTasca(); return false;">
+            <input type="text" id="titol" placeholder="Títol" required>
+
+            <textarea id="descripcio" placeholder="Descripció" required></textarea>
+
+            <select id="assignada" required></select>
+
+            <input type="datetime-local" id="dataHora" required>
+
+            <button type="submit">Afegir tasca</button>
+        </form>
+
+        <h2>Llista de tasques</h2>
+
+        <select id="filtre" onchange="mostrarTasques()">
+            <option value="totes">Totes</option>
+            <option value="pendents">Pendents</option>
+            <option value="finalitzades">Finalitzades</option>
+        </select>
+
+        <div id="llistaTasques"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
