@@ -12,12 +12,13 @@
     <div id="login">
         <h1>Iniciar sessió</h1>
 
-        <form onsubmit="iniciarSessio(); return false;">
-            <input type="text" id="usuari" placeholder="Usuari" required>
-            <input type="password" id="contrasenya" placeholder="Contrasenya" required>
-            <button type="submit">Entrar</button>
-        </form>
+        <p>Usuari</p>
+        <input type="text" id="usuari">
 
+        <p>Contrasenya</p>
+        <input type="password" id="contrasenya">
+
+        <button onclick="iniciarSessio()">Entrar</button>
         <p id="errorLogin"></p>
     </div>
 
@@ -26,17 +27,23 @@
 
         <h2>Afegir tasca</h2>
 
-        <form onsubmit="afegirTasca(); return false;">
-            <input type="text" id="titol" placeholder="Títol" required>
+        <p>Títol</p>
+        <input type="text" id="titol">
 
-            <textarea id="descripcio" placeholder="Descripció" required></textarea>
+        <p>Descripció</p>
+        <textarea id="descripcio"></textarea>
 
-            <select id="assignada" required></select>
+        <p>Persona assignada</p>
+        <select id="assignada">
+            <option value="admin">admin</option>
+            <option value="joan">joan</option>
+            <option value="maria">maria</option>
+        </select>
 
-            <input type="datetime-local" id="dataHora" required>
+        <p>Data i hora límit</p>
+        <input type="datetime-local" id="dataHora">
 
-            <button type="submit">Afegir tasca</button>
-        </form>
+        <button onclick="afegirTasca()">Afegir tasca</button>
 
         <h2>Llista de tasques</h2>
 
