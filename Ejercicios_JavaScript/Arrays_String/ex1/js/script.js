@@ -60,6 +60,8 @@ class Vehicle{
     }
 }
 
+
+
 class Cotxe extends Vehicle{
     constructor(marca, any, portes){
         super(marca,any);
@@ -81,9 +83,41 @@ class Moto extends Vehicle{
     }
 }
 
+let vehicles = [];
+
+
 function guardar(){
 
-    
+   
+     let marca = document.getElementById("marca").value;
+    let any = document.getElementById("any").value;
+    let tipo = document.getElementById("tipo").value;
+    let dato = document.getElementById("dato").value;
+
+    switch (tipo) {
+
+        case "coche":
+            vehicle = new Cotxe(marca, any, dato);
+            break;
+
+        case "camion":
+            vehicle = new Camio(marca, any, dato);
+            break;
+
+        case "moto":
+            vehicle = new Moto(marca, any, dato);
+            break;
+
+        default:
+            alert("Selecciona un vehículo");
+            return;
+    }
+
+    // Guardar en el array
+    vehicles.push(vehicle);
+
+    // Mostrar los vehículos
+    console.log(vehicles);
 
 }
 
