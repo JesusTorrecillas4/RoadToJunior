@@ -1,40 +1,66 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACT04 Mascotas</title>
+    <title>Gestión de Mascotas</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
 
-    <h1>Mascotas</h1>
+    <header>
+        <h1>Gestión de Mascotas</h1>
+        <p>Registra y administra tus mascotas</p>
+    </header>
 
-    <fieldset>
+    <main>
+        <section>
+            <h2>Añadir mascota</h2>
 
-        <p>Nombre</p>
-        <input type="text" id="nombre">
+            <div class="formulario">
+                <label>Nombre</label>
+                <input type="text" id="nombre" placeholder="Nombre de la mascota">
 
-        <p>Edad</p>
-        <input type="number" id="edad">
+                <label>Edad</label>
+                <input type="number" id="edad" placeholder="Edad" min="0">
 
-        <p>Foto (URL)</p>
-        <input type="text" id="foto">
+                <label>Foto (URL)</label>
+                <input type="text" id="foto" placeholder="https://...">
 
-        <p>Tipo de animal</p>
-        <select name="" id="tipo">
-            <option value="" id="perro">Perro</option>
-            <option value="" id="gato">Gato</option>
-            <option value="" id="Pajaro">Pajaro</option>
-        </select>
+                <label>Tipo de mascota</label>
+                <select id="tipo" onchange="cambiarTipo()">
+                    <option value="perro">Perro</option>
+                    <option value="gato">Gato</option>
+                    <option value="pajaro">Pájaro</option>
+                </select>
 
-        <p>Raza (Solo para perros)</p>
-        <input type="text" id="raza">
+                <div id="campoRaza">
+                    <label>Raza</label>
+                    <input type="text" id="raza" placeholder="Raza del perro">
+                </div>
 
-        <button onclick="guardar()">Guardar</button>
+                <button onclick="guardar()" class="btn-guardar">
+                    Guardar mascota
+                </button>
+            </div>
+        </section>
 
+        <section>
+            <h2>Mascotas registradas</h2>
 
+            <div class="herramientas">
+                <input type="text" id="buscar"
+                       placeholder="Buscar por nombre"
+                       oninput="buscar()">
 
-    </fieldset>
+                <button onclick="ordenar()">Ordenar A-Z</button>
+            </div>
+
+            <div id="lista" class="lista-mascotas"></div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
 </body>
 </html>

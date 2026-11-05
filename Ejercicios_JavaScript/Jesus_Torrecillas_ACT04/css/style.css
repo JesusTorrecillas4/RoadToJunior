@@ -1,0 +1,159 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f3f5;
+    margin: 0;
+    color: #333;
+}
+
+header {
+    background-color: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header p {
+    margin-bottom: 0;
+}
+
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #00000012;
+}
+
+h2 {
+    margin-top: 0;
+    color: #2563eb;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+input, select {
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 100%;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #93c5fd;
+    border-color: #2563eb;
+}
+
+#campoRaza {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 11px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-guardar {
+    margin-top: 15px;
+}
+
+.herramientas {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.herramientas input {
+    flex: 1;
+}
+
+.herramientas button {
+    white-space: nowrap;
+}
+
+.lista-mascotas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.tarjeta {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fafafa;
+}
+
+.tarjeta img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.tarjeta h3 {
+    color: #2563eb;
+}
+
+.tarjeta p {
+    margin: 8px 0;
+}
+
+.botones {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-eliminar {
+    background-color: #dc2626;
+}
+
+.btn-eliminar:hover {
+    background-color: #b91c1c;
+}
+
+@media (max-width: 600px) {
+    .herramientas {
+        flex-direction: column;
+    }
+
+    main {
+        margin-top: 15px;
+    }
+}
