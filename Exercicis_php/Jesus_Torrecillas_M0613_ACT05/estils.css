@@ -1,0 +1,16 @@
+* { box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f3f5f9; color: #253248; margin: 0; line-height: 1.5; }
+header { background: #193b66; color: white; padding: 25px max(20px, calc((100vw - 1050px)/2)); }
+header h1 { margin: 0; }
+main { max-width: 1050px; margin: 25px auto; padding: 0 18px; }
+section { background: white; border-radius: 10px; padding: 18px; margin: 18px 0; box-shadow: 0 2px 8px #152c4912; }
+h2 { margin-top: 0; color: #193b66; }
+.graella { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 15px; }
+.targeta { background: #fff; border: 1px solid #dbe3ed; border-radius: 9px; padding: 16px; }
+.targeta h3 { margin: 0 0 8px; }
+.preu { font-size: 1.2rem; font-weight: bold; color: #145c9b; }
+.etiqueta { display: inline-block; padding: 4px 9px; border-radius: 20px; background: #e9eff8; }
+.resum { display: flex; flex-wrap: wrap; gap: 12px; }
+.resum p { background: #eaf0f7; padding: 12px; border-radius: 7px; margin: 0; }
+footer { text-align: center; background: #dce5f0; padding: 12px; margin-top: 16px; }
+.aviso { background: #fff2cf; padding: 12px; border-radius: 7px; }
