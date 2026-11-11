@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+fieldset {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+label.linia {
+    margin-top: 5px;
+}
+
+input[type="text"], input[type="email"], input[type="password"],
+input[type="date"], input[type="tel"], select {
+    width: 100%;
+    padding: .5rem;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px;
+    background: steelblue;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background: darkblue;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    background: steelblue;
+    color: white;
+}
+
+tr:nth-child(even) td { background: #F4F7F7; }
